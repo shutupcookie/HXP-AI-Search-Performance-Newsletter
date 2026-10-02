@@ -1036,6 +1036,7 @@
         color: var(--hds-gray-300);
         margin-top: 6px;
         font-size: 15px;
+        max-width: 60ch;
       }
       .btn {
         display: inline-flex;
@@ -1249,8 +1250,8 @@
             >AI is now a meaningful acquisition channel for HERE</h1
           >
           <p class="lede"
-            >Year to date, to <strong id="data-to">30 Sep 2026</strong>.
-            AI Citations and Human Referrals have scaled sharply since Q1.
+            >Year to date, to <strong id="data-to">30 Sep 2026</strong>. AI
+            Citations and Human Referrals have scaled sharply since Q1.
           </p>
 
           <div class="kpis" id="kpis" role="list"></div>
@@ -1294,11 +1295,41 @@
             aria-label="Definitions"
             style="margin-top: 12px"
           >
-            <div class="gloss"><h4>Prompt</h4><p>One question we track, worded the way a buyer would ask it in an AI search engine.</p></div>
-            <div class="gloss"><h4>Topic</h4><p>A group of related prompts. "Fleet Routing" holds 45 of them. We track 19 topics.</p></div>
-            <div class="gloss"><h4>Human Referrals</h4><p>Real people who visited HERE.com after clicking a link in an AI chat response.</p></div>
-            <div class="gloss"><h4>Visibility Score</h4><p>Share of AI answers that name HERE. 40% means HERE appears in 40 of every 100 answers on those prompts.</p></div>
-            <div class="gloss"><h4>Rank</h4><p>Where HERE's visibility sits against Google Maps Platform, Mapbox, TomTom and other brands.</p></div>
+            <div class="gloss"
+              ><h4>Prompt</h4
+              ><p
+                >One question we track, worded the way a buyer would ask it in
+                an AI search engine.</p
+              ></div
+            >
+            <div class="gloss"
+              ><h4>Topic</h4
+              ><p
+                >A group of related prompts. "Fleet Routing" holds 45 of them.
+                We track 19 topics.</p
+              ></div
+            >
+            <div class="gloss"
+              ><h4>Human Referrals</h4
+              ><p
+                >Real people who visited HERE.com after clicking a link in an AI
+                chat response.</p
+              ></div
+            >
+            <div class="gloss"
+              ><h4>Visibility Score</h4
+              ><p
+                >Share of AI answers that name HERE. 40% means HERE appears in
+                40 of every 100 answers on those prompts.</p
+              ></div
+            >
+            <div class="gloss"
+              ><h4>Rank</h4
+              ><p
+                >Where HERE's visibility sits against Google Maps Platform,
+                Mapbox, TomTom and other brands.</p
+              ></div
+            >
           </div>
 
           <!-- 1. Search shift -->
@@ -1361,15 +1392,13 @@
             <div class="sowhat"
               ><span class="lbl">Insight</span
               ><p
-                >Citations are up five-fold and turning into real visits
-                (Human Referrals). Crawler traffic is the fastest-growing
-                signal: AI engines are indexing our content more efficiently.
-                Two things are likely driving that. Server-side rendering now
-                hands crawlers the full page instead of an empty React shell,
-                so every visit returns indexable content. And the answer-first
-                pages going live since the Phase 1 optimisations, with product
-                and platform pages following in Phase 2, give them more that is
-                worth indexing.</p
+                >Citations are up five-fold and turning into real visits (Human
+                Referrals). <br />Crawler traffic is the fastest-growing signal:
+                AI engines are indexing our content more efficiently due to
+                technical optimizations that were deployed in Q2 related to
+                Server-Side-Rendering (SSR) rendering; re-organized URL
+                structures to ensure readability by AI on first load; the
+                'Answer-First' Content architecture and more.</p
               ></div
             >
             <p class="src"
@@ -1433,14 +1462,6 @@
                 We still win on quality: when AI names HERE, it names us first
                 or second.</p
               ></div
-            >
-            <p class="src"
-              >Visibility Score = share of tracked AI answers that mention the
-              brand; Share of Voice = the brand's share of all brand mentions;
-              Avg. Position = order in which the brand is named (lower is
-              better). Engine rank is based on Visibility Score. Change = vs the
-              prior period, in points. Source: Profound Answer Engine Insights,
-              all tracked prompts, 29 Jan (earliest available)–30 Sep 2026.</p
             >
           </article>
 
@@ -1524,10 +1545,10 @@
               ><span class="lbl">Insight</span
               ><p
                 >Being cited isn't the same as being clicked: /contact and
-                /why-here are among our most-cited pages and barely earn a
-                Human Referral. Product and platform pages earn the Human
-                Referrals, and ChatGPT sends around four in five of them (23.6K
-                of 28.2K).</p
+                /why-here are among our most-cited pages and barely earn a Human
+                Referral. Product and platform pages earn the Human Referrals,
+                and ChatGPT sends around four in five of them (23.6K of
+                28.2K).</p
               ></div
             >
             <p class="src"
@@ -1571,19 +1592,21 @@
         </section>
 
         <!-- ───────────────────── CTA ──────────────────────────────── -->
-        <section class="cta" aria-label="Contact">
+        <section class="cta" aria-label="Raise a request">
           <div>
             <h3>Have a question about AI Search content or traffic?</h3>
             <p
-              >Send it to the Web Experience team and we'll pick it up in the
-              next issue.</p
+              >Raise a request with the Web Experience team and we'll pick it up
+              in the next issue.</p
             >
           </div>
           <a
             class="btn"
-            href="mailto:WebExperience_Team@here.com?subject=AI%20Search%20Update%20%E2%80%94%20question"
+            href="https://here-technologies.atlassian.net/jira/software/c/projects/HXP/form/1730"
+            target="_blank"
+            rel="noopener"
           >
-            Email the team
+            Raise a request in Jira
             <svg
               viewBox="0 0 24 24"
               fill="none"
