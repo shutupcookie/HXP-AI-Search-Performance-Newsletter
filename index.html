@@ -1,840 +1,2121 @@
-<!DOCTYPE html>
+<!-- @format -->
+
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>AI Search Update · Issue 01 · October 2026 — HERE Web Experience</title>
-<meta name="description" content="Monthly AI Search Performance update from the HERE Web Experience team: citations, referrals, visibility and what it means.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-/* ──────────────────────────────────────────────────────────────
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title
+      >AI Search Update · Issue 01 · October 2026 — HERE Web Experience</title
+    >
+    <meta
+      name="description"
+      content="Monthly AI Search Performance update from the HERE Web Experience team: AI Citations, Human Referrals, Visibility Score and what it means."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ──────────────────────────────────────────────────────────────
    HDS tokens (pulled from here.com :root, Oct 2026)
    ────────────────────────────────────────────────────────────── */
-:root{
-  --hds-gray-1000:#092732; --hds-gray-950:#153947; --hds-gray-900:#1e4554; --hds-gray-800:#2c596a;
-  --hds-gray-750:#3f7183;  --hds-gray-700:#56899c; --hds-gray-600:#6fa2b5; --hds-gray-500:#89b9cb;
-  --hds-gray-400:#a4cedd;  --hds-gray-300:#bedfeb; --hds-gray-200:#c9e6f0; --hds-gray-150:#d6edf5;
-  --hds-gray-100:#e0f2f9;  --hds-gray-50:#ecf7fc;  --hds-gray-10:#f5fbfd;  --hds-white:#ffffff;
+      :root {
+        --hds-gray-1000: #092732;
+        --hds-gray-950: #153947;
+        --hds-gray-900: #1e4554;
+        --hds-gray-800: #2c596a;
+        --hds-gray-750: #3f7183;
+        --hds-gray-700: #56899c;
+        --hds-gray-600: #6fa2b5;
+        --hds-gray-500: #89b9cb;
+        --hds-gray-400: #a4cedd;
+        --hds-gray-300: #bedfeb;
+        --hds-gray-200: #c9e6f0;
+        --hds-gray-150: #d6edf5;
+        --hds-gray-100: #e0f2f9;
+        --hds-gray-50: #ecf7fc;
+        --hds-gray-10: #f5fbfd;
+        --hds-white: #ffffff;
 
-  --hds-aqua-050:#e2fffd; --hds-aqua-100:#c5fffb; --hds-aqua-200:#74f9f0; --hds-aqua-300:#1ef3e4;
-  --hds-aqua-400:#0ac7c0; --hds-aqua-500:#00a69a; --hds-aqua-600:#007d75;
+        --hds-aqua-050: #e2fffd;
+        --hds-aqua-100: #c5fffb;
+        --hds-aqua-200: #74f9f0;
+        --hds-aqua-300: #1ef3e4;
+        --hds-aqua-400: #0ac7c0;
+        --hds-aqua-500: #00a69a;
+        --hds-aqua-600: #007d75;
 
-  --hds-blue-600:#1f28e8; --hds-blue-500:#5864ec; --hds-blue-400:#7580ef; --hds-blue-300:#afb8f5;
-  --hds-green-950:#0a491e; --hds-green-800:#13923b; --hds-green-400:#79f8a1; --hds-green-200:#d2fde0;
-  --hds-red-800:#911312;  --hds-red-600:#f21f1e;  --hds-red-400:#f77978;
-  --hds-yellow-950:#493e09; --hds-yellow-600:#f3cf1d; --hds-yellow-200:#fdf5d2;
+        --hds-blue-600: #1f28e8;
+        --hds-blue-500: #5864ec;
+        --hds-blue-400: #7580ef;
+        --hds-blue-300: #afb8f5;
+        --hds-green-950: #0a491e;
+        --hds-green-800: #13923b;
+        --hds-green-400: #79f8a1;
+        --hds-green-200: #d2fde0;
+        --hds-red-800: #911312;
+        --hds-red-600: #f21f1e;
+        --hds-red-400: #f77978;
+        --hds-yellow-950: #493e09;
+        --hds-yellow-600: #f3cf1d;
+        --hds-yellow-200: #fdf5d2;
 
-  --hds-gradient-ondark:linear-gradient(270deg,#1be0d7,#3675f5);
-  --hds-gradient-core:radial-gradient(113.27% 200.76% at 94.02% 108.85%,#48dad0 5.23%,#fcdb7f 100%);
+        --hds-gradient-ondark: linear-gradient(270deg, #1be0d7, #3675f5);
+        --hds-gradient-core: radial-gradient(
+          113.27% 200.76% at 94.02% 108.85%,
+          #48dad0 5.23%,
+          #fcdb7f 100%
+        );
 
-  /* semantic */
-  --ink:var(--hds-gray-1000);
-  --ink-2:var(--hds-gray-800);
-  --ink-3:var(--hds-gray-750);
-  --page:var(--hds-gray-10);
-  --surface:var(--hds-white);
-  --line:var(--hds-gray-100);
-  --line-2:var(--hds-gray-150);
-  --accent:var(--hds-aqua-500);
-  --accent-deep:var(--hds-aqua-600);
-  --accent-tint:var(--hds-aqua-050);
-  --c1:var(--hds-aqua-500);   /* chart slot 1 */
-  --c2:var(--hds-blue-600);   /* chart slot 2 */
-  --pos:var(--hds-green-800);
-  --neg:var(--hds-red-600);
-  --font:'FiraGO','Fira Sans',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
-  --radius:16px;
-  --radius-sm:10px;
-  --maxw:1200px;
-  --gutter:clamp(16px,4vw,40px);
-}
+        /* semantic */
+        --ink: var(--hds-gray-1000);
+        --ink-2: var(--hds-gray-800);
+        --ink-3: var(--hds-gray-750);
+        --page: var(--hds-gray-10);
+        --surface: var(--hds-white);
+        --line: var(--hds-gray-100);
+        --line-2: var(--hds-gray-150);
+        --accent: var(--hds-aqua-500);
+        --accent-deep: var(--hds-aqua-600);
+        --accent-tint: var(--hds-aqua-050);
+        --c1: var(--hds-aqua-500); /* chart slot 1 */
+        --c2: var(--hds-blue-600); /* chart slot 2 */
+        --pos: var(--hds-green-800);
+        --neg: var(--hds-red-600);
+        --font:
+          "FiraGO", "Fira Sans", ui-sans-serif, system-ui, -apple-system,
+          "Segoe UI", Roboto, Arial, sans-serif;
+        --radius: 16px;
+        --radius-sm: 10px;
+        --maxw: 1200px;
+        --gutter: clamp(16px, 4vw, 40px);
+      }
 
-*{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{
-  font-family:var(--font);font-size:16px;line-height:1.5;letter-spacing:-.2px;
-  color:var(--ink);background:var(--page);
-  -webkit-font-smoothing:antialiased;
-}
-a{color:inherit}
-h1,h2,h3,h4{font-weight:700;line-height:1.15;color:var(--ink)}
-h1{font-size:clamp(32px,5vw,52px);letter-spacing:-1.2px;line-height:1.08}
-h2{font-size:clamp(26px,3.2vw,34px);letter-spacing:-.8px}
-h3{font-size:clamp(20px,2.2vw,24px);letter-spacing:-.6px}
-h4{font-size:16px;letter-spacing:-.3px}
-p{max-width:68ch}
-small,.small{font-size:13px;letter-spacing:-.1px}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
-.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font);
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: -0.2px;
+        color: var(--ink);
+        background: var(--page);
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: inherit;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 700;
+        line-height: 1.15;
+        color: var(--ink);
+      }
+      h1 {
+        font-size: clamp(32px, 5vw, 52px);
+        letter-spacing: -1.2px;
+        line-height: 1.08;
+      }
+      h2 {
+        font-size: clamp(26px, 3.2vw, 34px);
+        letter-spacing: -0.8px;
+      }
+      h3 {
+        font-size: clamp(20px, 2.2vw, 24px);
+        letter-spacing: -0.6px;
+      }
+      h4 {
+        font-size: 16px;
+        letter-spacing: -0.3px;
+      }
+      p {
+        max-width: 68ch;
+      }
+      small,
+      .small {
+        font-size: 13px;
+        letter-spacing: -0.1px;
+      }
+      .wrap {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 0 var(--gutter);
+      }
+      .visually-hidden {
+        position: absolute !important;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+      }
 
-/* ── Masthead (dark) ─────────────────────────────────────────── */
-.masthead{
-  position:relative;color:var(--hds-gray-50);background:var(--hds-gray-1000);overflow:hidden;
-}
-.masthead::before{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(70% 90% at 100% 110%,rgba(72,218,208,.22),transparent 60%),
-    radial-gradient(40% 50% at 0% 0%,rgba(54,117,245,.18),transparent 60%);
-}
-.masthead>*{position:relative}
-.gradbar{height:4px;background:var(--hds-gradient-ondark)}
-.topbar{
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
-  padding:18px 0;border-bottom:1px solid rgba(236,247,252,.12);
-}
-.brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:15px;letter-spacing:-.2px;white-space:nowrap}
-.brand .mark{
-  display:inline-flex;align-items:center;justify-content:center;
-  height:28px;padding:0 10px;border-radius:999px;
-  background:var(--hds-aqua-300);color:var(--hds-gray-1000);
-  font-weight:700;letter-spacing:.5px;font-size:13px;
-}
-.brand .team{color:var(--hds-gray-300);font-weight:500}
-.topnav{display:flex;gap:4px}
-.topnav a{
-  text-decoration:none;color:var(--hds-gray-300);font-size:14px;font-weight:500;
-  padding:8px 12px;border-radius:999px;transition:background .15s,color .15s;
-}
-.topnav a:hover{background:rgba(236,247,252,.08);color:var(--hds-gray-50)}
-.issue-tag{
-  font-size:13px;font-weight:500;color:var(--hds-gray-300);white-space:nowrap;
-  border:1px solid rgba(236,247,252,.18);border-radius:999px;padding:6px 12px;
-}
-.hero{padding:56px 0 48px}
-.eyebrow{
-  display:inline-flex;align-items:center;gap:10px;
-  font-size:13px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--hds-aqua-300);
-  margin-bottom:18px;
-}
-.eyebrow::before{content:"";width:28px;height:2px;background:var(--hds-aqua-300);border-radius:2px}
-.hero h1{color:var(--hds-gray-50);max-width:20ch}
-.hero .lede{margin-top:16px;font-size:18px;line-height:1.5;color:var(--hds-gray-300);max-width:62ch}
-.hero .lede strong{color:var(--hds-gray-50);font-weight:500}
+      /* ── Masthead (dark) ─────────────────────────────────────────── */
+      .masthead {
+        position: relative;
+        color: var(--hds-gray-50);
+        background: var(--hds-gray-1000);
+        overflow: hidden;
+      }
+      .masthead::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(
+            70% 90% at 100% 110%,
+            rgba(72, 218, 208, 0.22),
+            transparent 60%
+          ),
+          radial-gradient(
+            40% 50% at 0% 0%,
+            rgba(54, 117, 245, 0.18),
+            transparent 60%
+          );
+      }
+      .masthead > * {
+        position: relative;
+      }
+      .gradbar {
+        height: 4px;
+        background: var(--hds-gradient-ondark);
+      }
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px 0;
+        border-bottom: 1px solid rgba(236, 247, 252, 0.12);
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        font-size: 15px;
+        letter-spacing: -0.2px;
+        white-space: nowrap;
+      }
+      .brand .mark {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 28px;
+        padding: 0 10px;
+        border-radius: 999px;
+        background: var(--hds-aqua-300);
+        color: var(--hds-gray-1000);
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        font-size: 13px;
+      }
+      .brand .team {
+        color: var(--hds-gray-300);
+        font-weight: 500;
+      }
+      .topnav {
+        display: flex;
+        gap: 4px;
+      }
+      .topnav a {
+        text-decoration: none;
+        color: var(--hds-gray-300);
+        font-size: 14px;
+        font-weight: 500;
+        padding: 8px 12px;
+        border-radius: 999px;
+        transition:
+          background 0.15s,
+          color 0.15s;
+      }
+      .topnav a:hover {
+        background: rgba(236, 247, 252, 0.08);
+        color: var(--hds-gray-50);
+      }
+      .issue-tag {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--hds-gray-300);
+        white-space: nowrap;
+        border: 1px solid rgba(236, 247, 252, 0.18);
+        border-radius: 999px;
+        padding: 6px 12px;
+      }
+      .hero {
+        padding: 56px 0 48px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 1.6px;
+        text-transform: uppercase;
+        color: var(--hds-aqua-300);
+        margin-bottom: 18px;
+      }
+      .eyebrow::before {
+        content: "";
+        width: 28px;
+        height: 2px;
+        background: var(--hds-aqua-300);
+        border-radius: 2px;
+      }
+      .hero h1 {
+        color: var(--hds-gray-50);
+        max-width: 20ch;
+      }
+      .hero .lede {
+        margin-top: 16px;
+        font-size: 18px;
+        line-height: 1.5;
+        color: var(--hds-gray-300);
+        max-width: 62ch;
+      }
+      .hero .lede strong {
+        color: var(--hds-gray-50);
+        font-weight: 500;
+      }
 
-.kpis{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:40px;
-}
-.kpi{
-  position:relative;border-radius:var(--radius);padding:22px 22px 20px;
-  background:rgba(236,247,252,.05);border:1px solid rgba(236,247,252,.12);
-  transition:border-color .2s,background .2s;
-}
-.kpi:hover{border-color:rgba(30,243,228,.45);background:rgba(236,247,252,.07)}
-.kpi .k-name{font-size:15px;font-weight:700;color:var(--hds-gray-50);letter-spacing:-.2px}
-.kpi .k-label{font-size:13px;line-height:1.4;color:var(--hds-gray-300);min-height:2.8em;margin-top:4px}
-.kpi .k-value{
-  font-size:clamp(34px,3.6vw,44px);font-weight:700;letter-spacing:-1.4px;line-height:1.05;
-  color:var(--hds-gray-50);margin-top:10px;
-}
-.kpi .k-delta{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:13px;font-weight:700;border-radius:999px;padding:4px 10px}
-.kpi .k-delta.up{color:var(--hds-green-400);background:rgba(121,248,161,.10)}
-.kpi .k-delta.down{color:var(--hds-red-400);background:rgba(247,121,120,.12)}
-.kpi .k-delta .arr{font-size:11px}
-.meaning{
-  margin-top:20px;display:flex;gap:14px;align-items:flex-start;
-  background:rgba(30,243,228,.08);border:1px solid rgba(30,243,228,.22);
-  border-radius:var(--radius-sm);padding:16px 18px;color:var(--hds-gray-200);font-size:15px;line-height:1.55;
-}
-.meaning strong{color:var(--hds-aqua-300);font-weight:700;white-space:nowrap}
-.meaning p{max-width:none}
+      .kpis {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 40px;
+      }
+      .kpi {
+        position: relative;
+        border-radius: var(--radius);
+        padding: 22px 22px 20px;
+        background: rgba(236, 247, 252, 0.05);
+        border: 1px solid rgba(236, 247, 252, 0.12);
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+      }
+      .kpi:hover {
+        border-color: rgba(30, 243, 228, 0.45);
+        background: rgba(236, 247, 252, 0.07);
+      }
+      .kpi .k-name {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--hds-gray-50);
+        letter-spacing: -0.2px;
+      }
+      .kpi .k-label {
+        font-size: 13px;
+        line-height: 1.4;
+        color: var(--hds-gray-300);
+        min-height: 2.8em;
+        margin-top: 4px;
+      }
+      .kpi .k-value {
+        font-size: clamp(34px, 3.6vw, 44px);
+        font-weight: 700;
+        letter-spacing: -1.4px;
+        line-height: 1.05;
+        color: var(--hds-gray-50);
+        margin-top: 10px;
+      }
+      .kpi .k-delta {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 12px;
+        font-size: 13px;
+        font-weight: 700;
+        border-radius: 999px;
+        padding: 4px 10px;
+      }
+      .kpi .k-delta.up {
+        color: var(--hds-green-400);
+        background: rgba(121, 248, 161, 0.1);
+      }
+      .kpi .k-delta.down {
+        color: var(--hds-red-400);
+        background: rgba(247, 121, 120, 0.12);
+      }
+      .kpi .k-delta .arr {
+        font-size: 11px;
+      }
+      .meaning {
+        margin-top: 20px;
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        background: rgba(30, 243, 228, 0.08);
+        border: 1px solid rgba(30, 243, 228, 0.22);
+        border-radius: var(--radius-sm);
+        padding: 16px 18px;
+        color: var(--hds-gray-200);
+        font-size: 15px;
+        line-height: 1.55;
+      }
+      .meaning strong {
+        color: var(--hds-aqua-300);
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .meaning p {
+        max-width: none;
+      }
 
-/* ── Sections ───────────────────────────────────────────────── */
-main{padding:56px 0 24px}
-.section-head{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
-.section-num{
-  display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:1.6px;
-  text-transform:uppercase;color:var(--accent-deep);
-}
-.section-num::before{content:"";width:28px;height:2px;background:var(--accent);border-radius:2px}
-.section-head p{color:var(--ink-2);font-size:17px}
+      /* ── Sections ───────────────────────────────────────────────── */
+      main {
+        padding: 56px 0 24px;
+      }
+      .section-head {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+      .section-num {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 1.6px;
+        text-transform: uppercase;
+        color: var(--accent-deep);
+      }
+      .section-num::before {
+        content: "";
+        width: 28px;
+        height: 2px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+      .section-head p {
+        color: var(--ink-2);
+        font-size: 17px;
+      }
 
-.glossary{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:26px 0 40px;
-}
-.gloss{
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px 18px;
-}
-.gloss h4{font-size:15px;margin-bottom:4px;display:flex;align-items:center;gap:8px}
-.gloss h4::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
-.gloss p{font-size:14px;color:var(--ink-2);line-height:1.45;max-width:none}
+      .glossary {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 12px;
+        margin: 26px 0 40px;
+      }
+      .gloss {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 16px 18px;
+      }
+      .gloss h4 {
+        font-size: 15px;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .gloss h4::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      .gloss p {
+        font-size: 14px;
+        color: var(--ink-2);
+        line-height: 1.45;
+        max-width: none;
+      }
 
-.card{
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  padding:clamp(20px,3vw,32px);margin-bottom:20px;
-}
-.card-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px}
-.card-index{
-  flex:none;width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
-  background:var(--hds-gray-1000);color:var(--hds-aqua-300);font-weight:700;font-size:15px;letter-spacing:0;
-}
-.card-head h3{padding-top:5px}
-.card .intro{color:var(--ink-2);margin:6px 0 22px 52px}
-.two-col{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
-.two-col.wide-right{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: clamp(20px, 3vw, 32px);
+        margin-bottom: 20px;
+      }
+      .card-head {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 8px;
+      }
+      .card-index {
+        flex: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--hds-gray-1000);
+        color: var(--hds-aqua-300);
+        font-weight: 700;
+        font-size: 15px;
+        letter-spacing: 0;
+      }
+      .card-head h3 {
+        padding-top: 5px;
+      }
+      .card .intro {
+        color: var(--ink-2);
+        margin: 6px 0 22px 52px;
+      }
+      .two-col {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 28px;
+        align-items: start;
+      }
+      .two-col.wide-right {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      }
 
-.sowhat{
-  margin-top:24px;background:var(--accent-tint);border-left:4px solid var(--accent);
-  border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:14px 18px;color:var(--ink);line-height:1.55;
-}
-.sowhat .lbl{display:block;font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent-deep);margin-bottom:4px}
-.sowhat p{max-width:none}
-.src{margin-top:12px;font-size:13px;color:var(--ink-3);line-height:1.5}
+      .sowhat {
+        margin-top: 24px;
+        background: var(--accent-tint);
+        border-left: 4px solid var(--accent);
+        border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        padding: 14px 18px;
+        color: var(--ink);
+        line-height: 1.55;
+      }
+      .sowhat .lbl {
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+        color: var(--accent-deep);
+        margin-bottom: 4px;
+      }
+      .sowhat p {
+        max-width: none;
+      }
+      .src {
+        margin-top: 12px;
+        font-size: 13px;
+        color: var(--ink-3);
+        line-height: 1.5;
+      }
 
-/* ── Tables ─────────────────────────────────────────────────── */
-.table-wrap{
-  overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:var(--radius-sm);
-  background:
-    linear-gradient(to right,var(--surface) 30%,rgba(255,255,255,0)),
-    linear-gradient(to left,var(--surface) 30%,rgba(255,255,255,0)) 100% 0,
-    radial-gradient(farthest-side at 0 50%,rgba(9,39,50,.16),transparent),
-    radial-gradient(farthest-side at 100% 50%,rgba(9,39,50,.16),transparent) 100% 0;
-  background-repeat:no-repeat;background-size:40px 100%,40px 100%,14px 100%,14px 100%;
-  background-attachment:local,local,scroll,scroll;
-}
-table{width:100%;border-collapse:collapse;font-size:13.5px;letter-spacing:-.1px}
-thead th{
-  text-align:left;font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-3);
-  background:var(--hds-gray-10);padding:10px 12px;border-bottom:1px solid var(--line-2);white-space:nowrap;
-}
-tbody td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink)}
-tbody tr:last-child td{border-bottom:0}
-tbody tr.us td{background:var(--accent-tint);font-weight:700}
-td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-td.muted{color:var(--ink-3)}
-td.strong{font-weight:700}
-.dir{font-weight:700;white-space:nowrap}
-.dir.up{color:var(--pos)}
-.dir.down{color:var(--neg)}
-.dir .arr{font-size:10px;margin-right:3px;vertical-align:1px}
-.pill{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:3px 9px;white-space:nowrap}
-.pill.p1{background:var(--hds-gray-1000);color:var(--hds-aqua-300)}
-.pill.next{background:var(--hds-gray-100);color:var(--ink-2)}
+      /* ── Tables ─────────────────────────────────────────────────── */
+      .table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        background:
+          linear-gradient(to right, var(--surface) 30%, rgba(255, 255, 255, 0)),
+          linear-gradient(to left, var(--surface) 30%, rgba(255, 255, 255, 0))
+            100% 0,
+          radial-gradient(
+            farthest-side at 0 50%,
+            rgba(9, 39, 50, 0.16),
+            transparent
+          ),
+          radial-gradient(
+              farthest-side at 100% 50%,
+              rgba(9, 39, 50, 0.16),
+              transparent
+            )
+            100% 0;
+        background-repeat: no-repeat;
+        background-size:
+          40px 100%,
+          40px 100%,
+          14px 100%,
+          14px 100%;
+        background-attachment: local, local, scroll, scroll;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+        letter-spacing: -0.1px;
+      }
+      thead th {
+        text-align: left;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        background: var(--hds-gray-10);
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line-2);
+        white-space: nowrap;
+      }
+      tbody td {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+        color: var(--ink);
+      }
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+      tbody tr.us td {
+        background: var(--accent-tint);
+        font-weight: 700;
+      }
+      td.num,
+      th.num {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+      td.muted {
+        color: var(--ink-3);
+      }
+      td.strong {
+        font-weight: 700;
+      }
+      .dir {
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .dir.up {
+        color: var(--pos);
+      }
+      .dir.down {
+        color: var(--neg);
+      }
+      .dir .arr {
+        font-size: 10px;
+        margin-right: 3px;
+        vertical-align: 1px;
+      }
+      .pill {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 700;
+        border-radius: 999px;
+        padding: 3px 9px;
+        white-space: nowrap;
+      }
+      .pill.p1 {
+        background: var(--hds-gray-1000);
+        color: var(--hds-aqua-300);
+      }
+      .pill.next {
+        background: var(--hds-gray-100);
+        color: var(--ink-2);
+      }
 
-/* ── Charts (HTML bars) ─────────────────────────────────────── */
-.chart{display:flex;flex-direction:column;gap:10px}
-.chart-title{font-size:14px;font-weight:700;color:var(--ink);display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.chart-title .sub{font-weight:400;color:var(--ink-3);font-size:13px}
-.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--ink-2)}
-.legend span{display:inline-flex;align-items:center;gap:7px}
-.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
-.bars{display:flex;flex-direction:column;gap:14px}
-.bar-row{display:grid;grid-template-columns:minmax(96px,32%) minmax(0,1fr);gap:12px;align-items:center}
-.bars.stacked .bar-row{grid-template-columns:1fr;gap:6px}
-.bars.stacked .bar-label small{display:inline;margin-left:6px}
-.bar-row.us .bar-label{font-weight:700}
-.bar-label{font-size:14px;line-height:1.3;color:var(--ink)}
-.bar-label small{display:block;color:var(--ink-3);font-weight:400}
-.bar-track{position:relative;display:flex;flex-direction:column;gap:2px}
-.bar-line{position:relative;height:14px}
-.bar-line.single{height:18px}
-.bar{
-  position:absolute;left:0;top:0;height:100%;border-radius:0 4px 4px 0;background:var(--c1);
-  transition:width .5s cubic-bezier(0,0,.35,1);cursor:default;outline:none;
-}
-.bar.s2{background:var(--c2)}
-.bar.pos{background:var(--pos)}
-.bar.neg{background:var(--neg)}
-.bar:focus-visible{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--hds-blue-500)}
-.bar-val{
-  position:absolute;top:50%;transform:translateY(-50%);font-size:13px;font-weight:700;color:var(--ink);white-space:nowrap;
-  padding-left:6px;letter-spacing:-.1px;pointer-events:none;
-}
-.bar-val small{font-weight:400;color:var(--ink-3)}
-.bar-val.na{font-weight:400;color:var(--ink-3)}
-.bar-row .baseline{position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--hds-gray-300)}
-.chart-note{font-size:13px;color:var(--ink-3)}
+      /* ── Charts (HTML bars) ─────────────────────────────────────── */
+      .chart {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .chart-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--ink);
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .chart-title .sub {
+        font-weight: 400;
+        color: var(--ink-3);
+        font-size: 13px;
+      }
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        font-size: 13px;
+        color: var(--ink-2);
+      }
+      .legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .legend i {
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+        display: inline-block;
+      }
+      .bars {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .bar-row {
+        display: grid;
+        grid-template-columns: minmax(96px, 32%) minmax(0, 1fr);
+        gap: 12px;
+        align-items: center;
+      }
+      .bars.stacked .bar-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+      .bars.stacked .bar-label small {
+        display: inline;
+        margin-left: 6px;
+      }
+      .bar-row.us .bar-label {
+        font-weight: 700;
+      }
+      .bar-label {
+        font-size: 14px;
+        line-height: 1.3;
+        color: var(--ink);
+      }
+      .bar-label small {
+        display: block;
+        color: var(--ink-3);
+        font-weight: 400;
+      }
+      .bar-track {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .bar-line {
+        position: relative;
+        height: 14px;
+      }
+      .bar-line.single {
+        height: 18px;
+      }
+      .bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        border-radius: 0 4px 4px 0;
+        background: var(--c1);
+        transition: width 0.5s cubic-bezier(0, 0, 0.35, 1);
+        cursor: default;
+        outline: none;
+      }
+      .bar.s2 {
+        background: var(--c2);
+      }
+      .bar.pos {
+        background: var(--pos);
+      }
+      .bar.neg {
+        background: var(--neg);
+      }
+      .bar:focus-visible {
+        box-shadow:
+          0 0 0 2px var(--surface),
+          0 0 0 4px var(--hds-blue-500);
+      }
+      .bar-val {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--ink);
+        white-space: nowrap;
+        padding-left: 6px;
+        letter-spacing: -0.1px;
+        pointer-events: none;
+      }
+      .bar-val small {
+        font-weight: 400;
+        color: var(--ink-3);
+      }
+      .bar-val.na {
+        font-weight: 400;
+        color: var(--ink-3);
+      }
+      .bar-row .baseline {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: var(--hds-gray-300);
+      }
+      .chart-note {
+        font-size: 13px;
+        color: var(--ink-3);
+      }
 
-/* ── Small multiples (SVG) ───────────────────────────────────── */
-.multiples{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:20px}
-.sm{border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 14px 10px;background:var(--surface)}
-.sm-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-.sm-head h4{font-size:14px;font-weight:700}
-.sm-head .d{font-size:12px;font-weight:700;white-space:nowrap}
-.sm-val{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:26px;font-weight:700;letter-spacing:-.8px;line-height:1.1;margin-top:4px}
-.sm-val .d{font-size:12px;letter-spacing:0}
-.sm svg{display:block;width:100%;height:84px;margin-top:8px;overflow:visible}
-.sm .axis{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-3);margin-top:4px;font-variant-numeric:tabular-nums}
-.sm .pt{fill:var(--c1);stroke:var(--surface);stroke-width:2}
-.sm .ln{fill:none;stroke:var(--c1);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.sm .ar{fill:var(--c1);opacity:.10}
-.sm .grid{stroke:var(--line-2);stroke-width:1}
-.sm .tick{font-size:10px;fill:var(--ink-3)}
-.sm .hit{fill:transparent;cursor:default}
-.sm .hit:focus{outline:none}
-.sm .hit:focus + .pt-focus{opacity:1}
+      /* ── Small multiples (SVG) ───────────────────────────────────── */
+      .multiples {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .sm {
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 14px 14px 10px;
+        background: var(--surface);
+      }
+      .sm-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 8px;
+      }
+      .sm-head h4 {
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .sm-head .d {
+        font-size: 12px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .sm-val {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px;
+        flex-wrap: wrap;
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: -0.8px;
+        line-height: 1.1;
+        margin-top: 4px;
+      }
+      .sm-val .d {
+        font-size: 12px;
+        letter-spacing: 0;
+      }
+      .sm svg {
+        display: block;
+        width: 100%;
+        height: 84px;
+        margin-top: 8px;
+        overflow: visible;
+      }
+      .sm .axis {
+        display: flex;
+        justify-content: space-between;
+        font-size: 11px;
+        color: var(--ink-3);
+        margin-top: 4px;
+        font-variant-numeric: tabular-nums;
+      }
+      .sm .pt {
+        fill: var(--c1);
+        stroke: var(--surface);
+        stroke-width: 2;
+      }
+      .sm .ln {
+        fill: none;
+        stroke: var(--c1);
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .sm .ar {
+        fill: var(--c1);
+        opacity: 0.1;
+      }
+      .sm .grid {
+        stroke: var(--line-2);
+        stroke-width: 1;
+      }
+      .sm .tick {
+        font-size: 10px;
+        fill: var(--ink-3);
+      }
+      .sm .hit {
+        fill: transparent;
+        cursor: default;
+      }
+      .sm .hit:focus {
+        outline: none;
+      }
+      .sm .hit:focus + .pt-focus {
+        opacity: 1;
+      }
 
-/* ── Side panels (engine / position) ───────────────────────── */
-.panels{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:22px}
-.panel{border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px 20px;background:var(--hds-gray-10)}
-.panel h4{margin-bottom:10px;display:flex;align-items:center;gap:8px;font-size:15px}
-.panel p{font-size:14px;color:var(--ink-2);max-width:none;line-height:1.5}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
-.chip{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;background:var(--surface);border:1px solid var(--line-2);border-radius:999px;padding:5px 10px}
-.chip b{font-weight:700;color:var(--accent-deep)}
-.chip.behind b{color:var(--ink-3)}
-.hero-num{font-size:44px;font-weight:700;letter-spacing:-1.6px;line-height:1;color:var(--ink);margin:6px 0 6px}
-.hero-num small{font-size:14px;font-weight:400;letter-spacing:0;color:var(--ink-3);margin-left:8px}
-.rank-tiles{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin:0 0 22px 52px}
-.rank{border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px 18px;display:flex;gap:16px;align-items:flex-start;background:var(--hds-gray-10)}
-.rank .pos-badge{flex:none;font-size:30px;font-weight:700;letter-spacing:-1px;line-height:1;color:var(--ink)}
-.rank .pos-badge.lead{color:var(--accent-deep)}
-.rank h4{font-size:15px;margin-bottom:2px}
-.rank p{font-size:14px;color:var(--ink-2);max-width:none;line-height:1.45}
+      /* ── Side panels (engine / position) ───────────────────────── */
+      .panels {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 12px;
+        margin-top: 22px;
+      }
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 18px 20px;
+        background: var(--hds-gray-10);
+      }
+      .panel h4 {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+      }
+      .panel p {
+        font-size: 14px;
+        color: var(--ink-2);
+        max-width: none;
+        line-height: 1.5;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 8px 0 10px;
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        background: var(--surface);
+        border: 1px solid var(--line-2);
+        border-radius: 999px;
+        padding: 5px 10px;
+      }
+      .chip b {
+        font-weight: 700;
+        color: var(--accent-deep);
+      }
+      .chip.behind b {
+        color: var(--ink-3);
+      }
+      .hero-num {
+        font-size: 44px;
+        font-weight: 700;
+        letter-spacing: -1.6px;
+        line-height: 1;
+        color: var(--ink);
+        margin: 6px 0 6px;
+      }
+      .hero-num small {
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0;
+        color: var(--ink-3);
+        margin-left: 8px;
+      }
+      .rank-tiles {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 12px;
+        margin: 0 0 22px 52px;
+      }
+      .rank {
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 16px 18px;
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        background: var(--hds-gray-10);
+      }
+      .rank .pos-badge {
+        flex: none;
+        font-size: 30px;
+        font-weight: 700;
+        letter-spacing: -1px;
+        line-height: 1;
+        color: var(--ink);
+      }
+      .rank .pos-badge.lead {
+        color: var(--accent-deep);
+      }
+      .rank h4 {
+        font-size: 15px;
+        margin-bottom: 2px;
+      }
+      .rank p {
+        font-size: 14px;
+        color: var(--ink-2);
+        max-width: none;
+        line-height: 1.45;
+      }
 
-/* ── Updates placeholders ──────────────────────────────────── */
-.updates{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.update{
-  border:1.5px dashed var(--hds-gray-300);border-radius:var(--radius);padding:22px;background:var(--surface);
-  display:flex;flex-direction:column;gap:10px;min-height:190px;
-}
-.update .ph{align-self:flex-start;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--hds-yellow-200);color:var(--hds-yellow-950);border-radius:999px;padding:3px 9px}
-.update h4{font-size:18px;color:var(--ink-3);font-style:italic;font-weight:500;letter-spacing:-.4px}
-.update p{font-size:14px;color:var(--ink-3);font-style:italic;line-height:1.5;max-width:none}
+      /* ── Updates placeholders ──────────────────────────────────── */
+      .updates {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .update {
+        border: 1.5px dashed var(--hds-gray-300);
+        border-radius: var(--radius);
+        padding: 22px;
+        background: var(--surface);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        min-height: 190px;
+      }
+      .update .ph {
+        align-self: flex-start;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        background: var(--hds-yellow-200);
+        color: var(--hds-yellow-950);
+        border-radius: 999px;
+        padding: 3px 9px;
+      }
+      .update h4 {
+        font-size: 18px;
+        color: var(--ink-3);
+        font-style: italic;
+        font-weight: 500;
+        letter-spacing: -0.4px;
+      }
+      .update p {
+        font-size: 14px;
+        color: var(--ink-3);
+        font-style: italic;
+        line-height: 1.5;
+        max-width: none;
+      }
 
-/* ── CTA & footer ──────────────────────────────────────────── */
-.cta{
-  margin-top:40px;border-radius:var(--radius);background:var(--hds-gray-1000);color:var(--hds-gray-50);
-  padding:clamp(24px,3vw,36px);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
-  position:relative;overflow:hidden;
-}
-.cta::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 100% at 100% 100%,rgba(72,218,208,.22),transparent 60%);pointer-events:none}
-.cta>*{position:relative}
-.cta h3{color:var(--hds-gray-50);max-width:26ch}
-.cta p{color:var(--hds-gray-300);margin-top:6px;font-size:15px}
-.btn{
-  display:inline-flex;align-items:center;gap:10px;text-decoration:none;white-space:nowrap;
-  border-radius:999px;padding:14px 22px;font-weight:700;font-size:16px;letter-spacing:-.2px;
-  background:var(--hds-aqua-300);color:var(--hds-gray-1000);transition:transform .15s,background .15s;
-}
-.btn:hover{background:var(--hds-aqua-200);transform:translateY(-1px)}
-.btn svg{width:18px;height:18px}
-footer{padding:28px 0 40px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--ink-3);border-top:1px solid var(--line-2);margin-top:40px}
-footer b{color:var(--ink-2);font-weight:700}
+      /* ── CTA & footer ──────────────────────────────────────────── */
+      .cta {
+        margin-top: 40px;
+        border-radius: var(--radius);
+        background: var(--hds-gray-1000);
+        color: var(--hds-gray-50);
+        padding: clamp(24px, 3vw, 36px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
+        position: relative;
+        overflow: hidden;
+      }
+      .cta::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          60% 100% at 100% 100%,
+          rgba(72, 218, 208, 0.22),
+          transparent 60%
+        );
+        pointer-events: none;
+      }
+      .cta > * {
+        position: relative;
+      }
+      .cta h3 {
+        color: var(--hds-gray-50);
+        max-width: 26ch;
+      }
+      .cta p {
+        color: var(--hds-gray-300);
+        margin-top: 6px;
+        font-size: 15px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        white-space: nowrap;
+        border-radius: 999px;
+        padding: 14px 22px;
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: -0.2px;
+        background: var(--hds-aqua-300);
+        color: var(--hds-gray-1000);
+        transition:
+          transform 0.15s,
+          background 0.15s;
+      }
+      .btn:hover {
+        background: var(--hds-aqua-200);
+        transform: translateY(-1px);
+      }
+      .btn svg {
+        width: 18px;
+        height: 18px;
+      }
+      footer {
+        padding: 28px 0 40px;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        font-size: 13px;
+        color: var(--ink-3);
+        border-top: 1px solid var(--line-2);
+        margin-top: 40px;
+      }
+      footer b {
+        color: var(--ink-2);
+        font-weight: 700;
+      }
 
-/* ── Tooltip ───────────────────────────────────────────────── */
-.tip{
-  position:fixed;z-index:50;pointer-events:none;opacity:0;transform:translate(-50%,calc(-100% - 10px));
-  background:var(--hds-gray-1000);color:var(--hds-gray-50);font-size:13px;line-height:1.4;padding:8px 11px;border-radius:8px;
-  box-shadow:0 6px 24px rgba(9,39,50,.25);max-width:260px;transition:opacity .12s;white-space:nowrap;
-}
-.tip.show{opacity:1}
-.tip b{color:var(--hds-aqua-300)}
+      /* ── Tooltip ───────────────────────────────────────────────── */
+      .tip {
+        position: fixed;
+        z-index: 50;
+        pointer-events: none;
+        opacity: 0;
+        transform: translate(-50%, calc(-100% - 10px));
+        background: var(--hds-gray-1000);
+        color: var(--hds-gray-50);
+        font-size: 13px;
+        line-height: 1.4;
+        padding: 8px 11px;
+        border-radius: 8px;
+        box-shadow: 0 6px 24px rgba(9, 39, 50, 0.25);
+        max-width: 260px;
+        transition: opacity 0.12s;
+        white-space: nowrap;
+      }
+      .tip.show {
+        opacity: 1;
+      }
+      .tip b {
+        color: var(--hds-aqua-300);
+      }
 
-/* ── Responsive ────────────────────────────────────────────── */
-@media (max-width:980px){
-  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .multiples{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .glossary{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .updates{grid-template-columns:1fr}
-}
-@media (max-width:820px){
-  .two-col,.two-col.wide-right{grid-template-columns:1fr}
-  .panels,.rank-tiles{grid-template-columns:1fr}
-  .rank-tiles{margin-left:0}
-  .card .intro{margin-left:0}
-  .topnav{display:none}
-}
-@media (max-width:560px){
-  .kpis{grid-template-columns:1fr 1fr;gap:8px}
-  .kpi{padding:16px}
-  .kpi .k-label{min-height:0}
-  .glossary{grid-template-columns:1fr}
-  .multiples{grid-template-columns:1fr}
-  .bar-row{grid-template-columns:1fr;gap:6px}
-  .issue-tag{display:none}
-  .brand .team{display:none}
-  .hero{padding:40px 0 36px}
-}
-@media (prefers-reduced-motion:reduce){
-  *{transition:none!important;animation:none!important}
-  html{scroll-behavior:auto}
-}
-@media print{
-  .masthead,.cta{background:#fff!important;color:var(--ink)!important}
-  .masthead::before,.cta::before{display:none}
-  .hero h1,.cta h3,.kpi .k-value{color:var(--ink)!important}
-  .kpi{border-color:var(--line-2)!important;background:#fff!important}
-  .kpi .k-label,.hero .lede,.cta p,.issue-tag,.brand .team{color:var(--ink-2)!important}
-  .kpi .k-name{color:var(--ink)!important}
-  .meaning{background:var(--accent-tint)!important;color:var(--ink)!important}
-  .topnav,.btn{display:none}
-  .card{break-inside:avoid;border-color:var(--line-2)}
-  main{padding-top:24px}
-}
-</style>
-</head>
-<body>
-
-<!-- ───────────────────────── MASTHEAD ───────────────────────── -->
-<header class="masthead">
-  <div class="gradbar"></div>
-  <div class="wrap">
-    <div class="topbar">
-      <div class="brand">
-        <span class="mark">HERE</span>
-        <span>AI Search Update</span>
-        <span class="team">· Web Experience Team</span>
-      </div>
-      <nav class="topnav" aria-label="Sections">
-        <a href="#glance">01 At a glance</a>
-        <a href="#scorecard">02 Scorecard</a>
-        <a href="#updates">03 Updates</a>
-      </nav>
-      <span class="issue-tag" id="issue-tag">Issue 01 · October 2026</span>
-    </div>
-
-    <section class="hero" id="glance" aria-labelledby="glance-title">
-      <p class="eyebrow">01 · AI search at a glance</p>
-      <h1 id="glance-title">AI is now a meaningful acquisition channel for HERE</h1>
-      <p class="lede">Year to date, to <strong id="data-to">30 Sep 2026</strong>. Citations and human referrals have scaled sharply since Q1. The same four numbers we track in the AI Search Performance deck.</p>
-
-      <div class="kpis" id="kpis" role="list"></div>
-
-      <div class="meaning">
-        <strong>What it means</strong>
-        <p>Citations and clicks are scaling fast. Visibility has dipped because more competitors now appear in the same answers, not because we are cited less.</p>
-      </div>
-    </section>
-  </div>
-</header>
-
-<main>
-  <div class="wrap">
-
-    <!-- ───────────────────── 02 · SCORECARD ───────────────────── -->
-    <section id="scorecard" aria-labelledby="scorecard-title">
-      <div class="section-head">
-        <p class="section-num">02 · AI search scorecard · Q3 2026</p>
-        <h2 id="scorecard-title">Where we stand in AI answers</h2>
-        <p>The Web Experience team's AI search scorecard, updated with Profound data to 30 Sep 2026. We track <strong>500 buyer-style questions</strong> across <strong>19 topics</strong>, asked daily of <strong>nine AI engines</strong>.</p>
-      </div>
-
-      <p class="section-num" style="margin-top:26px">How to read the numbers</p>
-      <div class="glossary" aria-label="Definitions" style="margin-top:12px">
-        <div class="gloss"><h4>Prompt</h4><p>One question we track, worded the way a buyer would ask it in an AI search engine.</p></div>
-        <div class="gloss"><h4>Topic</h4><p>A group of related prompts. "Fleet Routing" holds 45 of them. We track 19 topics.</p></div>
-        <div class="gloss"><h4>Visibility score</h4><p>Share of AI answers that name HERE. 40% means HERE appears in 40 of every 100 answers on those prompts.</p></div>
-        <div class="gloss"><h4>Rank</h4><p>Where HERE's visibility sits against Google Maps Platform, Mapbox, TomTom and other brands.</p></div>
-        <div class="gloss"><h4>AI citations</h4><p>How many times AI mentions or links back to HERE in its answers.</p></div>
-        <div class="gloss"><h4>Human referrals</h4><p>Real people who visited HERE.com after clicking a link in an AI chat response.</p></div>
-        <div class="gloss"><h4>Share of voice</h4><p>The brand's share of all brand mentions across tracked answers.</p></div>
-        <div class="gloss"><h4>Average position</h4><p>The order in which the brand is named in an answer. Lower is better.</p></div>
-      </div>
-
-      <!-- 1. Search shift -->
-      <article class="card" id="s1" aria-labelledby="s1-title">
-        <div class="card-head"><span class="card-index">1</span><h3 id="s1-title">The search shift: organic down, AI climbing</h3></div>
-        <p class="intro">Traditional organic traffic fell year on year while AI referrals went from almost nothing to a measurable channel.</p>
-        <div class="two-col wide-right">
-          <div class="chart" id="chart-shift"></div>
-          <div class="table-wrap" id="table-shift"></div>
-        </div>
-        <div class="sowhat"><span class="lbl">So what</span><p>AI has won back 28K of the 77K visitors organic lost, and Q3 was the biggest quarter yet for AI referrals. Buyers now arrive having done their research in ChatGPT, so our pages need to answer on pricing, comparisons and proof.</p></div>
-        <p class="src">Sources: Adobe Analytics (organic); Profound (AI referrals, to 30 Sep 2026, Profound's rounded totals). *Conversion figures as reported in the 24 Sep update.</p>
-      </article>
-
-      <!-- 2. Quarter by quarter -->
-      <article class="card" id="s2" aria-labelledby="s2-title">
-        <div class="card-head"><span class="card-index">2</span><h3 id="s2-title">Quarter by quarter (cumulative, year to date)</h3></div>
-        <p class="intro">Every signal except visibility has compounded through the year. Hover a point for the value.</p>
-        <div class="multiples" id="chart-quarters"></div>
-        <div class="table-wrap" id="table-quarters"></div>
-        <div class="sowhat"><span class="lbl">So what</span><p><strong>Citations are converting:</strong> 232.9K citations and 28.2K real visits back to the site. <strong>Share is cooling, not presence:</strong> visibility eased from ~46% to ~35% while citations grew more than five-fold; more competitors entered the same answer pool. <strong>Bot activity is the fastest-growing signal:</strong> AI crawlers are indexing our content more efficiently.</p></div>
-        <p class="src">*Q1 is partial: citation tracking began 17 Feb 2026. AI Citations = citation share × tracked citations, summed across the nine engines. Visibility Score is for the period, not cumulative (Sep = 1–30 Sep). Human Referrals and AI Bot Traffic are Profound's rounded totals. Source: Profound, to 30 Sep 2026.</p>
-      </article>
-
-      <!-- 3. How we compare -->
-      <article class="card" id="s3" aria-labelledby="s3-title">
-        <div class="card-head"><span class="card-index">3</span><h3 id="s3-title">How we compare</h3></div>
-        <p class="intro">Visibility score by brand, year to date and since 1 July when newer AI topics entered the tracking.</p>
-        <div class="two-col wide-right">
-          <div class="chart" id="chart-compare"></div>
-          <div class="table-wrap" id="table-compare"></div>
-        </div>
-        <div class="panels">
-          <div class="panel">
-            <h4>By AI engine</h4>
-            <p><strong>#1 on 4 of 7 engines.</strong></p>
-            <div class="chips">
-              <span class="chip"><b>#1</b> ChatGPT 46.1%</span>
-              <span class="chip"><b>#1</b> Perplexity 45.3%</span>
-              <span class="chip"><b>#1</b> Claude 39.4%</span>
-              <span class="chip"><b>#1</b> Copilot 38.8%</span>
-            </div>
-            <p><strong>Behind on Google's own surfaces.</strong></p>
-            <div class="chips">
-              <span class="chip behind"><b>#2</b> AI Mode 34.4%</span>
-              <span class="chip behind"><b>#2</b> AI Overviews 31.7%</span>
-              <span class="chip behind"><b>#2</b> Gemini 35.4%</span>
-            </div>
+      /* ── Responsive ────────────────────────────────────────────── */
+      @media (max-width: 980px) {
+        .kpis {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .multiples {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .glossary {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .updates {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 820px) {
+        .two-col,
+        .two-col.wide-right {
+          grid-template-columns: 1fr;
+        }
+        .panels,
+        .rank-tiles {
+          grid-template-columns: 1fr;
+        }
+        .rank-tiles {
+          margin-left: 0;
+        }
+        .card .intro {
+          margin-left: 0;
+        }
+        .topnav {
+          display: none;
+        }
+      }
+      @media (max-width: 560px) {
+        .kpis {
+          grid-template-columns: 1fr 1fr;
+          gap: 8px;
+        }
+        .kpi {
+          padding: 16px;
+        }
+        .kpi .k-label {
+          min-height: 0;
+        }
+        .glossary {
+          grid-template-columns: 1fr;
+        }
+        .multiples {
+          grid-template-columns: 1fr;
+        }
+        .bar-row {
+          grid-template-columns: 1fr;
+          gap: 6px;
+        }
+        .issue-tag {
+          display: none;
+        }
+        .brand .team {
+          display: none;
+        }
+        .hero {
+          padding: 40px 0 36px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+          animation: none !important;
+        }
+        html {
+          scroll-behavior: auto;
+        }
+      }
+      @media print {
+        .masthead,
+        .cta {
+          background: #fff !important;
+          color: var(--ink) !important;
+        }
+        .masthead::before,
+        .cta::before {
+          display: none;
+        }
+        .hero h1,
+        .cta h3,
+        .kpi .k-value {
+          color: var(--ink) !important;
+        }
+        .kpi {
+          border-color: var(--line-2) !important;
+          background: #fff !important;
+        }
+        .kpi .k-label,
+        .hero .lede,
+        .cta p,
+        .issue-tag,
+        .brand .team {
+          color: var(--ink-2) !important;
+        }
+        .kpi .k-name {
+          color: var(--ink) !important;
+        }
+        .meaning {
+          background: var(--accent-tint) !important;
+          color: var(--ink) !important;
+        }
+        .topnav,
+        .btn {
+          display: none;
+        }
+        .card {
+          break-inside: avoid;
+          border-color: var(--line-2);
+        }
+        main {
+          padding-top: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ───────────────────────── MASTHEAD ───────────────────────── -->
+    <header class="masthead">
+      <div class="gradbar"></div>
+      <div class="wrap">
+        <div class="topbar">
+          <div class="brand">
+            <span class="mark">HERE</span>
+            <span>AI Search Update</span>
+            <span class="team">· Web Experience Team</span>
           </div>
-          <div class="panel">
-            <h4>Quality of mention</h4>
-            <div class="hero-num">2.3<small>average position when named</small></div>
-            <p>The best in the set: Mapbox 3.8, Google Maps Platform 3.9, TomTom 4.1. When AI names HERE, it tends to name us first or second.</p>
+          <nav class="topnav" aria-label="Sections">
+            <a href="#glance">01 At a glance</a>
+            <a href="#scorecard">02 Scorecard</a>
+            <a href="#updates">03 Updates</a>
+          </nav>
+          <span class="issue-tag" id="issue-tag">Issue 01 · October 2026</span>
+        </div>
+
+        <section class="hero" id="glance" aria-labelledby="glance-title">
+          <p class="eyebrow">01 · AI search at a glance</p>
+          <h1 id="glance-title"
+            >AI is now a meaningful acquisition channel for HERE</h1
+          >
+          <p class="lede"
+            >Year to date, to <strong id="data-to">30 Sep 2026</strong>.
+            AI Citations and Human Referrals have scaled sharply since Q1.
+          </p>
+
+          <div class="kpis" id="kpis" role="list"></div>
+
+          <div class="meaning">
+            <strong>What it means</strong>
+            <p
+              >Citations and clicks are scaling fast. Visibility dropped from
+              35% to 34.7% — but not because we're cited less. Citations are up
+              ~5x. More competitors just entered the same answer pool and also,
+              the total no. of tracked prompts went up.
+            </p>
           </div>
-        </div>
-        <div class="sowhat"><span class="lbl">So what</span><p>We lead year to date, but Google Maps Platform has led since late June (39.3% vs our 35.0% since 1 Jul) as newer AI topics entered the tracking. Mapbox is the one to watch, up 5.3 points. We still win on quality: when AI names HERE, it names us first or second.</p></div>
-        <p class="src">Visibility Score = share of tracked AI answers that mention the brand; Share of Voice = the brand's share of all brand mentions; Avg. Position = order in which the brand is named (lower is better). Engine rank is based on Visibility Score. Change = vs the prior period, in points. Source: Profound Answer Engine Insights, all tracked prompts, 29 Jan (earliest available)–30 Sep 2026.</p>
-      </article>
-
-      <!-- 4. Established vs newer topics -->
-      <article class="card" id="s4" aria-labelledby="s4-title">
-        <div class="card-head"><span class="card-index">4</span><h3 id="s4-title">Established topics vs newer AI-era topics</h3></div>
-        <p class="intro">The question set grew in late June. We still lead on the original topics; the newer AI-era topics are where the gaps are.</p>
-        <div class="rank-tiles">
-          <div class="rank"><span class="pos-badge lead">#1</span><div><h4>11 original topics</h4><p>Named in <strong>38%</strong> of answers, ahead of Google Maps Platform at 34%.</p></div></div>
-          <div class="rank"><span class="pos-badge">#4</span><div><h4>8 newer AI-era topics</h4><p>Named in <strong>29%</strong> of answers. Google Maps Platform leads at 51%, Mapbox 40%, Google 38%.</p></div></div>
-        </div>
-        <div class="two-col">
-          <div class="chart" id="chart-topics"></div>
-          <div class="table-wrap" id="table-topics"></div>
-        </div>
-        <div class="sowhat"><span class="lbl">So what</span><p>We haven't lost ground on established topics: still #1, every week since February. The question set grew. New content is underway, starting where the gap is smallest.</p></div>
-        <p class="src">GMP = Google Maps Platform. Visibility score, 28 Jun–30 Sep 2026, all nine engines. Original set: AI in Logistics, AI in Supply Chain, Automated Driving, EV Battery Range (×2), EV Charging Optimization, Fleet Routing, Location Analytics Solutions, Location API, Location Platform, Professional Navigation. Newer set: the five topics above plus Dynamic Map Rendering, Map Data, Geocoding and Search. Leader = best of the core competitor set; on agentic routing, agent frameworks (CrewAI, LangGraph) and Microsoft currently rank above every map provider. Five topics added to Profound in September have no data yet and are excluded. Source: Profound.</p>
-      </article>
-
-      <!-- 5. Pages -->
-      <article class="card" id="s5" aria-labelledby="s5-title">
-        <div class="card-head"><span class="card-index">5</span><h3 id="s5-title">Which pages AI sends people to</h3></div>
-        <p class="intro">Being cited and being clicked are two different things. The pages that earn visits are product and platform pages, and /products/wego has now overtaken the homepage.</p>
-        <div class="two-col">
-          <div class="chart" id="chart-pages"></div>
-          <div class="table-wrap" id="table-pages"></div>
-        </div>
-        <div class="sowhat"><span class="lbl">So what</span><p>Being cited isn't the same as being clicked: /contact and /why-here are among our most-cited pages and barely get a visit. Product and platform pages earn the visits, and ChatGPT sends around four in five of them (23.6K of 28.2K).</p></div>
-        <p class="src">1 Jan–30 Sep 2026. AI citations here = AI assistant bot visits to the page; visits = human visits referred by AI. Source: Profound Agent Analytics.</p>
-      </article>
-    </section>
-
-    <!-- ───────────────────── 03 · UPDATES ─────────────────────── -->
-    <section id="updates" aria-labelledby="updates-title" style="margin-top:56px">
-      <div class="section-head">
-        <p class="section-num">03 · Updates</p>
-        <h2 id="updates-title">What the team shipped and decided</h2>
-        <p>Three short notes a month: a project, a launch or a decision.</p>
+        </section>
       </div>
-      <div class="updates">
-        <div class="update"><span class="ph">Placeholder</span><h4>[Update headline]</h4><p>[Two or three sentences on a project, launch or decision.]</p></div>
-        <div class="update"><span class="ph">Placeholder</span><h4>[Update headline]</h4><p>[Two or three sentences on a project, launch or decision.]</p></div>
-        <div class="update"><span class="ph">Placeholder</span><h4>[Update headline]</h4><p>[Two or three sentences on a project, launch or decision.]</p></div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <!-- ───────────────────── 02 · SCORECARD ───────────────────── -->
+        <section id="scorecard" aria-labelledby="scorecard-title">
+          <div class="section-head">
+            <p class="section-num">02 · AI search scorecard · Q3 2026</p>
+            <h2 id="scorecard-title"
+              >Five AI Search terms we use throughout this update</h2
+            >
+            <p
+              >The Web Experience team's AI search scorecard, updated with
+              Profound data to 30 Sep 2026. We track
+              <strong>500 buyer-style questions</strong> across
+              <strong>19 topics</strong>, asked daily of
+              <strong>nine AI engines</strong>.</p
+            >
+          </div>
+
+          <p class="section-num" style="margin-top: 26px"
+            >How to read the numbers</p
+          >
+          <div
+            class="glossary"
+            aria-label="Definitions"
+            style="margin-top: 12px"
+          >
+            <div class="gloss"><h4>Prompt</h4><p>One question we track, worded the way a buyer would ask it in an AI search engine.</p></div>
+            <div class="gloss"><h4>Topic</h4><p>A group of related prompts. "Fleet Routing" holds 45 of them. We track 19 topics.</p></div>
+            <div class="gloss"><h4>Human Referrals</h4><p>Real people who visited HERE.com after clicking a link in an AI chat response.</p></div>
+            <div class="gloss"><h4>Visibility Score</h4><p>Share of AI answers that name HERE. 40% means HERE appears in 40 of every 100 answers on those prompts.</p></div>
+            <div class="gloss"><h4>Rank</h4><p>Where HERE's visibility sits against Google Maps Platform, Mapbox, TomTom and other brands.</p></div>
+          </div>
+
+          <!-- 1. Search shift -->
+          <article class="card" id="s1" aria-labelledby="s1-title">
+            <div class="card-head"
+              ><span class="card-index">1</span
+              ><h3 id="s1-title"
+                >The search shift: organic down, AI climbing</h3
+              ></div
+            >
+            <p class="intro"
+              >Traditional organic traffic fell year on year while Human
+              Referrals from AI search went from almost nothing to a measurable
+              channel.</p
+            >
+            <div class="two-col wide-right">
+              <div class="chart" id="chart-shift"></div>
+              <div class="table-wrap" id="table-shift"></div>
+            </div>
+            <div class="sowhat"
+              ><span class="lbl">Insight</span
+              ><p
+                >AI has won back 28K of the 77K visitors organic lost, and Q3
+                was the biggest quarter yet for Human Referrals. Buyers now
+                arrive having done their research in ChatGPT, so our pages need
+                to answer on pricing, comparisons and proof.
+              </p>
+              <p style="margin-top: 8px">
+                <strong>Why Adobe shows a smaller number.</strong> Adobe
+                Analytics records 6,000 AI search unique visitors year to date,
+                against 28,200 Human Referrals in Profound. The gap is mostly
+                measurement, not traffic: Adobe can only count visitors who
+                accept cookies under GDPR consent, so a large share of
+                AI-referred sessions never reach it. Profound measures referrals
+                at the server level, which consent choices don't affect. Treat
+                Profound as the fuller picture and Adobe as the consented floor.
+              </p>
+            </div>
+            <p class="src"
+              >Source: Profound (Human Referrals, to 30 Sep 2026, rounded
+              totals). Adobe Analytics: 6,000 AI search unique visitors YTD
+              2026, cookie-consented sessions only.
+            </p>
+          </article>
+
+          <!-- 2. Quarter by quarter -->
+          <article class="card" id="s2" aria-labelledby="s2-title">
+            <div class="card-head"
+              ><span class="card-index">2</span
+              ><h3 id="s2-title"
+                >Quarter by quarter (cumulative, year to date)</h3
+              ></div
+            >
+            <p class="intro"
+              >Every signal except visibility has compounded through the year.
+              Hover a point for the value.</p
+            >
+            <div class="multiples" id="chart-quarters"></div>
+            <div class="table-wrap" id="table-quarters"></div>
+            <div class="sowhat"
+              ><span class="lbl">Insight</span
+              ><p
+                ><strong>Citations are converting:</strong> 232.9K AI Citations
+                and 28.2K Human Referrals back to the site.
+                <strong>Share is cooling, not presence:</strong> visibility
+                eased from ~46% to ~35% while citations grew more than
+                five-fold; more competitors entered the same answer pool.
+                <strong>Bot activity is the fastest-growing signal:</strong> AI
+                crawlers are indexing our content more efficiently.</p
+              ></div
+            >
+            <p class="src"
+              >*Q1 is partial: citation tracking began 17 Feb 2026. AI Citations
+              = citation share × tracked citations, summed across the nine
+              engines. Visibility Score is for the period, not cumulative (Sep =
+              1–30 Sep). Human Referrals and AI Bot Traffic are Profound's
+              rounded totals. Source: Profound, to 30 Sep 2026.</p
+            >
+          </article>
+
+          <!-- 4. Established vs newer topics -->
+          <article class="card" id="s4" aria-labelledby="s4-title">
+            <div class="card-head"
+              ><span class="card-index">3</span
+              ><h3 id="s4-title"
+                >Established topics vs newer AI-era topics</h3
+              ></div
+            >
+            <p class="intro"
+              >The question set grew in late June. We still lead on the original
+              topics; the newer AI-era topics are where the gaps are.</p
+            >
+            <div class="rank-tiles">
+              <div class="rank"
+                ><span class="pos-badge lead">#1</span
+                ><div
+                  ><h4>11 original topics</h4
+                  ><p
+                    >Named in <strong>38%</strong> of answers, ahead of Google
+                    Maps Platform at 34%.</p
+                  ></div
+                ></div
+              >
+              <div class="rank"
+                ><span class="pos-badge">#4</span
+                ><div
+                  ><h4>8 newer AI-era topics</h4
+                  ><p
+                    >Named in <strong>29%</strong> of answers. Google Maps
+                    Platform leads at 51%, Mapbox 40%, Google 38%.</p
+                  ></div
+                ></div
+              >
+            </div>
+            <div class="two-col">
+              <div class="chart" id="chart-topics"></div>
+              <div class="table-wrap" id="table-topics"></div>
+            </div>
+            <div class="sowhat"
+              ><span class="lbl">Insight</span
+              ><p
+                >We haven't lost ground on established topics: still #1, every
+                week since February. The question set grew. New content is
+                underway, starting where the gap is smallest.</p
+              ></div
+            >
+            <p class="src"
+              >GMP = Google Maps Platform. Visibility score, 28 Jun–30 Sep 2026,
+              all nine engines. Original set: AI in Logistics, AI in Supply
+              Chain, Automated Driving, EV Battery Range (×2), EV Charging
+              Optimization, Fleet Routing, Location Analytics Solutions,
+              Location API, Location Platform, Professional Navigation. Newer
+              set: the five topics above plus Dynamic Map Rendering, Map Data,
+              Geocoding and Search. Leader = best of the core competitor set; on
+              agentic routing, agent frameworks (CrewAI, LangGraph) and
+              Microsoft currently rank above every map provider. Five topics
+              added to Profound in September have no data yet and are excluded.
+              Source: Profound.</p
+            >
+          </article>
+
+          <!-- 5. Pages -->
+          <article class="card" id="s5" aria-labelledby="s5-title">
+            <div class="card-head"
+              ><span class="card-index">4</span
+              ><h3 id="s5-title">Which pages AI sends people to</h3></div
+            >
+            <p class="intro"
+              >Being cited and being clicked are two different things. The pages
+              that earn Human Referrals are product and platform pages, and
+              /products/wego has now overtaken the homepage.</p
+            >
+            <div class="two-col">
+              <div class="chart" id="chart-pages"></div>
+              <div class="table-wrap" id="table-pages"></div>
+            </div>
+            <div class="sowhat"
+              ><span class="lbl">Insight</span
+              ><p
+                >Being cited isn't the same as being clicked: /contact and
+                /why-here are among our most-cited pages and barely earn a
+                Human Referral. Product and platform pages earn the Human
+                Referrals, and ChatGPT sends around four in five of them (23.6K
+                of 28.2K).</p
+              ></div
+            >
+            <p class="src"
+              >1 Jan–30 Sep 2026. AI Citations here = AI assistant bot visits to
+              the page; Human Referrals = human visits referred by AI. Source:
+              Profound Agent Analytics.</p
+            >
+          </article>
+        </section>
+
+        <!-- ───────────────────── 03 · UPDATES ─────────────────────── -->
+        <section
+          id="updates"
+          aria-labelledby="updates-title"
+          style="margin-top: 56px"
+        >
+          <div class="section-head">
+            <p class="section-num">03 · Updates</p>
+            <h2 id="updates-title">Recent updates and next steps</h2>
+          </div>
+          <div class="updates">
+            <div class="update"
+              ><span class="ph">Placeholder</span><h4>[Update headline]</h4
+              ><p
+                >[Two or three sentences on a project, launch or decision.]</p
+              ></div
+            >
+            <div class="update"
+              ><span class="ph">Placeholder</span><h4>[Update headline]</h4
+              ><p
+                >[Two or three sentences on a project, launch or decision.]</p
+              ></div
+            >
+            <div class="update"
+              ><span class="ph">Placeholder</span><h4>[Update headline]</h4
+              ><p
+                >[Two or three sentences on a project, launch or decision.]</p
+              ></div
+            >
+          </div>
+        </section>
+
+        <!-- ───────────────────── CTA ──────────────────────────────── -->
+        <section class="cta" aria-label="Contact">
+          <div>
+            <h3>Have a question about AI Search content or traffic?</h3>
+            <p
+              >Send it to the Web Experience team and we'll pick it up in the
+              next issue.</p
+            >
+          </div>
+          <a
+            class="btn"
+            href="mailto:WebExperience_Team@here.com?subject=AI%20Search%20Update%20%E2%80%94%20question"
+          >
+            Email the team
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+        </section>
+
+        <footer>
+          <span
+            ><b>© 2026 HERE</b> · Confidential · Internal distribution
+            only</span
+          >
+          <span>Data: Profound · Adobe Analytics · to 30 Sep 2026</span>
+        </footer>
       </div>
-    </section>
+    </main>
 
-    <!-- ───────────────────── CTA ──────────────────────────────── -->
-    <section class="cta" aria-label="Contact">
-      <div>
-        <h3>Have a question about AI Search content or traffic?</h3>
-        <p>Send it to the Web Experience team and we'll pick it up in the next issue.</p>
-      </div>
-      <a class="btn" href="mailto:WebExperience_Team@here.com?subject=AI%20Search%20Update%20%E2%80%94%20question">
-        Email the team
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </section>
+    <div class="tip" id="tip" role="tooltip" aria-hidden="true"></div>
 
-    <footer>
-      <span><b>© 2026 HERE</b> · Confidential · Internal distribution only</span>
-      <span>Data: Profound · Adobe Analytics · to 30 Sep 2026</span>
-    </footer>
-  </div>
-</main>
-
-<div class="tip" id="tip" role="tooltip" aria-hidden="true"></div>
-
-<script>
-/* ══════════════════════════════════════════════════════════════
+    <script>
+      /* ══════════════════════════════════════════════════════════════
    MONTHLY DATA — edit this block each issue. Everything below
    (KPI tiles, charts, tables) renders from it.
    ══════════════════════════════════════════════════════════════ */
-const ISSUE = { number: '01', month: 'October 2026', dataTo: '30 Sep 2026' };
+      const ISSUE = {
+        number: "01",
+        month: "October 2026",
+        dataTo: "30 Sep 2026",
+      };
 
-const DATA = {
-  /* Four KPIs, named and described exactly as in the AI Search Performance deck */
-  kpis: [
-    { name: 'AI Citations',     label: 'How many times AI mentions or links back to HERE in its answers', value: '232.9K', delta: '+431% vs Q1', dir: 'up' },
-    { name: 'Human Referrals',  label: 'How many people came to us through AI?',                           value: '28.2K',  delta: '+872% vs Q1', dir: 'up' },
-    { name: 'Visibility Score', label: 'How often does HERE show up in AI-generated answers?',             value: '34.7%',  delta: '−11 pts vs Q1', dir: 'down' },
-    { name: 'AI Bot Traffic',   label: 'How often are AI crawlers visiting and indexing HERE.com?',        value: '3.6M',   delta: '46× Q1', dir: 'up' },
-  ],
+      const DATA = {
+        /* Four KPIs, named and described exactly as in the AI Search Performance deck */
+        kpis: [
+          {
+            name: "AI Citations",
+            label:
+              "How many times AI mentions or links back to HERE in its answers",
+            value: "232.9K",
+            delta: "+431% vs Q1",
+            dir: "up",
+          },
+          {
+            name: "Human Referrals",
+            label: "How many people came to us through AI?",
+            value: "28.2K",
+            delta: "+872% vs Q1",
+            dir: "up",
+          },
+          {
+            name: "Visibility Score",
+            label: "How often does HERE show up in AI-generated answers?",
+            value: "34.7%",
+            delta: "−11 pts vs Q1",
+            dir: "down",
+          },
+          {
+            name: "AI Bot Traffic",
+            label: "How often are AI crawlers visiting and indexing HERE.com?",
+            value: "3.6M",
+            delta: "46× Q1",
+            dir: "up",
+          },
+        ],
 
-  shift: {
-    lost:   { label: 'Visitors lost from organic search', sub: 'H1 2026 vs H1 2025', value: 77162 },
-    gained: { label: 'Visitors gained from AI search',    sub: 'Year to date, to 30 Sep', value: 28200 },
-    rows: [
-      { channel: 'Traditional organic search', period: 'H1 2026 vs H1 2025',               visitors: '198,417', change: { t: '−77,162 (−28%)', d: 'down' } },
-      { channel: 'AI search referrals',        period: 'Q1 2,900 · Q2 12,390 · Q3 12,910', visitors: '28,200',  change: { t: '+28,200 new YTD', d: 'up' } },
-      { channel: 'Form submits',               period: 'Year on year*',                    visitors: '—',       change: { t: '−26%', d: 'down' } },
-      { channel: 'High-value users',           period: 'Year on year*',                    visitors: '—',       change: { t: '−16%', d: 'down' } },
-    ],
-  },
+        shift: {
+          lost: {
+            label: "Visitors lost from organic search",
+            sub: "H1 2026 vs H1 2025",
+            value: 77162,
+          },
+          gained: {
+            label: "Human Referrals from AI search (Profound)",
+            sub: "Year to date, to 30 Sep",
+            value: 28200,
+          },
+          adobe: {
+            label: "AI search unique visitors recorded in Adobe Analytics",
+            sub: "Year to date 2026 · consent-gated",
+            value: 6000,
+          },
+          rows: [
+            {
+              channel: "Traditional organic search",
+              period: "H1 2026 vs H1 2025",
+              visitors: "198,417",
+              change: { t: "−77,162 (−28%)", d: "down" },
+            },
+            {
+              channel: "Human Referrals from AI search (Profound)",
+              period: "Q1 2,900 · Q2 12,390 · Q3 12,910",
+              visitors: "28,200",
+              change: { t: "+28,200 new YTD", d: "up" },
+            },
+            {
+              channel: "AI search unique visitors (Adobe Analytics)",
+              period: "Year to date 2026 · consent-gated",
+              visitors: "6,000",
+              change: null,
+            },
+            {
+              channel: "Form submits",
+              period: "Year on year",
+              visitors: "—",
+              change: { t: "−26%", d: "down" },
+            },
+            {
+              channel: "High-value users",
+              period: "Year on year",
+              visitors: "—",
+              change: { t: "−16%", d: "down" },
+            },
+          ],
+        },
 
-  quarters: {
-    periods: ['Q1', 'Q2', 'Jul', 'Aug', 'Sep'],
-    series: [
-      { name: 'AI Citations',     scope: 'cumulative YTD',  desc: 'How many times AI mentions or links back to HERE in its answers', values: [43900, 132600, 172800, 210000, 232900],      labels: ['43,900*', '132,600', '172,800', '210,000', '232,900'], current: '232.9K', delta: { t: '+431%', d: 'up' },  max: 250000,  ticks: ['0', '250K'] },
-      { name: 'Human Referrals',  scope: 'cumulative YTD',  desc: 'How many people came to us through AI?',                           values: [2900, 15290, 20170, 24684, 28200],           labels: ['2,900*', '15,290', '20,170', '24,684', '28,200'],      current: '28.2K',  delta: { t: '+872%', d: 'up' },  max: 30000,   ticks: ['0', '30K'] },
-      { name: 'Visibility Score', scope: 'period, HERE',    desc: 'How often does HERE show up in AI-generated answers?',             values: [46, 45, 35, 35, 34.7],                       labels: ['~46%', '~45%', '~35%', '~35%', '34.7%'],              current: '34.7%',  delta: { t: '−11 pts', d: 'down' }, max: 50, ticks: ['0', '50%'], unit: '%' },
-      { name: 'AI Bot Traffic',   scope: 'cumulative YTD',  desc: 'How often are AI crawlers visiting and indexing HERE.com?',        values: [77800, 2100000, 2600000, 3100000, 3600000], labels: ['77,800', '2.1M', '2.6M', '3.1M', '3.6M'],             current: '3.6M',   delta: { t: '46×', d: 'up' },    max: 4000000, ticks: ['0', '4M'] },
-    ],
-  },
+        quarters: {
+          periods: ["Q1", "Q2", "Jul", "Aug", "Sep"],
+          series: [
+            {
+              name: "AI Citations",
+              scope: "cumulative YTD",
+              desc: "How many times AI mentions or links back to HERE in its answers",
+              values: [43900, 132600, 172800, 210000, 232900],
+              labels: ["43,900*", "132,600", "172,800", "210,000", "232,900"],
+              current: "232.9K",
+              delta: { t: "+431%", d: "up" },
+              max: 250000,
+              ticks: ["0", "250K"],
+            },
+            {
+              name: "Human Referrals",
+              scope: "cumulative YTD",
+              desc: "How many people came to us through AI?",
+              values: [2900, 15290, 20170, 24684, 28200],
+              labels: ["2,900*", "15,290", "20,170", "24,684", "28,200"],
+              current: "28.2K",
+              delta: { t: "+872%", d: "up" },
+              max: 30000,
+              ticks: ["0", "30K"],
+            },
+            {
+              name: "Visibility Score",
+              scope: "period, HERE",
+              desc: "How often does HERE show up in AI-generated answers?",
+              values: [46, 45, 35, 35, 34.7],
+              labels: ["~46%", "~45%", "~35%", "~35%", "34.7%"],
+              current: "34.7%",
+              delta: { t: "−11 pts", d: "down" },
+              max: 50,
+              ticks: ["0", "50%"],
+              unit: "%",
+            },
+            {
+              name: "AI Bot Traffic",
+              scope: "cumulative YTD",
+              desc: "How often are AI crawlers visiting and indexing HERE.com?",
+              values: [77800, 2100000, 2600000, 3100000, 3600000],
+              labels: ["77,800", "2.1M", "2.6M", "3.1M", "3.6M"],
+              current: "3.6M",
+              delta: { t: "46×", d: "up" },
+              max: 4000000,
+              ticks: ["0", "4M"],
+            },
+          ],
+        },
 
-  /* Visibility score by brand: year to date (29 Jan–30 Sep) and since 1 Jul; change = Profound's change vs the prior period, in points */
-  compare: [
-    { brand: 'HERE',                  ytd: 41.7, sov: 7.1, since: 35.0, change: { t: '−12.7 pts', d: 'down' }, us: true },
-    { brand: 'Google Maps Platform',  ytd: 37.8, sov: 6.3, since: 39.3, change: { t: '+2.0 pts', d: 'up' } },
-    { brand: 'Mapbox',                ytd: 24.6, sov: 4.1, since: 27.8, change: { t: '+5.3 pts', d: 'up' } },
-    { brand: 'TomTom',                ytd: 16.5, sov: 2.7, since: 14.0, change: { t: '−3.9 pts', d: 'down' } },
-    { brand: 'CARTO',                 ytd: 4.7,  sov: 0.8, since: 4.6,  change: { t: '+0.1 pts', d: 'up' } },
-  ],
+        /* Newer AI-era topics, 28 Jun–30 Sep. Leader = best of the core competitor set (GMP, Google, Mapbox, TomTom) */
+        topics: [
+          {
+            topic: "Routing for agentic workflows",
+            here: 12,
+            leader: 26,
+            leaderName: "Google",
+            gap: "−14 pts",
+            plan: "Priority 1",
+          },
+          {
+            topic: "Grounding tools & services",
+            here: 27,
+            leader: 44,
+            leaderName: "GMP",
+            gap: "−17 pts",
+            plan: "Priority 2",
+          },
+          {
+            topic: "AI hallucination",
+            here: 18,
+            leader: 40,
+            leaderName: "GMP",
+            gap: "−22 pts",
+            plan: "Priority 3",
+          },
+          {
+            topic: "Orchestration & developer research",
+            here: 37,
+            leader: 66,
+            leaderName: "GMP",
+            gap: "−29 pts",
+            plan: "Next",
+          },
+          {
+            topic: "Location AI agents",
+            here: 21,
+            leader: 78,
+            leaderName: "GMP",
+            gap: "−57 pts",
+            plan: "Next",
+          },
+        ],
 
-  /* Newer AI-era topics, 28 Jun–30 Sep. Leader = best of the core competitor set (GMP, Google, Mapbox, TomTom) */
-  topics: [
-    { topic: 'Routing for agentic workflows',       here: 12, leader: 26, leaderName: 'Google', gap: '−14 pts', plan: 'Priority 1' },
-    { topic: 'Grounding tools & services',          here: 27, leader: 44, leaderName: 'GMP',    gap: '−17 pts', plan: 'Priority 2' },
-    { topic: 'AI hallucination',                    here: 18, leader: 40, leaderName: 'GMP',    gap: '−22 pts', plan: 'Priority 3' },
-    { topic: 'Orchestration & developer research',  here: 37, leader: 66, leaderName: 'GMP',    gap: '−29 pts', plan: 'Next' },
-    { topic: 'Location AI agents',                  here: 21, leader: 78, leaderName: 'GMP',    gap: '−57 pts', plan: 'Next' },
-  ],
+        /* Pages, 1 Jan–30 Sep. cites = AI assistant bot visits to the page; visits = human visits referred by AI (Profound Agent Analytics) */
+        pages: [
+          {
+            page: "Homepage",
+            cites: 6000,
+            visits: 5000,
+            read: "Front door at both ends",
+          },
+          {
+            page: "/products/wego",
+            cites: 2000,
+            visits: 6000,
+            read: "Now our top page for Human Referrals",
+          },
+          {
+            page: "/developer",
+            cites: 2000,
+            visits: 3000,
+            read: "Converts above its weight",
+          },
+          {
+            page: "/get-started/pricing",
+            cites: 2000,
+            visits: 983,
+            read: "High intent",
+          },
+          {
+            page: "/contact",
+            cites: 4000,
+            visits: 196,
+            read: "Cited, not clicked",
+          },
+          {
+            page: "/why-here",
+            cites: 3000,
+            visits: 43,
+            read: "Cited, not clicked",
+          },
+        ],
+      };
 
-  /* Pages, 1 Jan–30 Sep. cites = AI assistant bot visits to the page; visits = human visits referred by AI (Profound Agent Analytics) */
-  pages: [
-    { page: 'Homepage',             cites: 6000, visits: 5000, read: 'Front door at both ends' },
-    { page: '/products/wego',       cites: 2000, visits: 6000, read: 'Now our top AI-referred page' },
-    { page: '/developer',           cites: 2000, visits: 3000, read: 'Converts above its weight' },
-    { page: '/get-started/pricing', cites: 2000, visits: 983,  read: 'High intent' },
-    { page: '/contact',             cites: 4000, visits: 196,  read: 'Cited, not clicked' },
-    { page: '/why-here',            cites: 3000, visits: 43,   read: 'Cited, not clicked' },
-  ],
-};
-
-/* ══════════════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════════════
    RENDERING — you should not need to touch anything below.
    ══════════════════════════════════════════════════════════════ */
-const $ = (s, el = document) => el.querySelector(s);
-const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const fmt = n => n.toLocaleString('en-US');
-const arrow = d => d === 'up' ? '▲' : '▼';
-const dirCell = c => c ? `<span class="dir ${c.d}"><span class="arr">${arrow(c.d)}</span>${esc(c.t)}</span>` : '<span class="muted">—</span>';
-const tip = (html) => `data-tip="${esc(html)}" tabindex="0"`;
+      const $ = (s, el = document) => el.querySelector(s);
+      const esc = (s) =>
+        String(s).replace(
+          /[&<>"]/g,
+          (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+        );
+      const fmt = (n) => n.toLocaleString("en-US");
+      const arrow = (d) => (d === "up" ? "▲" : "▼");
+      const dirCell = (c) =>
+        c ?
+          `<span class="dir ${c.d}"><span class="arr">${arrow(c.d)}</span>${esc(c.t)}</span>`
+        : '<span class="muted">—</span>';
+      const tip = (html) => `data-tip="${esc(html)}" tabindex="0"`;
 
-/* issue meta */
-$('#issue-tag').textContent = `Issue ${ISSUE.number} · ${ISSUE.month}`;
-$('#data-to').textContent = ISSUE.dataTo;
-document.title = `AI Search Update · Issue ${ISSUE.number} · ${ISSUE.month} — HERE Web Experience`;
+      /* issue meta */
+      $("#issue-tag").textContent = `Issue ${ISSUE.number} · ${ISSUE.month}`;
+      $("#data-to").textContent = ISSUE.dataTo;
+      document.title = `AI Search Update · Issue ${ISSUE.number} · ${ISSUE.month} — HERE Web Experience`;
 
-/* KPI tiles */
-$('#kpis').innerHTML = DATA.kpis.map(k => `
+      /* KPI tiles */
+      $("#kpis").innerHTML = DATA.kpis
+        .map(
+          (k) => `
   <div class="kpi" role="listitem">
     <div class="k-name">${esc(k.name)}</div>
     <div class="k-label">${esc(k.label)}</div>
     <div class="k-value">${esc(k.value)}</div>
     <div class="k-delta ${k.dir}"><span class="arr">${arrow(k.dir)}</span>${esc(k.delta)}</div>
-  </div>`).join('');
+  </div>`,
+        )
+        .join("");
 
-/* generic horizontal bar chart (HTML) ------------------------- */
-function barChart(el, { title, sub, legend, rows, max, note, stacked }) {
-  // rows: [{ label, sub, us, bars: [{ v, cls, text, tip, na }] }]
-  const headroom = 1.22; // leaves room for the value label at the tip
-  const scale = v => Math.max(0, (v / (max * headroom)) * 100);
-  el.innerHTML = `
-    <div class="chart-title"><span>${esc(title)}</span>${sub ? `<span class="sub">${esc(sub)}</span>` : ''}</div>
-    ${legend ? `<div class="legend">${legend.map(l => `<span><i style="background:${l.color}"></i>${esc(l.name)}</span>`).join('')}</div>` : ''}
-    <div class="bars${stacked ? ' stacked' : ''}">
-      ${rows.map(r => `
-        <div class="bar-row${r.us ? ' us' : ''}">
-          <div class="bar-label">${esc(r.label)}${r.sub ? `<small>${esc(r.sub)}</small>` : ''}</div>
+      /* generic horizontal bar chart (HTML) ------------------------- */
+      function barChart(el, { title, sub, legend, rows, max, note, stacked }) {
+        // rows: [{ label, sub, us, bars: [{ v, cls, text, tip, na }] }]
+        const headroom = 1.22; // leaves room for the value label at the tip
+        const scale = (v) => Math.max(0, (v / (max * headroom)) * 100);
+        el.innerHTML = `
+    <div class="chart-title"><span>${esc(title)}</span>${sub ? `<span class="sub">${esc(sub)}</span>` : ""}</div>
+    ${legend ? `<div class="legend">${legend.map((l) => `<span><i style="background:${l.color}"></i>${esc(l.name)}</span>`).join("")}</div>` : ""}
+    <div class="bars${stacked ? " stacked" : ""}">
+      ${rows
+        .map(
+          (r) => `
+        <div class="bar-row${r.us ? " us" : ""}">
+          <div class="bar-label">${esc(r.label)}${r.sub ? `<small>${esc(r.sub)}</small>` : ""}</div>
           <div class="bar-track">
             <span class="baseline"></span>
-            ${r.bars.map(b => b.na
-              ? `<div class="bar-line${r.bars.length === 1 ? ' single' : ''}"><span class="bar-val na" style="left:0">${esc(b.text)}</span></div>`
-              : `<div class="bar-line${r.bars.length === 1 ? ' single' : ''}">
-                   <div class="bar ${b.cls || ''}" style="width:${scale(b.v).toFixed(2)}%" ${tip(b.tip)} role="img" aria-label="${esc(b.tip.replace(/<[^>]+>/g, ''))}"></div>
+            ${r.bars
+              .map((b) =>
+                b.na ?
+                  `<div class="bar-line${r.bars.length === 1 ? " single" : ""}"><span class="bar-val na" style="left:0">${esc(b.text)}</span></div>`
+                : `<div class="bar-line${r.bars.length === 1 ? " single" : ""}">
+                   <div class="bar ${b.cls || ""}" style="width:${scale(b.v).toFixed(2)}%" ${tip(b.tip)} role="img" aria-label="${esc(b.tip.replace(/<[^>]+>/g, ""))}"></div>
                    <span class="bar-val" style="left:${scale(b.v).toFixed(2)}%">${b.text}</span>
-                 </div>`).join('')}
+                 </div>`,
+              )
+              .join("")}
           </div>
-        </div>`).join('')}
+        </div>`,
+        )
+        .join("")}
     </div>
-    ${note ? `<div class="chart-note">${note}</div>` : ''}`;
-}
+    ${note ? `<div class="chart-note">${note}</div>` : ""}`;
+      }
 
-/* 1. Search shift ------------------------------------------------ */
-(() => {
-  const s = DATA.shift;
-  barChart($('#chart-shift'), {
-    title: 'Lost vs. won back',
-    sub: 'visitors',
-    rows: [
-      { label: s.lost.label,   sub: s.lost.sub,   bars: [{ v: s.lost.value,   cls: 'neg', text: `−${fmt(s.lost.value)}`,   tip: `<b>${s.lost.label}</b><br>−${fmt(s.lost.value)} (−28%)` }] },
-      { label: s.gained.label, sub: s.gained.sub, bars: [{ v: s.gained.value, cls: 'pos', text: `+${fmt(s.gained.value)}`, tip: `<b>${s.gained.label}</b><br>+${fmt(s.gained.value)} new, year to date` }] },
-    ],
-    max: s.lost.value,
-    stacked: true,
-    note: `AI has recovered <strong>${Math.round(s.gained.value / s.lost.value * 100)}%</strong> of the organic shortfall.`,
-  });
-  $('#table-shift').innerHTML = `
+      /* 1. Search shift ------------------------------------------------ */
+      (() => {
+        const s = DATA.shift;
+        barChart($("#chart-shift"), {
+          title: "Lost vs. won back",
+          sub: "visitors",
+          rows: [
+            {
+              label: s.lost.label,
+              sub: s.lost.sub,
+              bars: [
+                {
+                  v: s.lost.value,
+                  cls: "neg",
+                  text: `−${fmt(s.lost.value)}`,
+                  tip: `<b>${s.lost.label}</b><br>−${fmt(s.lost.value)} (−28%)`,
+                },
+              ],
+            },
+            {
+              label: s.gained.label,
+              sub: s.gained.sub,
+              bars: [
+                {
+                  v: s.gained.value,
+                  cls: "pos",
+                  text: `+${fmt(s.gained.value)}`,
+                  tip: `<b>${s.gained.label}</b><br>+${fmt(s.gained.value)} new, year to date`,
+                },
+              ],
+            },
+            {
+              label: s.adobe.label,
+              sub: s.adobe.sub,
+              bars: [
+                {
+                  v: s.adobe.value,
+                  cls: "s2",
+                  text: `${fmt(s.adobe.value)}`,
+                  tip: `<b>${s.adobe.label}</b><br>${fmt(s.adobe.value)} unique visitors, year to date · only visitors who accept cookies are counted`,
+                },
+              ],
+            },
+          ],
+          max: s.lost.value,
+          stacked: true,
+          note: `On Profound's count, AI has recovered <strong>${Math.round((s.gained.value / s.lost.value) * 100)}%</strong> of the organic shortfall.`,
+        });
+        $("#table-shift").innerHTML = `
     <table>
       <thead><tr><th>Channel</th><th>Period</th><th class="num">Visitors</th><th class="num">Change</th></tr></thead>
-      <tbody>${s.rows.map(r => `
-        <tr><td class="strong">${esc(r.channel)}</td><td class="muted">${esc(r.period)}</td><td class="num">${esc(r.visitors)}</td><td class="num">${dirCell(r.change)}</td></tr>`).join('')}
+      <tbody>${s.rows
+        .map(
+          (r) => `
+        <tr><td class="strong">${esc(r.channel)}</td><td class="muted">${esc(r.period)}</td><td class="num">${esc(r.visitors)}</td><td class="num">${dirCell(r.change)}</td></tr>`,
+        )
+        .join("")}
       </tbody>
     </table>`;
-})();
+      })();
 
-/* 2. Quarter by quarter — small multiples ------------------------ */
-function sparkline(svg, ser, periods) {
-  const W = svg.clientWidth || 300, H = 84, padL = 4, padR = 8, padT = 10, padB = 6;
-  const n = ser.values.length;
-  const x = i => padL + (i / (n - 1)) * (W - padL - padR);
-  const y = v => padT + (1 - v / ser.max) * (H - padT - padB);
-  const pts = ser.values.map((v, i) => [x(i), y(v)]);
-  const path = pts.map((p, i) => `${i ? 'L' : 'M'}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ');
-  const area = `${path} L${pts[n - 1][0].toFixed(1)},${y(0).toFixed(1)} L${pts[0][0].toFixed(1)},${y(0).toFixed(1)} Z`;
-  const last = pts[n - 1];
-  const band = (W - padL - padR) / (n - 1);
-  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  svg.innerHTML = `
+      /* 2. Quarter by quarter — small multiples ------------------------ */
+      function sparkline(svg, ser, periods) {
+        const W = svg.clientWidth || 300,
+          H = 84,
+          padL = 4,
+          padR = 8,
+          padT = 10,
+          padB = 6;
+        const n = ser.values.length;
+        const x = (i) => padL + (i / (n - 1)) * (W - padL - padR);
+        const y = (v) => padT + (1 - v / ser.max) * (H - padT - padB);
+        const pts = ser.values.map((v, i) => [x(i), y(v)]);
+        const path = pts
+          .map(
+            (p, i) => `${i ? "L" : "M"}${p[0].toFixed(1)},${p[1].toFixed(1)}`,
+          )
+          .join(" ");
+        const area = `${path} L${pts[n - 1][0].toFixed(1)},${y(0).toFixed(1)} L${pts[0][0].toFixed(1)},${y(0).toFixed(1)} Z`;
+        const last = pts[n - 1];
+        const band = (W - padL - padR) / (n - 1);
+        svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+        svg.innerHTML = `
     <line class="grid" x1="${padL}" x2="${W - padR}" y1="${y(ser.max)}" y2="${y(ser.max)}"></line>
     <line class="grid" x1="${padL}" x2="${W - padR}" y1="${y(0)}" y2="${y(0)}"></line>
     <text class="tick" x="${padL}" y="${y(ser.max) - 3}">${esc(ser.ticks[1])}</text>
     <path class="ar" d="${area}"></path>
     <path class="ln" d="${path}"></path>
     <circle class="pt" cx="${last[0]}" cy="${last[1]}" r="4.5"></circle>
-    ${pts.map((p, i) => `
+    ${pts
+      .map(
+        (p, i) => `
       <rect class="hit" x="${(p[0] - band / 2).toFixed(1)}" y="0" width="${band.toFixed(1)}" height="${H}"
-        ${tip(`<b>${ser.name}</b> · ${periods[i]}<br>${ser.labels[i]}`)} role="img" aria-label="${esc(periods[i])}: ${esc(ser.labels[i])}"></rect>`).join('')}`;
-}
-(() => {
-  const q = DATA.quarters;
-  const host = $('#chart-quarters');
-  host.innerHTML = q.series.map((s, i) => `
+        ${tip(`<b>${ser.name}</b> · ${periods[i]}<br>${ser.labels[i]}`)} role="img" aria-label="${esc(periods[i])}: ${esc(ser.labels[i])}"></rect>`,
+      )
+      .join("")}`;
+      }
+      (() => {
+        const q = DATA.quarters;
+        const host = $("#chart-quarters");
+        host.innerHTML = q.series
+          .map(
+            (s, i) => `
     <div class="sm">
       <div class="sm-head"><h4>${esc(s.name)}</h4></div>
       <div class="sm-val"><span>${esc(s.current)}</span><span class="d dir ${s.delta.d}"><span class="arr">${arrow(s.delta.d)}</span>${esc(s.delta.t)} vs Q1</span></div>
       <svg data-i="${i}" aria-label="${esc(s.name)} by period" role="img"></svg>
-      <div class="axis">${q.periods.map(p => `<span>${esc(p)}</span>`).join('')}</div>
-    </div>`).join('');
-  const draw = () => host.querySelectorAll('svg').forEach(svg => sparkline(svg, q.series[+svg.dataset.i], q.periods));
-  draw();
-  if ('ResizeObserver' in window) new ResizeObserver(draw).observe(host); else window.addEventListener('resize', draw);
+      <div class="axis">${q.periods.map((p) => `<span>${esc(p)}</span>`).join("")}</div>
+    </div>`,
+          )
+          .join("");
+        const draw = () =>
+          host
+            .querySelectorAll("svg")
+            .forEach((svg) =>
+              sparkline(svg, q.series[+svg.dataset.i], q.periods),
+            );
+        draw();
+        if ("ResizeObserver" in window) new ResizeObserver(draw).observe(host);
+        else window.addEventListener("resize", draw);
 
-  $('#table-quarters').innerHTML = `
+        $("#table-quarters").innerHTML = `
     <table>
-      <thead><tr><th>Metric</th><th>What it answers</th>${q.periods.map(p => `<th class="num">${esc(p)}</th>`).join('')}<th class="num">vs Q1</th></tr></thead>
-      <tbody>${q.series.map(s => `
-        <tr><td class="strong">${esc(s.name)}<br><span class="muted" style="font-weight:400;font-size:12px">${esc(s.scope)}</span></td><td class="muted">${esc(s.desc)}</td>${s.labels.map((l, i) => `<td class="num${i === s.labels.length - 1 ? ' strong' : ''}">${esc(l)}</td>`).join('')}<td class="num">${dirCell(s.delta)}</td></tr>`).join('')}
+      <thead><tr><th>Metric</th><th>What it answers</th>${q.periods.map((p) => `<th class="num">${esc(p)}</th>`).join("")}<th class="num">vs Q1</th></tr></thead>
+      <tbody>${q.series
+        .map(
+          (s) => `
+        <tr><td class="strong">${esc(s.name)}<br><span class="muted" style="font-weight:400;font-size:12px">${esc(s.scope)}</span></td><td class="muted">${esc(s.desc)}</td>${s.labels.map((l, i) => `<td class="num${i === s.labels.length - 1 ? " strong" : ""}">${esc(l)}</td>`).join("")}<td class="num">${dirCell(s.delta)}</td></tr>`,
+        )
+        .join("")}
       </tbody>
     </table>`;
-})();
+      })();
 
-/* 3. How we compare --------------------------------------------- */
-(() => {
-  const c = DATA.compare;
-  const C1 = getComputedStyle(document.documentElement).getPropertyValue('--c1').trim();
-  const C2 = getComputedStyle(document.documentElement).getPropertyValue('--c2').trim();
-  barChart($('#chart-compare'), {
-    title: 'Visibility score by brand',
-    sub: '% of AI answers that name the brand',
-    legend: [{ name: 'Year to date (29 Jan–30 Sep)', color: C1 }, { name: 'Since 1 Jul', color: C2 }],
-    rows: c.map(b => ({
-      label: b.brand, us: b.us,
-      bars: [
-        { v: b.ytd, cls: 's1', text: `${b.ytd.toFixed(1)}%`, tip: `<b>${b.brand}</b> · year to date<br>Visibility ${b.ytd.toFixed(1)}% · Share of voice ${b.sov.toFixed(1)}%` },
-        b.since == null
-          ? { na: true, text: '— since 1 Jul' }
-          : { v: b.since, cls: 's2', text: `${b.since.toFixed(1)}%`, tip: `<b>${b.brand}</b> · since 1 Jul<br>Visibility ${b.since.toFixed(1)}% (${b.change.t})` },
-      ],
-    })),
-    max: Math.max(...c.flatMap(b => [b.ytd, b.since || 0])),
-  });
-  $('#table-compare').innerHTML = `
-    <table>
-      <thead><tr><th>Brand</th><th class="num">Visibility YTD</th><th class="num">Share of voice</th><th class="num">Since 1 Jul</th><th class="num">Change</th></tr></thead>
-      <tbody>${c.map(b => `
-        <tr${b.us ? ' class="us"' : ''}><td>${esc(b.brand)}</td><td class="num">${b.ytd.toFixed(1)}%</td><td class="num">${b.sov.toFixed(1)}%</td><td class="num">${b.since == null ? '<span class="muted">—</span>' : b.since.toFixed(1) + '%'}</td><td class="num">${dirCell(b.change)}</td></tr>`).join('')}
-      </tbody>
-    </table>`;
-})();
-
-/* 4. Newer topics ----------------------------------------------- */
-(() => {
-  const t = DATA.topics;
-  const C1 = getComputedStyle(document.documentElement).getPropertyValue('--c1').trim();
-  const C2 = getComputedStyle(document.documentElement).getPropertyValue('--c2').trim();
-  barChart($('#chart-topics'), {
-    title: 'Newer AI-era topics: HERE vs. the leader',
-    sub: 'visibility score, 28 Jun–30 Sep',
-    legend: [{ name: 'HERE', color: C1 }, { name: 'Leading competitor', color: C2 }],
-    rows: t.map(r => ({
-      label: r.topic,
-      bars: [
-        { v: r.here,   cls: 's1', text: `${r.here}%`,   tip: `<b>HERE</b> · ${r.topic}<br>Named in ${r.here}% of answers · gap ${r.gap}` },
-        { v: r.leader, cls: 's2', text: `${r.leader}% <small>${esc(r.leaderName)}</small>`, tip: `<b>${r.leaderName}</b> · ${r.topic}<br>Named in ${r.leader}% of answers` },
-      ],
-    })),
-    max: Math.max(...t.map(r => r.leader)),
-  });
-  $('#table-topics').innerHTML = `
+      /* 4. Newer topics ----------------------------------------------- */
+      (() => {
+        const t = DATA.topics;
+        const C1 = getComputedStyle(document.documentElement)
+          .getPropertyValue("--c1")
+          .trim();
+        const C2 = getComputedStyle(document.documentElement)
+          .getPropertyValue("--c2")
+          .trim();
+        barChart($("#chart-topics"), {
+          title: "Newer AI-era topics: HERE vs. the leader",
+          sub: "visibility score, 28 Jun–30 Sep",
+          legend: [
+            { name: "HERE", color: C1 },
+            { name: "Leading competitor", color: C2 },
+          ],
+          rows: t.map((r) => ({
+            label: r.topic,
+            bars: [
+              {
+                v: r.here,
+                cls: "s1",
+                text: `${r.here}%`,
+                tip: `<b>HERE</b> · ${r.topic}<br>Named in ${r.here}% of answers · gap ${r.gap}`,
+              },
+              {
+                v: r.leader,
+                cls: "s2",
+                text: `${r.leader}% <small>${esc(r.leaderName)}</small>`,
+                tip: `<b>${r.leaderName}</b> · ${r.topic}<br>Named in ${r.leader}% of answers`,
+              },
+            ],
+          })),
+          max: Math.max(...t.map((r) => r.leader)),
+        });
+        $("#table-topics").innerHTML = `
     <table>
       <thead><tr><th>Newer topic</th><th class="num">HERE</th><th class="num">Leader</th><th class="num">Gap</th><th>Plan</th></tr></thead>
-      <tbody>${t.map(r => `
-        <tr><td class="strong">${esc(r.topic)}</td><td class="num">${r.here}%</td><td class="num">${r.leader}% <span class="muted">${esc(r.leaderName)}</span></td><td class="num"><span class="dir down">${esc(r.gap)}</span></td><td><span class="pill ${/priority/i.test(r.plan) ? 'p1' : 'next'}">${esc(r.plan)}</span></td></tr>`).join('')}
+      <tbody>${t
+        .map(
+          (r) => `
+        <tr><td class="strong">${esc(r.topic)}</td><td class="num">${r.here}%</td><td class="num">${r.leader}% <span class="muted">${esc(r.leaderName)}</span></td><td class="num"><span class="dir down">${esc(r.gap)}</span></td><td><span class="pill ${/priority/i.test(r.plan) ? "p1" : "next"}">${esc(r.plan)}</span></td></tr>`,
+        )
+        .join("")}
       </tbody>
     </table>`;
-})();
+      })();
 
-/* 5. Pages ------------------------------------------------------ */
-(() => {
-  const p = DATA.pages;
-  const C1 = getComputedStyle(document.documentElement).getPropertyValue('--c1').trim();
-  const C2 = getComputedStyle(document.documentElement).getPropertyValue('--c2').trim();
-  barChart($('#chart-pages'), {
-    title: 'Cited vs. clicked, by page',
-    sub: '1 Jan–30 Sep',
-    legend: [{ name: 'AI citations', color: C1 }, { name: 'Visits from AI', color: C2 }],
-    rows: p.map(r => ({
-      label: r.page,
-      bars: [
-        { v: r.cites, cls: 's1', text: fmt(r.cites), tip: `<b>${r.page}</b><br>${fmt(r.cites)} AI citations` },
-        r.visits == null
-          ? { na: true, text: 'Not in top 10 for visits' }
-          : { v: r.visits, cls: 's2', text: fmt(r.visits), tip: `<b>${r.page}</b><br>${fmt(r.visits)} visits from AI` },
-      ],
-    })),
-    max: Math.max(...p.flatMap(r => [r.cites, r.visits || 0])),
-  });
-  $('#table-pages').innerHTML = `
+      /* 5. Pages ------------------------------------------------------ */
+      (() => {
+        const p = DATA.pages;
+        const C1 = getComputedStyle(document.documentElement)
+          .getPropertyValue("--c1")
+          .trim();
+        const C2 = getComputedStyle(document.documentElement)
+          .getPropertyValue("--c2")
+          .trim();
+        barChart($("#chart-pages"), {
+          title: "Cited vs. clicked, by page",
+          sub: "1 Jan–30 Sep",
+          legend: [
+            { name: "AI Citations", color: C1 },
+            { name: "Human Referrals", color: C2 },
+          ],
+          rows: p.map((r) => ({
+            label: r.page,
+            bars: [
+              {
+                v: r.cites,
+                cls: "s1",
+                text: fmt(r.cites),
+                tip: `<b>${r.page}</b><br>${fmt(r.cites)} AI Citations`,
+              },
+              r.visits == null ?
+                { na: true, text: "Not in top 10 for Human Referrals" }
+              : {
+                  v: r.visits,
+                  cls: "s2",
+                  text: fmt(r.visits),
+                  tip: `<b>${r.page}</b><br>${fmt(r.visits)} Human Referrals`,
+                },
+            ],
+          })),
+          max: Math.max(...p.flatMap((r) => [r.cites, r.visits || 0])),
+        });
+        $("#table-pages").innerHTML = `
     <table>
-      <thead><tr><th>Page</th><th class="num">AI citations</th><th class="num">Visits from AI</th><th>Read</th></tr></thead>
-      <tbody>${p.map(r => `
-        <tr><td class="strong">${esc(r.page)}</td><td class="num">${fmt(r.cites)}</td><td class="num">${r.visits == null ? '<span class="muted">Not in top 10</span>' : fmt(r.visits)}</td><td class="muted">${esc(r.read)}</td></tr>`).join('')}
+      <thead><tr><th>Page</th><th class="num">AI Citations</th><th class="num">Human Referrals</th><th>Read</th></tr></thead>
+      <tbody>${p
+        .map(
+          (r) => `
+        <tr><td class="strong">${esc(r.page)}</td><td class="num">${fmt(r.cites)}</td><td class="num">${r.visits == null ? '<span class="muted">Not in top 10</span>' : fmt(r.visits)}</td><td class="muted">${esc(r.read)}</td></tr>`,
+        )
+        .join("")}
       </tbody>
     </table>`;
-})();
+      })();
 
-/* Tooltip (hover + keyboard focus) ------------------------------ */
-(() => {
-  const el = $('#tip');
-  let active = null;
-  const show = (t, x, y) => { el.innerHTML = t.dataset.tip; el.style.left = x + 'px'; el.style.top = y + 'px'; el.classList.add('show'); el.setAttribute('aria-hidden', 'false'); };
-  const hide = () => { el.classList.remove('show'); el.setAttribute('aria-hidden', 'true'); active = null; };
-  document.addEventListener('mousemove', e => {
-    const t = e.target.closest && e.target.closest('[data-tip]');
-    if (t) { active = t; show(t, e.clientX, e.clientY); } else if (active) hide();
-  });
-  document.addEventListener('mouseleave', hide);
-  document.addEventListener('focusin', e => {
-    const t = e.target.closest && e.target.closest('[data-tip]');
-    if (!t) return;
-    const r = t.getBoundingClientRect(); active = t; show(t, r.left + r.width / 2, r.top);
-  });
-  document.addEventListener('focusout', hide);
-  document.addEventListener('scroll', () => { if (active) hide(); }, { passive: true });
-})();
-</script>
-</body>
+      /* Tooltip (hover + keyboard focus) ------------------------------ */
+      (() => {
+        const el = $("#tip");
+        let active = null;
+        const show = (t, x, y) => {
+          el.innerHTML = t.dataset.tip;
+          el.style.left = x + "px";
+          el.style.top = y + "px";
+          el.classList.add("show");
+          el.setAttribute("aria-hidden", "false");
+        };
+        const hide = () => {
+          el.classList.remove("show");
+          el.setAttribute("aria-hidden", "true");
+          active = null;
+        };
+        document.addEventListener("mousemove", (e) => {
+          const t = e.target.closest && e.target.closest("[data-tip]");
+          if (t) {
+            active = t;
+            show(t, e.clientX, e.clientY);
+          } else if (active) hide();
+        });
+        document.addEventListener("mouseleave", hide);
+        document.addEventListener("focusin", (e) => {
+          const t = e.target.closest && e.target.closest("[data-tip]");
+          if (!t) return;
+          const r = t.getBoundingClientRect();
+          active = t;
+          show(t, r.left + r.width / 2, r.top);
+        });
+        document.addEventListener("focusout", hide);
+        document.addEventListener(
+          "scroll",
+          () => {
+            if (active) hide();
+          },
+          { passive: true },
+        );
+      })();
+    </script>
+  </body>
 </html>
