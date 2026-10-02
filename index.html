@@ -509,9 +509,10 @@
       }
       .src {
         margin-top: 12px;
-        font-size: 13px;
+        font-size: 12px;
         color: var(--ink-3);
-        line-height: 1.5;
+        line-height: 1.45;
+        max-width: none;
       }
 
       /* ── Tables ─────────────────────────────────────────────────── */
@@ -1360,13 +1361,15 @@
             <div class="sowhat"
               ><span class="lbl">Insight</span
               ><p
-                ><strong>Citations are converting:</strong> 232.9K AI Citations
-                and 28.2K Human Referrals back to the site.
-                <strong>Share is cooling, not presence:</strong> visibility
-                eased from ~46% to ~35% while citations grew more than
-                five-fold; more competitors entered the same answer pool.
-                <strong>Bot activity is the fastest-growing signal:</strong> AI
-                crawlers are indexing our content more efficiently.</p
+                >Citations are up five-fold and turning into real visits
+                (Human Referrals). Crawler traffic is the fastest-growing
+                signal: AI engines are indexing our content more efficiently.
+                Two things are likely driving that. Server-side rendering now
+                hands crawlers the full page instead of an empty React shell,
+                so every visit returns indexable content. And the answer-first
+                pages going live since the Phase 1 optimisations, with product
+                and platform pages following in Phase 2, give them more that is
+                worth indexing.</p
               ></div
             >
             <p class="src"
@@ -1378,10 +1381,73 @@
             >
           </article>
 
+          <!-- 3. How we compare -->
+          <article class="card" id="s3" aria-labelledby="s3-title">
+            <div class="card-head"
+              ><span class="card-index">3</span
+              ><h3 id="s3-title">How we compare</h3></div
+            >
+            <p class="intro"
+              >Visibility score by brand, year to date and since 1 July when
+              newer AI topics entered the tracking.</p
+            >
+            <div class="two-col wide-right">
+              <div class="chart" id="chart-compare"></div>
+              <div class="table-wrap" id="table-compare"></div>
+            </div>
+            <div class="panels">
+              <div class="panel">
+                <h4>By AI engine</h4>
+                <p><strong>#1 on 4 of 7 engines.</strong></p>
+                <div class="chips">
+                  <span class="chip"><b>#1</b> ChatGPT 46.1%</span>
+                  <span class="chip"><b>#1</b> Perplexity 45.3%</span>
+                  <span class="chip"><b>#1</b> Claude 39.4%</span>
+                  <span class="chip"><b>#1</b> Copilot 38.8%</span>
+                </div>
+                <p><strong>Behind on Google's own surfaces.</strong></p>
+                <div class="chips">
+                  <span class="chip behind"><b>#2</b> AI Mode 34.4%</span>
+                  <span class="chip behind"><b>#2</b> AI Overviews 31.7%</span>
+                  <span class="chip behind"><b>#2</b> Gemini 35.4%</span>
+                </div>
+              </div>
+              <div class="panel">
+                <h4>Quality of mention</h4>
+                <div class="hero-num"
+                  >2.3<small>average position when named</small></div
+                >
+                <p
+                  >The best in the set: Mapbox 3.8, Google Maps Platform 3.9,
+                  TomTom 4.1. When AI names HERE, it tends to name us first or
+                  second.</p
+                >
+              </div>
+            </div>
+            <div class="sowhat"
+              ><span class="lbl">Insight</span
+              ><p
+                >We lead year to date, but Google Maps Platform has led since
+                late June (39.3% vs our 35.0% since 1 Jul) as newer AI topics
+                entered the tracking. Mapbox is the one to watch, up 5.3 points.
+                We still win on quality: when AI names HERE, it names us first
+                or second.</p
+              ></div
+            >
+            <p class="src"
+              >Visibility Score = share of tracked AI answers that mention the
+              brand; Share of Voice = the brand's share of all brand mentions;
+              Avg. Position = order in which the brand is named (lower is
+              better). Engine rank is based on Visibility Score. Change = vs the
+              prior period, in points. Source: Profound Answer Engine Insights,
+              all tracked prompts, 29 Jan (earliest available)–30 Sep 2026.</p
+            >
+          </article>
+
           <!-- 4. Established vs newer topics -->
           <article class="card" id="s4" aria-labelledby="s4-title">
             <div class="card-head"
-              ><span class="card-index">3</span
+              ><span class="card-index">4</span
               ><h3 id="s4-title"
                 >Established topics vs newer AI-era topics</h3
               ></div
@@ -1442,7 +1508,7 @@
           <!-- 5. Pages -->
           <article class="card" id="s5" aria-labelledby="s5-title">
             <div class="card-head"
-              ><span class="card-index">4</span
+              ><span class="card-index">5</span
               ><h3 id="s5-title">Which pages AI sends people to</h3></div
             >
             <p class="intro"
@@ -1689,6 +1755,46 @@
             },
           ],
         },
+
+        /* Visibility score by brand: year to date (29 Jan–30 Sep) and since 1 Jul; change = Profound's change vs the prior period, in points */
+        compare: [
+          {
+            brand: "HERE",
+            ytd: 41.7,
+            sov: 7.1,
+            since: 35.0,
+            change: { t: "−12.7 pts", d: "down" },
+            us: true,
+          },
+          {
+            brand: "Google Maps Platform",
+            ytd: 37.8,
+            sov: 6.3,
+            since: 39.3,
+            change: { t: "+2.0 pts", d: "up" },
+          },
+          {
+            brand: "Mapbox",
+            ytd: 24.6,
+            sov: 4.1,
+            since: 27.8,
+            change: { t: "+5.3 pts", d: "up" },
+          },
+          {
+            brand: "TomTom",
+            ytd: 16.5,
+            sov: 2.7,
+            since: 14.0,
+            change: { t: "−3.9 pts", d: "down" },
+          },
+          {
+            brand: "CARTO",
+            ytd: 4.7,
+            sov: 0.8,
+            since: 4.6,
+            change: { t: "+0.1 pts", d: "up" },
+          },
+        ],
 
         /* Newer AI-era topics, 28 Jun–30 Sep. Leader = best of the core competitor set (GMP, Google, Mapbox, TomTom) */
         topics: [
@@ -1972,6 +2078,57 @@
         .map(
           (s) => `
         <tr><td class="strong">${esc(s.name)}<br><span class="muted" style="font-weight:400;font-size:12px">${esc(s.scope)}</span></td><td class="muted">${esc(s.desc)}</td>${s.labels.map((l, i) => `<td class="num${i === s.labels.length - 1 ? " strong" : ""}">${esc(l)}</td>`).join("")}<td class="num">${dirCell(s.delta)}</td></tr>`,
+        )
+        .join("")}
+      </tbody>
+    </table>`;
+      })();
+
+      /* 3. How we compare --------------------------------------------- */
+      (() => {
+        const c = DATA.compare;
+        const C1 = getComputedStyle(document.documentElement)
+          .getPropertyValue("--c1")
+          .trim();
+        const C2 = getComputedStyle(document.documentElement)
+          .getPropertyValue("--c2")
+          .trim();
+        barChart($("#chart-compare"), {
+          title: "Visibility score by brand",
+          sub: "% of AI answers that name the brand",
+          legend: [
+            { name: "Year to date (29 Jan–30 Sep)", color: C1 },
+            { name: "Since 1 Jul", color: C2 },
+          ],
+          rows: c.map((b) => ({
+            label: b.brand,
+            us: b.us,
+            bars: [
+              {
+                v: b.ytd,
+                cls: "s1",
+                text: `${b.ytd.toFixed(1)}%`,
+                tip: `<b>${b.brand}</b> · year to date<br>Visibility ${b.ytd.toFixed(1)}% · Share of voice ${b.sov.toFixed(1)}%`,
+              },
+              b.since == null ?
+                { na: true, text: "— since 1 Jul" }
+              : {
+                  v: b.since,
+                  cls: "s2",
+                  text: `${b.since.toFixed(1)}%`,
+                  tip: `<b>${b.brand}</b> · since 1 Jul<br>Visibility ${b.since.toFixed(1)}% (${b.change.t})`,
+                },
+            ],
+          })),
+          max: Math.max(...c.flatMap((b) => [b.ytd, b.since || 0])),
+        });
+        $("#table-compare").innerHTML = `
+    <table>
+      <thead><tr><th>Brand</th><th class="num">Visibility YTD</th><th class="num">Share of voice</th><th class="num">Since 1 Jul</th><th class="num">Change</th></tr></thead>
+      <tbody>${c
+        .map(
+          (b) => `
+        <tr${b.us ? ' class="us"' : ""}><td>${esc(b.brand)}</td><td class="num">${b.ytd.toFixed(1)}%</td><td class="num">${b.sov.toFixed(1)}%</td><td class="num">${b.since == null ? '<span class="muted">—</span>' : b.since.toFixed(1) + "%"}</td><td class="num">${dirCell(b.change)}</td></tr>`,
         )
         .join("")}
       </tbody>
