@@ -1038,6 +1038,15 @@
         font-size: 15px;
         max-width: 60ch;
       }
+      .cta p a {
+        color: var(--hds-aqua-300);
+        text-decoration: none;
+        font-weight: 500;
+        border-bottom: 1px solid rgba(30, 243, 228, 0.45);
+      }
+      .cta p a:hover {
+        border-bottom-color: var(--hds-aqua-300);
+      }
       .btn {
         display: inline-flex;
         align-items: center;
@@ -1602,21 +1611,22 @@
         </section>
 
         <!-- ───────────────────── CTA ──────────────────────────────── -->
-        <section class="cta" aria-label="Raise a request">
+        <section class="cta" aria-label="Contact">
           <div>
             <h3>Have a question about AI Search content or traffic?</h3>
             <p
-              >Raise a request with the Web Experience team and we'll pick it up
-              in the next issue.</p
+              >Write to the Web Experience team at
+              <a href="mailto:WebExperience_Team@here.com"
+                >WebExperience_Team@here.com</a
+              >. We'll answer directly, and the questions we hear most will
+              shape the next issue.</p
             >
           </div>
           <a
             class="btn"
-            href="https://here-technologies.atlassian.net/jira/software/c/projects/HXP/form/1730"
-            target="_blank"
-            rel="noopener"
+            href="mailto:WebExperience_Team@here.com?subject=AI%20Search%20Update%20%E2%80%94%20question"
           >
-            Raise a request in Jira
+            Email the team
             <svg
               viewBox="0 0 24 24"
               fill="none"
