@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
     <title
-      >AI Search Update · Issue 01 · October 2026 — HERE Web Experience</title
+      >AI Search Update · Issue 02 · November 2026 — HERE Web Experience</title
     >
     <meta
       name="description"
-      content="Monthly AI Search Performance update from the HERE Web Experience team: AI Citations, Human Referrals, Visibility Score and what it means."
+      content="Monthly AI Search Performance update from the HERE Web Experience team: AI Citations, Human Referrals (organic and paid), Visibility Score and AI Bot Traffic."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -84,6 +84,7 @@
         --accent-tint: var(--hds-aqua-050);
         --c1: var(--hds-aqua-500); /* chart slot 1 */
         --c2: var(--hds-blue-600); /* chart slot 2 */
+        --c3: var(--hds-blue-300); /* chart slot 3 · paid */
         --pos: var(--hds-green-800);
         --neg: var(--hds-red-600);
         --font:
@@ -295,9 +296,26 @@
 
       .kpis {
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: 12px;
         margin-top: 40px;
+      }
+      .kpi.paid {
+        border-color: rgba(117, 128, 239, 0.45);
+        background: rgba(31, 40, 232, 0.12);
+      }
+      .kpi .k-tag {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        background: var(--hds-blue-500);
+        color: #fff;
+        border-radius: 999px;
+        padding: 3px 8px;
       }
       .kpi {
         position: relative;
@@ -327,7 +345,7 @@
         margin-top: 4px;
       }
       .kpi .k-value {
-        font-size: clamp(34px, 3.6vw, 44px);
+        font-size: clamp(30px, 3vw, 40px);
         font-weight: 700;
         letter-spacing: -1.4px;
         line-height: 1.05;
@@ -354,6 +372,21 @@
       }
       .kpi .k-delta .arr {
         font-size: 11px;
+      }
+      .kpi .k-delta2 {
+        display: block;
+        margin-top: 8px;
+        font-size: 12.5px;
+        line-height: 1.4;
+        color: var(--hds-gray-300);
+      }
+      .kpi .k-delta2 b {
+        color: var(--hds-gray-50);
+        font-weight: 500;
+      }
+      .meaning p b {
+        color: var(--hds-gray-50);
+        font-weight: 700;
       }
       .meaning {
         margin-top: 20px;
@@ -507,6 +540,335 @@
       .sowhat p {
         max-width: none;
       }
+      .sowhat.restate {
+        background: var(--hds-yellow-200);
+        border-left-color: var(--hds-yellow-600);
+      }
+      .sowhat.restate .lbl {
+        color: var(--hds-yellow-950);
+      }
+      .flag {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        background: var(--hds-yellow-200);
+        color: var(--hds-yellow-950);
+        border: 1px solid var(--hds-yellow-600);
+        border-radius: 999px;
+        padding: 2px 9px;
+        white-space: nowrap;
+      }
+
+      /* ── Organic vs paid callout ───────────────────────────────── */
+      .split {
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 12px;
+      }
+      .split .cell {
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 18px 20px;
+        background: var(--hds-gray-10);
+        position: relative;
+      }
+      .split .cell.paid {
+        border-color: var(--hds-blue-300);
+        background: #f4f5ff;
+      }
+      .split .tag {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-radius: 999px;
+        padding: 3px 9px;
+        background: var(--hds-gray-1000);
+        color: var(--hds-aqua-300);
+      }
+      .split .cell.paid .tag {
+        background: var(--hds-blue-600);
+        color: #fff;
+      }
+      .split .big {
+        margin-top: 10px;
+        font-size: 36px;
+        font-weight: 700;
+        letter-spacing: -1.2px;
+        line-height: 1;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .split .big small {
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0;
+        color: var(--ink-3);
+      }
+      .split .stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 14px;
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--ink-2);
+      }
+      .split .stats b {
+        color: var(--ink);
+        font-weight: 700;
+      }
+      .split .cell p {
+        margin-top: 10px;
+        font-size: 14px;
+        color: var(--ink-2);
+        max-width: none;
+        line-height: 1.45;
+      }
+      .split .share {
+        margin-top: 12px;
+        height: 10px;
+        border-radius: 999px;
+        background: var(--hds-gray-100);
+        overflow: hidden;
+        display: flex;
+      }
+      .split .share i {
+        display: block;
+        height: 100%;
+      }
+      .split .share .np {
+        background: var(--c1);
+      }
+      .split .share .pd {
+        background: var(--c2);
+      }
+      .split .cell.full {
+        grid-column: 1 / -1;
+        padding: 14px 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+        background: var(--surface);
+      }
+      .split .cell.full .share {
+        flex: 1 1 260px;
+        margin: 0;
+      }
+      .split .cell.full .key {
+        display: flex;
+        gap: 14px;
+        font-size: 13px;
+        color: var(--ink-2);
+      }
+      .split .cell.full .key span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .split .cell.full .key i {
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        display: inline-block;
+      }
+
+      /* ── Quality of visit strip ─────────────────────────────────── */
+      .quality {
+        margin-top: 24px;
+      }
+      .quality .chart-title {
+        margin-bottom: 10px;
+      }
+      .quality td.best {
+        font-weight: 700;
+        color: var(--accent-deep);
+      }
+
+      /* ── Engines → landing pages ────────────────────────────────── */
+      .eng-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        gap: 28px;
+        align-items: start;
+      }
+      .eng-rows {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 6px;
+      }
+      .eng-row {
+        display: grid;
+        grid-template-columns: 136px minmax(0, 1fr);
+        gap: 12px;
+        align-items: center;
+      }
+      .eng-row .name {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 1.2;
+        min-width: 0;
+      }
+      .eng-row .name span {
+        display: flex;
+        flex-direction: column;
+      }
+      .eng-row .name small {
+        font-weight: 400;
+        color: var(--ink-3);
+        font-size: 12px;
+      }
+      .eng-logo {
+        width: 20px;
+        height: 20px;
+        border-radius: 5px;
+        flex: none;
+        object-fit: contain;
+      }
+      .eng-mono {
+        width: 20px;
+        height: 20px;
+        border-radius: 5px;
+        flex: none;
+        background: var(--hds-gray-100);
+        color: var(--ink-2);
+        font-size: 9px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        letter-spacing: 0;
+      }
+      .eng-track {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 22px;
+      }
+      .eng-seg {
+        display: flex;
+        height: 16px;
+        border-radius: 4px;
+        overflow: hidden;
+        min-width: 2px;
+      }
+      .eng-seg i {
+        display: block;
+        height: 100%;
+      }
+      .eng-seg .org {
+        background: var(--c1);
+      }
+      .eng-seg .pd {
+        background: var(--c2);
+      }
+      .eng-val {
+        font-size: 13px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .eng-val small {
+        font-weight: 400;
+        color: var(--ink-3);
+      }
+      .lp-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .lp {
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        background: var(--hds-gray-10);
+        padding: 14px 16px 12px;
+      }
+      .lp-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+      .lp-head h4 {
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .lp-head span {
+        font-size: 12.5px;
+        color: var(--ink-3);
+        white-space: nowrap;
+      }
+      .lp-head span b {
+        color: var(--ink);
+        font-weight: 700;
+      }
+      .lp-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 44px;
+        gap: 8px;
+        align-items: center;
+        font-size: 13px;
+        padding: 4px 0;
+      }
+      .lp-row .pg {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        min-width: 0;
+      }
+      .lp-row .pg span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: var(--ink-2);
+      }
+      .lp-row .pg span.paid::after {
+        content: "paid";
+        margin-left: 6px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        color: #fff;
+        background: var(--hds-blue-600);
+        border-radius: 999px;
+        padding: 1px 6px;
+        vertical-align: 1px;
+      }
+      .lp-row .lpbar {
+        height: 6px;
+        border-radius: 3px;
+        background: var(--c1);
+      }
+      .lp-row .lpbar.pd {
+        background: var(--c2);
+      }
+      .lp-row .n {
+        text-align: right;
+        font-weight: 700;
+        font-size: 13px;
+        cursor: default;
+      }
+      .chip .lg {
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+        object-fit: contain;
+      }
       .src {
         margin-top: 12px;
         font-size: 12px;
@@ -593,6 +955,9 @@
       }
       .dir.up {
         color: var(--pos);
+      }
+      .dir.flat {
+        color: var(--ink-3);
       }
       .dir.down {
         color: var(--neg);
@@ -716,6 +1081,9 @@
       }
       .bar.s2 {
         background: var(--c2);
+      }
+      .bar.s3 {
+        background: var(--c3);
       }
       .bar.pos {
         background: var(--pos);
@@ -905,6 +1273,16 @@
       .chip.behind b {
         color: var(--ink-3);
       }
+      .chip i {
+        font-style: normal;
+        font-size: 12px;
+        color: var(--ink-3);
+      }
+      .chip.muted-chip {
+        color: var(--ink-3);
+        border-style: dashed;
+        background: transparent;
+      }
       .hero-num {
         font-size: 44px;
         font-weight: 700;
@@ -957,14 +1335,25 @@
         line-height: 1.45;
       }
 
-      /* ── Updates placeholders ──────────────────────────────────── */
+      /* ── Updates ───────────────────────────────────────────────── */
       .updates {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 12px;
       }
-      .update {
+      .update.placeholder {
         border: 1.5px dashed var(--hds-gray-300);
+      }
+      .update.placeholder h3,
+      .update.placeholder p {
+        color: var(--ink-3);
+        font-style: italic;
+      }
+      .update.placeholder .ph {
+        margin-top: 0;
+      }
+      .update {
+        border: 1px solid var(--line);
         border-radius: var(--radius);
         padding: 22px;
         background: var(--surface);
@@ -975,6 +1364,7 @@
       }
       .update .ph {
         align-self: flex-start;
+        margin-top: auto;
         font-size: 11px;
         font-weight: 700;
         letter-spacing: 1px;
@@ -984,19 +1374,70 @@
         border-radius: 999px;
         padding: 3px 9px;
       }
-      .update h4 {
+      .update h3 {
         font-size: 18px;
-        color: var(--ink-3);
-        font-style: italic;
-        font-weight: 500;
         letter-spacing: -0.4px;
       }
       .update p {
         font-size: 14px;
-        color: var(--ink-3);
-        font-style: italic;
+        color: var(--ink-2);
         line-height: 1.5;
         max-width: none;
+      }
+
+      /* ── Previous issues ───────────────────────────────────────── */
+      .issues {
+        margin-top: 56px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: clamp(20px, 3vw, 28px) clamp(20px, 3vw, 32px);
+      }
+      .issues-head h3 {
+        margin-top: 8px;
+      }
+      .issue-list {
+        list-style: none;
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+      }
+      .issue-item {
+        display: grid;
+        grid-template-columns: 110px minmax(0, 1fr) auto;
+        gap: 16px;
+        align-items: center;
+        padding: 12px 0;
+        border-top: 1px solid var(--line);
+        font-size: 15px;
+      }
+      .issue-item:first-child {
+        border-top: 0;
+      }
+      .issue-no {
+        font-weight: 700;
+      }
+      .issue-meta {
+        color: var(--ink-2);
+      }
+      .issue-now {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--accent-deep);
+      }
+      .issue-link {
+        font-weight: 700;
+        color: var(--accent-deep);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(0, 166, 154, 0.35);
+      }
+      .issue-link:hover {
+        border-bottom-color: var(--accent-deep);
+      }
+      .topnav a.archive {
+        color: var(--hds-aqua-300);
       }
 
       /* ── CTA & footer ──────────────────────────────────────────── */
@@ -1116,7 +1557,7 @@
       /* ── Responsive ────────────────────────────────────────────── */
       @media (max-width: 980px) {
         .kpis {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
+          grid-template-columns: repeat(3, minmax(0, 1fr));
         }
         .multiples {
           grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1125,10 +1566,20 @@
           grid-template-columns: repeat(3, minmax(0, 1fr));
         }
         .updates {
-          grid-template-columns: 1fr;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
       @media (max-width: 820px) {
+        .updates,
+        .split,
+        .eng-grid,
+        .lp-grid {
+          grid-template-columns: 1fr;
+        }
+        .issue-item {
+          grid-template-columns: 1fr;
+          gap: 4px;
+        }
         .two-col,
         .two-col.wide-right {
           grid-template-columns: 1fr;
@@ -1147,11 +1598,13 @@
           display: none;
         }
       }
-      @media (max-width: 560px) {
+      @media (max-width: 680px) {
         .kpis {
           grid-template-columns: 1fr 1fr;
           gap: 8px;
         }
+      }
+      @media (max-width: 560px) {
         .kpi {
           padding: 16px;
         }
@@ -1232,6 +1685,184 @@
           padding-top: 24px;
         }
       }
+
+      /* ── Issue 02 rev. 10 Nov: trend table, channel KPIs, engine ranks ── */
+      .trend table { min-width: 860px; }
+      .trend thead tr.grp th {
+        text-align: center;
+        font-size: 11px;
+        padding: 8px 12px 4px;
+        border-bottom: 0;
+        color: var(--ink-3);
+      }
+      .trend thead tr.grp th span {
+        display: block;
+        border-bottom: 2px solid var(--line-2);
+        padding-bottom: 4px;
+      }
+      .trend .split-l { border-left: 1px solid var(--line-2); }
+      .trend th.oct, .trend td.oct { background: rgba(0, 166, 154, 0.07); }
+      .trend td.oct { font-weight: 700; }
+      .trend tbody tr.group td {
+        background: var(--hds-gray-10);
+        font-size: 11.5px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        padding: 9px 12px 7px;
+      }
+      .trend td:first-child, .trend th:first-child {
+        position: sticky;
+        left: 0;
+        background: var(--surface);
+        z-index: 1;
+      }
+      .trend thead th:first-child { background: var(--hds-gray-10); }
+      .trend tbody tr.group td:first-child { background: var(--hds-gray-10); }
+      .src-tag {
+        display: inline-block;
+        margin-left: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: var(--hds-gray-100);
+        color: var(--ink-2);
+        vertical-align: 1px;
+        white-space: nowrap;
+      }
+      .src-tag.pf { background: var(--accent-tint); color: var(--accent-deep); }
+      .dir.new { color: var(--hds-blue-600); }
+      .channels table { min-width: 760px; }
+      .channels thead th { white-space: normal; vertical-align: bottom; padding: 10px 10px; }
+      .channels tbody td { padding: 10px 10px; }
+      .channels td.best { color: var(--accent-deep); font-weight: 700; }
+      .channels .cnt { display: block; font-size: 12px; color: var(--ink-3); font-weight: 400; }
+      .ytd { margin-top: 26px; }
+      .ytd-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 12px;
+      }
+      .ytd-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 16px 18px;
+        background: var(--hds-gray-10);
+      }
+      .ytd-card h4 { font-size: 15px; margin-bottom: 10px; }
+      .ytd-card .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 10px;
+        font-size: 14px;
+        color: var(--ink-2);
+        padding: 3px 0;
+      }
+      .ytd-card .row b { color: var(--ink); font-size: 16px; }
+      .ranks {
+        display: grid;
+        grid-template-columns: minmax(0, 5fr) minmax(0, 9fr);
+        gap: 12px;
+        margin-top: 28px;
+      }
+      .rank-hero {
+        border: 1.5px solid var(--accent);
+        background: var(--accent-tint);
+        border-radius: var(--radius-sm);
+        padding: 20px 22px;
+      }
+      .eng-name {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        font-size: 18px;
+      }
+      .eng-name img { width: 30px; height: 30px; border-radius: 6px; }
+      .rank-big {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 6px 14px;
+        margin: 14px 0 8px;
+        font-size: 64px;
+        font-weight: 700;
+        letter-spacing: -2px;
+        line-height: 1;
+        color: var(--accent-deep);
+      }
+      .rank-big small { font-size: 15px; font-weight: 400; letter-spacing: 0; color: var(--ink-2); }
+      .rank-hero p { font-size: 15px; max-width: none; }
+      .rank-hero .note { margin-top: 4px; font-size: 13px; color: var(--ink-3); }
+      .rank-rest {
+        border: 1px solid var(--line);
+        background: var(--hds-gray-10);
+        border-radius: var(--radius-sm);
+        padding: 20px 22px;
+      }
+      .rank-rest .top { display: flex; align-items: center; gap: 20px; }
+      .rank-rest .num { font-size: 64px; font-weight: 700; letter-spacing: -2px; line-height: 1; flex: none; }
+      .rank-rest h4 { font-size: 18px; margin-bottom: 4px; }
+      .rank-rest p { font-size: 15px; color: var(--ink-2); max-width: none; }
+      .eng-logos {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 18px;
+      }
+      .eng-logos span {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        text-align: center;
+        font-size: 12.5px;
+        line-height: 1.25;
+        color: var(--ink-2);
+      }
+      .eng-logos img { width: 30px; height: 30px; border-radius: 6px; }
+      .facts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 12px;
+      }
+      .fact {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 16px 20px;
+      }
+      .fact .big { flex: none; font-size: 44px; font-weight: 700; letter-spacing: -1.5px; line-height: 1; }
+      .fact .big.teal { color: var(--accent); }
+      .fact p { font-size: 15px; max-width: none; }
+      .sub-head {
+        margin-top: 32px;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+        color: var(--ink-3);
+      }
+      @media (max-width: 980px) {
+        .ytd-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+      @media (max-width: 820px) {
+        .ranks, .facts { grid-template-columns: 1fr; }
+        .eng-logos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      }
+      @media (max-width: 560px) {
+        .ytd-grid { grid-template-columns: 1fr; }
+        .rank-big, .rank-rest .num { font-size: 52px; }
+        .fact .big { font-size: 36px; }
+      }
     </style>
   </head>
   <body>
@@ -1249,18 +1880,20 @@
             <a href="#glance">01 At a glance</a>
             <a href="#scorecard">02 Scorecard</a>
             <a href="#updates">03 Updates</a>
+            <a href="#issues" class="archive">Previous issues</a>
           </nav>
-          <span class="issue-tag" id="issue-tag">Issue 01 · October 2026</span>
+          <span class="issue-tag" id="issue-tag">Issue 02 · November 2026</span>
         </div>
 
         <section class="hero" id="glance" aria-labelledby="glance-title">
           <p class="eyebrow">01 · AI search at a glance</p>
           <h1 id="glance-title"
-            >AI is now a meaningful acquisition channel for HERE</h1
+            >A record month for Human Referrals: organic vs paid</h1
           >
           <p class="lede"
-            >Year to date, to <strong id="data-to">30 Sep 2026</strong>. AI
-            Citations and Human Referrals have scaled sharply since Q1.
+            >Year to date, to <strong id="data-to">31 Oct 2026</strong>.
+            October was the first month with ChatGPT Ads live, so this issue
+            reports organic and paid Human Referrals separately.
           </p>
 
           <div class="kpis" id="kpis" role="list"></div>
@@ -1268,10 +1901,13 @@
           <div class="meaning">
             <strong>What it means</strong>
             <p
-              >Citations and clicks are scaling fast. Visibility dropped from
-              35% to 34.7% — but not because we're cited less. Citations are up
-              ~5x. More competitors just entered the same answer pool and also,
-              the total no. of tracked prompts went up.
+              >Of the <b>15.5K</b> people AI sent to HERE.com in October, about
+              <b>10.7K</b> clicked a ChatGPT ad and about <b>4.8K</b> arrived
+              organically, a third more than in September. Visibility now reads
+              <b>29.4%</b>, and HERE ranks <b>#4</b> among competitors, down
+              from the #2 we reported for September. That move comes from the
+              October prompt review, which retired 161 of our 500 prompts: on
+              the new set, September reads #4 too.
             </p>
           </div>
         </section>
@@ -1283,15 +1919,13 @@
         <!-- ───────────────────── 02 · SCORECARD ───────────────────── -->
         <section id="scorecard" aria-labelledby="scorecard-title">
           <div class="section-head">
-            <p class="section-num">02 · AI search scorecard · Q3 2026</p>
+            <p class="section-num">02 · AI search scorecard · October 2026</p>
             <h2 id="scorecard-title"
               >Five AI Search terms we use throughout this update</h2
             >
             <p
-              >The Web Experience team's AI search scorecard, updated with
-              Profound data to 30 Sep 2026. We track
-              <strong>500 buyer-style questions</strong> across
-              <strong>19 topics</strong>, asked daily of
+              >We currently track <strong>339 buyer-style questions</strong>
+              across <strong>19 topics</strong>, asked daily of
               <strong>nine AI engines</strong>.</p
             >
           </div>
@@ -1314,15 +1948,15 @@
             <div class="gloss"
               ><h4>Topic</h4
               ><p
-                >A group of related prompts. "Fleet Routing" holds 45 of them.
-                We track 19 topics.</p
+                >A group of related prompts, such as "Fleet Routing" or
+                "Location AI agents". We track 19 topics.</p
               ></div
             >
             <div class="gloss"
               ><h4>Human Referrals</h4
               ><p
                 >Real people who visited HERE.com after clicking a link in an AI
-                chat response.</p
+                chat response. Organic unless marked paid.</p
               ></div
             >
             <div class="gloss"
@@ -1341,81 +1975,80 @@
             >
           </div>
 
-          <!-- 1. Search shift -->
+          <!-- 1. Search shift: trend by period -->
           <article class="card" id="s1" aria-labelledby="s1-title">
             <div class="card-head"
               ><span class="card-index">1</span
               ><h3 id="s1-title"
-                >The search shift: organic down, AI climbing</h3
+                >The search shift: organic down, AI climbing, paid in the
+                mix</h3
               ></div
             >
             <p class="intro"
               >Traditional organic traffic fell year on year while Human
-              Referrals from AI search went from almost nothing to a measurable
-              channel.</p
+              Referrals from AI search grew into a measurable channel. The last
+              column compares October with September.</p
             >
-            <div class="two-col wide-right">
-              <div class="chart" id="chart-shift"></div>
-              <div class="table-wrap" id="table-shift"></div>
-            </div>
+            <div class="table-wrap trend" id="table-trend"></div>
             <div class="sowhat"
               ><span class="lbl">Insight</span
               ><p
-                >AI has won back 28K of the 77K visitors organic lost, and Q3
-                was the biggest quarter yet for Human Referrals. Buyers now
-                arrive having done their research in ChatGPT, so our pages need
-                to answer on pricing, comparisons and proof.
-              </p>
-              <p style="margin-top: 8px">
-                <strong>Why Adobe shows a smaller number.</strong> Adobe
-                Analytics records 6,000 AI search unique visitors year to date,
-                against 28,200 Human Referrals in Profound. The gap is mostly
-                measurement, not traffic: Adobe can only count visitors who
-                accept cookies under GDPR consent, so a large share of
-                AI-referred sessions never reach it. Profound measures referrals
-                at the server level, which consent choices don't affect. Treat
-                Profound as the fuller picture and Adobe as the consented floor.
-              </p>
-            </div>
+                >Organic traffic keeps sliding: visitors fell from 207K in Q1 to
+                180K in Q3, and another 10% in October.</p
+              ><p style="margin-top: 6px"
+                >AI search grew alongside it: Profound's organic AI traffic rose
+                from 2.9K in Q1 to 12.9K in Q3, and ChatGPT Ads added 10.7K
+                paid visits in October.</p
+              ></div
+            >
             <p class="src"
-              >Source: Profound (Human Referrals, to 30 Sep 2026, rounded
-              totals). Adobe Analytics: 6,000 AI search unique visitors YTD
-              2026, cookie-consented sessions only.
-            </p>
+              >*Q1 is partial for Profound: tracking began 17 Feb 2026.
+              Profound months are rounded totals; organic = all human visits
+              minus ChatGPT Ads clicks. Adobe: HXP Core KPIs project, entry
+              engage and careers pages excluded; organic traffic = all organic
+              channels; form submits = visits with a form submit. Quarters add
+              up their months, so visitors are counted once a month and
+              quarter bounce rates are visitor-weighted. Sources: Profound
+              Agent Analytics and Ads Manager, Adobe Analytics, 1 Jan–31 Oct
+              2026.</p
+            >
           </article>
 
-          <!-- 2. Quarter by quarter -->
+          <!-- 2. Core KPIs by channel -->
           <article class="card" id="s2" aria-labelledby="s2-title">
             <div class="card-head"
               ><span class="card-index">2</span
-              ><h3 id="s2-title"
-                >Quarter by quarter (cumulative, year to date)</h3
-              ></div
+              ><h3 id="s2-title">Core KPIs by channel, October 2026</h3></div
             >
             <p class="intro"
-              >Every signal except visibility has compounded through the year.
-              Hover a point for the value.</p
+              >How visitors from each channel behave once they land on
+              HERE.com. Best value in each column in teal.</p
             >
-            <div class="multiples" id="chart-quarters"></div>
-            <div class="table-wrap" id="table-quarters"></div>
+            <div class="table-wrap channels" id="table-channels"></div>
+            <div class="ytd">
+              <p class="sub-head" style="margin-top: 0"
+                >Year to date · 1 Jan–2 Nov 2026 vs the same period of 2025</p
+              >
+              <div class="ytd-grid" id="ytd-grid"></div>
+            </div>
             <div class="sowhat"
               ><span class="lbl">Insight</span
               ><p
-                >Citations are up five-fold and turning into real visits (Human
-                Referrals). <br />Crawler traffic is the fastest-growing signal:
-                AI engines are indexing our content more efficiently due to
-                technical optimizations that were deployed in Q2 related to
-                Server-Side-Rendering (SSR) rendering; re-organized URL
-                structures to ensure readability by AI on first load; the
-                'Answer-First' Content architecture and more.</p
+                >AI organic is the smallest channel but brings the best-quality
+                visits: the lowest bounce rate (28.3%), the most pages per visit
+                (2.04), the highest share of high-value users (29.2%) and a 3.7%
+                form-submit rate, more than three times SEO and paid search.</p
+              ><p style="margin-top: 6px"
+                >The first ChatGPT Ads trial brought nearly five times as many
+                visitors, but they bounced 66% of the time and submitted 14
+                forms (0.3%). The team is now refining the ad journey.</p
               ></div
             >
             <p class="src"
-              >*Q1 is partial: citation tracking began 17 Feb 2026. AI Citations
-              = citation share × tracked citations, summed across the nine
-              engines. Visibility Score is for the period, not cumulative (Sep =
-              1–30 Sep). Human Referrals and AI Bot Traffic are Profound's
-              rounded totals. Source: Profound, to 30 Sep 2026.</p
+              >Adobe Analytics, marketing channels: 1–31 Oct 2026 (table) and
+              1 Jan–2 Nov 2026 against the same period of 2025 (year-to-date
+              cards). Rates are CTA clicks, high-value users and form submits
+              divided by unique visitors. Cookie-consented sessions only.</p
             >
           </article>
 
@@ -1426,147 +2059,174 @@
               ><h3 id="s3-title">How we compare</h3></div
             >
             <p class="intro"
-              >Visibility score by brand, year to date and since 1 July when
-              newer AI topics entered the tracking.</p
+              >Visibility score by brand, year to date and for October alone.
+              Change is October against September, in points.</p
             >
             <div class="two-col wide-right">
               <div class="chart" id="chart-compare"></div>
               <div class="table-wrap" id="table-compare"></div>
             </div>
-            <div class="panels">
-              <div class="panel">
-                <h4>By AI engine</h4>
-                <p><strong>#1 on 4 of 7 engines.</strong></p>
-                <div class="chips">
-                  <span class="chip"><b>#1</b> ChatGPT 46.1%</span>
-                  <span class="chip"><b>#1</b> Perplexity 45.3%</span>
-                  <span class="chip"><b>#1</b> Claude 39.4%</span>
-                  <span class="chip"><b>#1</b> Copilot 38.8%</span>
-                </div>
-                <p><strong>Behind on Google's own surfaces.</strong></p>
-                <div class="chips">
-                  <span class="chip behind"><b>#2</b> AI Mode 34.4%</span>
-                  <span class="chip behind"><b>#2</b> AI Overviews 31.7%</span>
-                  <span class="chip behind"><b>#2</b> Gemini 35.4%</span>
-                </div>
-              </div>
-              <div class="panel">
-                <h4>Quality of mention</h4>
-                <div class="hero-num"
-                  >2.3<small>average position when named</small></div
-                >
-                <p
-                  >The best in the set: Mapbox 3.8, Google Maps Platform 3.9,
-                  TomTom 4.1. When AI names HERE, it tends to name us first or
-                  second.</p
-                >
-              </div>
-            </div>
-            <div class="sowhat"
-              ><span class="lbl">Insight</span
-              ><p
-                >We lead year to date, but Google Maps Platform has led since
-                late June (39.3% vs our 35.0% since 1 Jul) as newer AI topics
-                entered the tracking. Mapbox is the one to watch, up 5.3 points.
-                We still win on quality: when AI names HERE, it names us first
-                or second.</p
-              ></div
-            >
-          </article>
 
-          <!-- 4. Established vs newer topics -->
-          <article class="card" id="s4" aria-labelledby="s4-title">
-            <div class="card-head"
-              ><span class="card-index">4</span
-              ><h3 id="s4-title"
-                >Established topics vs newer AI-era topics</h3
-              ></div
-            >
-            <p class="intro"
-              >The question set grew in late June. We still lead on the original
-              topics; the newer AI-era topics are where the gaps are.</p
-            >
-            <div class="rank-tiles">
-              <div class="rank"
-                ><span class="pos-badge lead">#1</span
-                ><div
-                  ><h4>11 original topics</h4
-                  ><p
-                    >Named in <strong>38%</strong> of answers, ahead of Google
-                    Maps Platform at 34%.</p
-                  ></div
-                ></div
-              >
-              <div class="rank"
-                ><span class="pos-badge">#4</span
-                ><div
-                  ><h4>8 newer AI-era topics</h4
-                  ><p
-                    >Named in <strong>29%</strong> of answers. Google Maps
-                    Platform leads at 51%, Mapbox 40%, Google 38%.</p
-                  ></div
-                ></div
-              >
+            <p class="sub-head">By AI engine · October 2026</p>
+            <div class="ranks">
+              <div class="rank-hero">
+                <div class="eng-name" data-logo="perplexity">Perplexity</div>
+                <div class="rank-big">#2 <small>same as September</small></div>
+                <p>21% of Perplexity answers name HERE.</p>
+                <p class="note">Partial month: data runs to 17 Oct.</p>
+              </div>
+              <div class="rank-rest">
+                <div class="top">
+                  <span class="num">#4</span>
+                  <div
+                    ><h4>on the other six engines</h4
+                    ><p>Behind Google Maps Platform, Google and Mapbox.</p></div
+                  >
+                </div>
+                <div class="eng-logos">
+                  <span data-logo="chatgpt">ChatGPT</span>
+                  <span data-logo="gemini">Gemini</span>
+                  <span data-logo="claude">Claude</span>
+                  <span data-logo="copilot">Copilot</span>
+                  <span data-logo="googleai">Google AI Mode</span>
+                  <span data-logo="aioverview">Google AI Overviews</span>
+                </div>
+              </div>
             </div>
-            <div class="two-col">
-              <div class="chart" id="chart-topics"></div>
-              <div class="table-wrap" id="table-topics"></div>
+            <div class="facts">
+              <div class="fact"
+                ><span class="big teal">35%</span
+                ><p
+                  >of <strong>ChatGPT</strong> answers name HERE. ChatGPT sends
+                  about 90% of our AI visitors.</p
+                ></div
+              >
+              <div class="fact"
+                ><span class="big">Top 3</span
+                ><p
+                  >When AI names HERE, we're usually in its
+                  <strong>top three</strong> (average position 3.2).</p
+                ></div
+              >
             </div>
             <div class="sowhat"
-              ><span class="lbl">Insight</span
+              ><span class="lbl">What it means</span
               ><p
-                >We haven't lost ground on established topics: still #1, every
-                week since February. The question set grew. New content is
-                underway, starting where the gap is smallest.</p
+                >Rankings are the same as September: #2 on Perplexity and #4
+                everywhere else. To move up from #4, we need to overtake Mapbox
+                and Google.</p
               ></div
             >
             <p class="src"
-              >GMP = Google Maps Platform. Visibility score, 28 Jun–30 Sep 2026,
-              all nine engines. Original set: AI in Logistics, AI in Supply
-              Chain, Automated Driving, EV Battery Range (×2), EV Charging
-              Optimization, Fleet Routing, Location Analytics Solutions,
-              Location API, Location Platform, Professional Navigation. Newer
-              set: the five topics above plus Dynamic Map Rendering, Map Data,
-              Geocoding and Search. Leader = best of the core competitor set; on
-              agentic routing, agent frameworks (CrewAI, LangGraph) and
-              Microsoft currently rank above every map provider. Five topics
-              added to Profound in September have no data yet and are excluded.
+              >Visibility score, all engines collected, 28 Jan–31 Oct 2026 (year
+              to date) and 1–31 Oct 2026 (October). Google Maps Platform covers
+              every answer that names the product (Google Maps, Google Maps
+              API, Google Cloud Maps Platform and other aliases). HERE's #4 in
+              October also counts Google, Profound's separate count of answers
+              that name Google without a product (33.8%). Perplexity data runs
+              to 17 Oct; Grok and Meta AI have had no data since the spring.
               Source: Profound.</p
             >
           </article>
 
-          <!-- 5. Pages -->
+          <!-- 4. Pages -->
           <article class="card" id="s5" aria-labelledby="s5-title">
             <div class="card-head"
-              ><span class="card-index">5</span
+              ><span class="card-index">4</span
               ><h3 id="s5-title">Which pages AI sends people to</h3></div
             >
             <p class="intro"
-              >Being cited and being clicked are two different things. The pages
-              that earn Human Referrals are product and platform pages, and
-              /products/wego has now overtaken the homepage.</p
+              >Being cited and being clicked are two different things. The
+              organic picture is unchanged: /products/wego and the homepage
+              lead. New this month, the ChatGPT Ads landing pages enter the
+              top ten on visits, with their paid clicks shown in their own
+              column.</p
             >
-            <div class="two-col">
+            <div class="two-col wide-right">
               <div class="chart" id="chart-pages"></div>
               <div class="table-wrap" id="table-pages"></div>
             </div>
             <div class="sowhat"
               ><span class="lbl">Insight</span
               ><p
-                >Being cited isn't the same as being clicked: /contact and
-                /why-here are among our most-cited pages and barely earn a Human
-                Referral. Product and platform pages earn the Human Referrals,
-                and ChatGPT sends around four in five of them (23.6K of
-                28.2K).</p
+                >Three of the top six pages by visits are October's ad landing
+                pages (/platform/routing, /map-data, /map-rendering): 7.2K of
+                their 9K visits are paid clicks, and they have fewer than 700
+                AI citations between them. On the organic side, /products/wego
+                and the homepage still lead, /developer keeps converting above
+                its weight, and /contact and /why-here are each cited 9K times
+                yet earn fewer than 300 visits.</p
               ></div
             >
             <p class="src"
-              >1 Jan–30 Sep 2026. AI Citations here = AI assistant bot visits to
-              the page; Human Referrals = human visits referred by AI. Source:
-              Profound Agent Analytics.</p
+              >1 Jan–31 Oct 2026. AI Citations = AI assistant bot visits to the
+              page. Paid Referrals = ChatGPT Ads clicks by landing page
+              (Profound Ads Manager, October); organic Human Referrals =
+              Profound's human visits to the page minus those clicks. Source:
+              Profound Agent Analytics and Ads Manager.</p
             >
           </article>
-        </section>
+
+          <!-- 5. Engines → landing pages -->
+          <article class="card" id="s6" aria-labelledby="s6-title">
+            <div class="card-head"
+              ><span class="card-index">5</span
+              ><h3 id="s6-title"
+                >Which engines send people, and where they land</h3
+              ></div
+            >
+            <p class="intro"
+              >ChatGPT sends nine in ten Human Referrals. The smaller engines
+              behave differently: Gemini, Claude and Copilot send people almost
+              entirely to /developer.</p
+            >
+            <div class="eng-grid">
+              <div class="chart">
+                <div class="chart-title"
+                  ><span>Human Referrals by engine</span
+                  ><span class="sub">year to date, 1 Jan–31 Oct</span></div
+                >
+                <div class="legend"
+                  ><span><i style="background: var(--c1)"></i>Organic</span
+                  ><span><i style="background: var(--c2)"></i>Paid (ChatGPT Ads)</span></div
+                >
+                <div class="eng-rows" id="eng-rows"></div>
+                <div class="chart-note"
+                  >Share is of all 43,800 Human Referrals. Organic = everything
+                  that is not a ChatGPT Ads click.</div
+                >
+              </div>
+              <div>
+                <div class="chart-title" style="margin-bottom: 10px"
+                  ><span>Top landing pages by engine</span
+                  ><span class="sub"
+                    >top 3 pages · share of that engine's referrals</span
+                  ></div
+                >
+                <div class="lp-grid" id="lp-grid"></div>
+              </div>
+            </div>
+            <div class="sowhat"
+              ><span class="lbl">Insight</span
+              ><p
+                >Two audiences arrive through two doors. ChatGPT brings the
+                broad, consumer-leaning traffic (WeGo, the homepage) and, since
+                October, the paid clicks onto the platform pages. Gemini,
+                Claude and Copilot are developer channels: /developer takes 32%
+                of Gemini's referrals, 26% of Claude's and 36% of Copilot's, far
+                ahead of any other page. That is the audience the DX strategy is
+                built for.</p
+              ></div
+            >
+            <p class="src"
+              >Human Referrals = human visits referred by an AI assistant, 1
+              Jan–31 Oct 2026 (Profound Agent Analytics, rounded totals). Paid
+              = ChatGPT Ads clicks by landing page (Profound Ads Manager,
+              October). Source: Profound.</p
+            >
+          </article>
+
+                </section>
 
         <!-- ───────────────────── 03 · UPDATES ─────────────────────── -->
         <section
@@ -1580,34 +2240,60 @@
           </div>
           <div class="updates">
             <div class="update"
-              ><h3>1. Developer Query Focus</h3
+              ><h3>1. Developer Query Focus → part of the DX strategy</h3
               ><p
-                >Profound surfaced that queries around Developer How To
-                technical depth represented 42.3% of a survey of 12,830 relevant
-                market prompts. The WebExp team are now working on parallel
-                pages that directly target this persona with implementation
-                walkthroughs and decision guides.
-              </p></div
-            >
-            <div class="update"
-              ><h3>2. Automated Optimizations</h3
-              ><p
-                >Our CMS now has an inbuilt "Clarity AI' to automatically apply
-                LLM-preferred "Answer first" content to every page on HERE.COM.
-                This is now applied to the backend of each page for AEO
-                crawlers.</p
+                >Profound surfaced that "developer how-to" questions with
+                technical depth make up 42.3% of a survey of 12,830 relevant
+                market prompts. That finding now sits inside the Developer
+                Experience (DX) strategy the Web Experience team is working on:
+                Wave 1 covers ten developer-facing pages, each mapped to its own
+                set of Profound prompts and to developer-specific FAQs.</p
               ></div
             >
             <div class="update"
-              ><h3>3. Prompt Reviews</h3
+              ><h3>2. AI-powered article creation</h3
               ><p
-                >We are currently at capacity with 500 tracked prompts but will
-                work with PPMK and Unified Marketing teams to review current
-                topic clusters and update to reflect new campaign pages and the
-                upcoming GTM updates to the site.</p
+                >The HERE360 team has built an AEO topic agent that suggests up
+                to 10 blog topics a month, based on HERE's share of voice and
+                visibility against competitors, and a second agent that drafts
+                articles on those topics. The team is targeting
+                <strong>11 AEO-optimised blog posts in November</strong> with
+                this workflow, to raise content output and strengthen HERE's
+                visibility in AI search.</p
+              ></div
+            >
+            <div class="update"
+              ><h3>3. AEO Action Plan rollout</h3
+              ><p
+                >We've started building action plans in Profound to share with
+                the teams we work with, including HERE360, Developer Advocacy,
+                Documentation and PPMK, so we can agree monthly targets and
+                content improvements faster. The work has to reach beyond
+                HERE.com, because AI engines draw their citations from across
+                the web.</p
               ></div
             >
           </div>
+        </section>
+
+        <!-- ───────────────────── PREVIOUS ISSUES ──────────────────── -->
+        <section class="issues" id="issues" aria-labelledby="issues-title">
+          <div class="issues-head">
+            <p class="section-num">Previous issues</p>
+            <h3 id="issues-title">Catch up on earlier issues</h3>
+          </div>
+          <ul class="issue-list">
+            <li class="issue-item current">
+              <span class="issue-no">Issue 02</span>
+              <span class="issue-meta">November 2026 · data to 31 Oct 2026</span>
+              <span class="issue-now">You are here</span>
+            </li>
+            <li class="issue-item">
+              <span class="issue-no">Issue 01</span>
+              <span class="issue-meta">October 2026 · data to 30 Sep 2026</span>
+              <a href="/issues/2026-09/" class="issue-link">Read issue 01 →</a>
+            </li>
+          </ul>
         </section>
 
         <!-- ───────────────────── CTA ──────────────────────────────── -->
@@ -1646,7 +2332,9 @@
             ><b>© 2026 HERE</b> · Confidential · Internal distribution
             only</span
           >
-          <span>Data: Profound · Adobe Analytics · to 30 Sep 2026</span>
+          <span
+            >Data: Profound · Adobe Analytics · to 31 Oct 2026</span
+          >
         </footer>
       </div>
     </main>
@@ -1659,270 +2347,291 @@
    (KPI tiles, charts, tables) renders from it.
    ══════════════════════════════════════════════════════════════ */
       const ISSUE = {
-        number: "01",
-        month: "October 2026",
-        dataTo: "30 Sep 2026",
+        number: "02",
+        month: "November 2026",
+        dataTo: "31 Oct 2026",
       };
 
       const DATA = {
-        /* Four KPIs, named and described exactly as in the AI Search Performance deck */
+        /* KPI tiles — names and definitions as in the AI Search Performance deck */
         kpis: [
           {
             name: "AI Citations",
             label:
               "How many times AI mentions or links back to HERE in its answers",
-            value: "232.9K",
-            delta: "+431% vs Q1",
+            value: "241.8K",
+            delta: "+8.9K in October",
             dir: "up",
+            delta2: "<b>+451% vs Q1</b> · Sep added 22.9K; fewer prompts and engines tracked in Oct",
           },
           {
             name: "Human Referrals",
-            label: "How many people came to us through AI?",
-            value: "28.2K",
-            delta: "+872% vs Q1",
+            label: "How many people came to us through AI? (organic)",
+            value: "33.1K",
+            delta: "+4.8K in Oct · +33% vs Sep",
             dir: "up",
+            delta2: "<b>+1,041% vs Q1</b> · ad clicks sit in the Paid Referrals tile",
           },
           {
             name: "Visibility Score",
             label: "How often does HERE show up in AI-generated answers?",
-            value: "34.7%",
-            delta: "−11 pts vs Q1",
-            dir: "down",
+            value: "29.4%",
+            delta: "+0.8 pts vs Sep · #4",
+            dir: "up",
+            delta2: "<b>−5.6 pts vs Q1</b> · restated on the current 339-prompt set (Sep 34.7% → 28.5%)",
           },
           {
-            name: "AI Bot Traffic",
+            name: "AI Bot Visits",
             label: "How often are AI crawlers visiting and indexing HERE.com?",
-            value: "3.6M",
-            delta: "46× Q1",
+            value: "4.4M",
+            delta: "+0.8M in October",
             dir: "up",
+            delta2: "<b>57× Q1</b> · AI-assistant crawling spiked in the last week of October",
+          },
+          {
+            name: "Paid Referrals",
+            label: "How many people clicked a HERE ad inside an AI answer?",
+            value: "10.7K",
+            delta: "New in October",
+            dir: "up",
+            delta2: "<b>€11.1K spend</b> · CTR 1.85% · CPC €1.04 · ChatGPT Ads, 4 campaigns",
+            paid: true,
           },
         ],
 
-        shift: {
-          lost: {
-            label: "Visitors lost from organic search",
-            sub: "H1 2026 vs H1 2025",
-            value: 77162,
-          },
-          gained: {
-            label: "Human Referrals from AI search (Profound)",
-            sub: "Year to date, to 30 Sep",
-            value: 28200,
-          },
-          adobe: {
-            label: "AI search unique visitors recorded in Adobe Analytics",
-            sub: "Year to date 2026 · consent-gated",
-            value: 6000,
-          },
-          rows: [
+        /* 1. Search shift by period. Profound = Agent Analytics (rounded; organic = human visits minus ad clicks) + Ads Manager.
+           Adobe = HXP | Core KPIs | GL project (segment excludes entry engage pages & careers), monthly; quarters = sum of months.
+           d: "up" | "down" | "new"; good: true (green) / false (red) */
+        trend: {
+          quarters: ["Q1", "Q2", "Q3"],
+          months: ["Jul", "Aug", "Sep", "Oct"],
+          groups: [
             {
-              channel: "Traditional organic search",
-              period: "H1 2026 vs H1 2025",
-              visitors: "198,417",
-              change: { t: "−77,162 (−28%)", d: "down" },
+              name: "Visitors",
+              rows: [
+                { m: "AI organic", src: "Profound", pf: true, v: ["2,900*", "12,390", "12,910", "4,880", "4,514", "≈3,600", "≈4,800"], c: ["+33%", "up", true] },
+                { m: "AI organic", src: "Adobe", v: ["2,662", "4,189", "5,093", "1,262", "2,172", "1,659", "897"], c: ["−46%", "down", false] },
+                { m: "AI paid · ChatGPT Ads", src: "Profound", pf: true, v: ["—", "—", "—", "—", "—", "—", "10,684"], c: ["New", "new"] },
+                { m: "AI paid", src: "Adobe", v: ["0", "0", "3", "0", "1", "2", "4,320"], c: ["New", "new"] },
+                { m: "Organic traffic, all channels", src: "Adobe", v: ["207,247", "192,840", "180,349", "59,606", "59,710", "61,033", "55,175"], c: ["−10%", "down", false] },
+              ],
             },
             {
-              channel: "Human Referrals from AI search (Profound)",
-              period: "Q1 2,900 · Q2 12,390 · Q3 12,910",
-              visitors: "28,200",
-              change: { t: "+28,200 new YTD", d: "up" },
+              name: "Form submits",
+              rows: [
+                { m: "Organic traffic", src: "Adobe", v: ["1,898", "1,960", "1,840", "601", "598", "641", "597"], c: ["−7%", "down", false] },
+                { m: "AI organic", src: "Adobe", v: ["51", "58", "125", "29", "43", "53", "33"], c: ["−38%", "down", false] },
+                { m: "AI paid", src: "Adobe", v: ["0", "0", "0", "0", "0", "0", "14"], c: ["New", "new"] },
+              ],
             },
             {
-              channel: "AI search unique visitors (Adobe Analytics)",
-              period: "Year to date 2026 · consent-gated",
-              visitors: "6,000",
-              change: null,
-            },
-            {
-              channel: "Form submits",
-              period: "Year on year",
-              visitors: "—",
-              change: { t: "−26%", d: "down" },
-            },
-            {
-              channel: "High-value users",
-              period: "Year on year",
-              visitors: "—",
-              change: { t: "−16%", d: "down" },
+              name: "Bounce rate (lower is better)",
+              rows: [
+                { m: "AI organic", src: "Adobe", v: ["27.2%", "30.0%", "30.0%", "27.4%", "31.2%", "30.3%", "28.3%"], c: ["−2.0 pts", "down", true] },
+                { m: "AI paid", src: "Adobe", v: ["—", "—", "—", "—", "—", "—", "66.3%"], c: ["New", "new"] },
+              ],
             },
           ],
         },
 
-        quarters: {
-          periods: ["Q1", "Q2", "Jul", "Aug", "Sep"],
-          series: [
-            {
-              name: "AI Citations",
-              scope: "cumulative YTD",
-              desc: "How many times AI mentions or links back to HERE in its answers",
-              values: [43900, 132600, 172800, 210000, 232900],
-              labels: ["43,900*", "132,600", "172,800", "210,000", "232,900"],
-              current: "232.9K",
-              delta: { t: "+431%", d: "up" },
-              max: 250000,
-              ticks: ["0", "250K"],
-            },
-            {
-              name: "Human Referrals",
-              scope: "cumulative YTD",
-              desc: "How many people came to us through AI?",
-              values: [2900, 15290, 20170, 24684, 28200],
-              labels: ["2,900*", "15,290", "20,170", "24,684", "28,200"],
-              current: "28.2K",
-              delta: { t: "+872%", d: "up" },
-              max: 30000,
-              ticks: ["0", "30K"],
-            },
-            {
-              name: "Visibility Score",
-              scope: "period, HERE",
-              desc: "How often does HERE show up in AI-generated answers?",
-              values: [46, 45, 35, 35, 34.7],
-              labels: ["~46%", "~45%", "~35%", "~35%", "34.7%"],
-              current: "34.7%",
-              delta: { t: "−11 pts", d: "down" },
-              max: 50,
-              ticks: ["0", "50%"],
-              unit: "%",
-            },
-            {
-              name: "AI Bot Traffic",
-              scope: "cumulative YTD",
-              desc: "How often are AI crawlers visiting and indexing HERE.com?",
-              values: [77800, 2100000, 2600000, 3100000, 3600000],
-              labels: ["77,800", "2.1M", "2.6M", "3.1M", "3.6M"],
-              current: "3.6M",
-              delta: { t: "46×", d: "up" },
-              max: 4000000,
-              ticks: ["0", "4M"],
-            },
-          ],
-        },
+        /* 2. Core KPIs by channel, Adobe Analytics marketing channels, 1–31 Oct 2026 (counts) */
+        channels: [
+          { ch: "AI search, organic", sub: "LLMs AI Organic", uv: 897, bounce: 28.3, ppv: 2.04, cta: 243, hvu: 262, forms: 33, us: true },
+          { ch: "AI search, paid", sub: "LLMs AI Paid · ChatGPT Ads", uv: 4320, bounce: 66.3, ppv: 1.07, cta: 523, hvu: 117, forms: 14 },
+          { ch: "Paid search", sub: "Paid Search", uv: 62006, bounce: 49.0, ppv: 1.57, cta: 11509, hvu: 10023, forms: 656 },
+          { ch: "Organic search", sub: "SEO", uv: 18015, bounce: 29.8, ppv: 1.82, cta: 4915, hvu: 4173, forms: 181 },
+        ],
+        /* Year to date 1 Jan–2 Nov 2026 vs same period 2025 */
+        ytd: [
+          { ch: "AI search, organic", uv: "12,610", uvC: ["+198%", "up", true], forms: "268", formsC: ["+267%", "up", true] },
+          { ch: "AI search, paid", uv: "4,441", uvC: ["New in 2026", "new"], forms: "15", formsC: ["New", "new"] },
+          { ch: "Paid search", uv: "733,403", uvC: ["+6%", "up", true], forms: "6,722", formsC: ["−19%", "down", false] },
+          { ch: "Organic search (SEO)", uv: "224,146", uvC: ["−25%", "down", false], forms: "2,066", formsC: ["−20%", "down", false] },
+        ],
 
-        /* Visibility score by brand: year to date (29 Jan–30 Sep) and since 1 Jul; change = Profound's change vs the prior period, in points */
+        /* 3. Visibility score by brand: ytd = 28 Jan–31 Oct (restated), sov = share of voice YTD, month = 1–31 Oct, change vs Sep in points */
         compare: [
           {
             brand: "HERE",
-            ytd: 41.7,
-            sov: 7.1,
-            since: 35.0,
-            change: { t: "−12.7 pts", d: "down" },
+            ytd: 32.8,
+            sov: 5.1,
+            month: 29.4,
+            rank: "#2 YTD · #4 Oct",
+            change: { t: "+0.8", d: "up" },
             us: true,
           },
           {
             brand: "Google Maps Platform",
-            ytd: 37.8,
-            sov: 6.3,
-            since: 39.3,
-            change: { t: "+2.0 pts", d: "up" },
+            ytd: 41.2,
+            sov: 6.4,
+            month: 44.9,
+            change: { t: "+3.7", d: "up" },
           },
           {
             brand: "Mapbox",
-            ytd: 24.6,
-            sov: 4.1,
-            since: 27.8,
-            change: { t: "+5.3 pts", d: "up" },
+            ytd: 27.9,
+            sov: 4.3,
+            month: 32.8,
+            change: { t: "+2.7", d: "up" },
           },
           {
             brand: "TomTom",
-            ytd: 16.5,
+            ytd: 18.0,
             sov: 2.7,
-            since: 14.0,
-            change: { t: "−3.9 pts", d: "down" },
+            month: 16.4,
+            change: { t: "+1.9", d: "up" },
           },
           {
             brand: "CARTO",
-            ytd: 4.7,
+            ytd: 4.9,
             sov: 0.8,
-            since: 4.6,
-            change: { t: "+0.1 pts", d: "up" },
+            month: 5.3,
+            change: { t: "+0.7", d: "up" },
           },
         ],
 
-        /* Newer AI-era topics, 28 Jun–30 Sep. Leader = best of the core competitor set (GMP, Google, Mapbox, TomTom) */
-        topics: [
-          {
-            topic: "Routing for agentic workflows",
-            here: 12,
-            leader: 26,
-            leaderName: "Google",
-            gap: "−14 pts",
-            plan: "Priority 1",
-          },
-          {
-            topic: "Grounding tools & services",
-            here: 27,
-            leader: 44,
-            leaderName: "GMP",
-            gap: "−17 pts",
-            plan: "Priority 2",
-          },
-          {
-            topic: "AI hallucination",
-            here: 18,
-            leader: 40,
-            leaderName: "GMP",
-            gap: "−22 pts",
-            plan: "Priority 3",
-          },
-          {
-            topic: "Orchestration & developer research",
-            here: 37,
-            leader: 66,
-            leaderName: "GMP",
-            gap: "−29 pts",
-            plan: "Next",
-          },
-          {
-            topic: "Location AI agents",
-            here: 21,
-            leader: 78,
-            leaderName: "GMP",
-            gap: "−57 pts",
-            plan: "Next",
-          },
-        ],
-
-        /* Pages, 1 Jan–30 Sep. cites = AI assistant bot visits to the page; visits = human visits referred by AI (Profound Agent Analytics) */
+        /* 4. Pages, 1 Jan–31 Oct. cites = AI assistant bot visits; visits = organic human visits referred by AI; paid = October ChatGPT Ads clicks */
         pages: [
-          {
-            page: "Homepage",
-            cites: 6000,
-            visits: 5000,
-            read: "Front door at both ends",
-          },
           {
             page: "/products/wego",
             cites: 2000,
             visits: 6000,
-            read: "Now our top page for Human Referrals",
+            paid: 0,
+            read: "Top organic page",
+          },
+          {
+            page: "Homepage",
+            cites: 6000,
+            visits: 5000,
+            paid: 0,
+            read: "Front door, both ends",
+          },
+          {
+            page: "/platform/routing",
+            cites: 461,
+            visits: 700,
+            approx: true,
+            paid: 3285,
+            read: "Ad landing page since 1 Oct",
+          },
+          {
+            page: "/platform/map-data",
+            cites: 607,
+            visits: 600,
+            approx: true,
+            paid: 2388,
+            read: "Ad landing page since 1 Oct",
           },
           {
             page: "/developer",
             cites: 2000,
             visits: 3000,
+            paid: 0,
             read: "Converts above its weight",
           },
           {
+            page: "/platform/map-rendering",
+            cites: 228,
+            visits: 500,
+            approx: true,
+            paid: 1485,
+            read: "Ad landing page since 1 Oct",
+          },
+          {
             page: "/get-started/pricing",
-            cites: 2000,
-            visits: 983,
+            cites: 4000,
+            visits: 1000,
+            paid: 0,
             read: "High intent",
           },
           {
             page: "/contact",
-            cites: 4000,
-            visits: 196,
+            cites: 9000,
+            visits: 216,
+            paid: 0,
             read: "Cited, not clicked",
           },
           {
             page: "/why-here",
-            cites: 3000,
-            visits: 43,
+            cites: 9000,
+            visits: 45,
+            paid: 0,
             read: "Cited, not clicked",
           },
         ],
+
+        /* 5. Engines → landing pages, 1 Jan–31 Oct (Profound Agent Analytics). paid = ChatGPT Ads clicks (Ads Manager, October) */
+        engines: {
+          all: 43800,
+          rows: [
+            { name: "ChatGPT", logo: "chatgpt", total: 39000, paid: 10684 },
+            { name: "Gemini", logo: "gemini", total: 2200 },
+            { name: "Claude", logo: "claude", total: 1100 },
+            { name: "Perplexity", logo: "perplexity", total: 954 },
+            { name: "Copilot", sub: "Microsoft", logo: "copilot", total: 353 },
+            { name: "DeepSeek", mono: "DS", total: 82 },
+            { name: "Grok", logo: "grok", total: 32 },
+          ],
+          panels: [
+            {
+              name: "ChatGPT",
+              logo: "chatgpt",
+              total: 39000,
+              pages: [
+                ["/products/wego", 6000],
+                ["Homepage", 5000],
+                ["/platform/routing", 4000, true],
+              ],
+            },
+            {
+              name: "Gemini",
+              logo: "gemini",
+              total: 2200,
+              pages: [
+                ["/developer", 694],
+                ["Homepage", 165],
+                ["/get-started/pricing", 123],
+              ],
+            },
+            {
+              name: "Claude",
+              logo: "claude",
+              total: 1100,
+              pages: [
+                ["/developer", 290],
+                ["Homepage", 46],
+                ["/get-started/pricing", 28],
+              ],
+            },
+            {
+              name: "Copilot",
+              logo: "copilot",
+              total: 353,
+              pages: [
+                ["/developer", 128],
+                ["/products/wego", 22],
+                ["/get-started/pricing", 19],
+              ],
+            },
+          ],
+        },
+
       };
+
+      /* Engine icons (official marks supplied by the team, embedded so the page stays single-file) */
+      const LOGOS = {
+        "chatgpt": "data:image/png;base64,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",
+        "gemini": "data:image/png;base64,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",
+        "claude": "data:image/png;base64,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",
+        "perplexity": "data:image/png;base64,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",
+        "copilot": "data:image/png;base64,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",
+        "grok": "data:image/png;base64,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",
+        "meta": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAYAAACohjseAAATB0lEQVR42u16a5RV1ZXu98219zl16smrAEVKRFEQ9AbB1jZGJJooUSOJVpnE25rO89qN0dYRtW9HzykdHVtNfKSHpjWva3cM5hxt22g0SauARk2UpyiKYngjUDyKop5n77W+++NUEVCRMp17f/RgjlHjnKrae+011/zWmt/85gYO2kE7aAftoB20/Ro/7A35vGzFZLBUKu37j62NbP7b01VsRiCpP3VCfxx/37/POHY+R07+r4//gQ8GZAO/R/0/BiDu/9zrastL9mHGl0RAexY87h/f9X/f25qLcn+2CEpiSwlWaqGPASxu04k3Pt410fX2nPdON+s37UjCxFFZGzvctbuamseuO809d2Qj1/V6YEZ+XjS/cLr/oBUngAuLcqUW+roMMHd5z/iH3q46m+Vw3pItYBpM08cEdHQnz142M7vkzJGYT7IXECXgQNHkgZwjKQJ4/HVNv+PJXZe9s63vko3d2ai7twyB8DQ4AI5ELguMrtXWmROz81pn19zWWMNFe4/z/uODAMMOqanwVLjj16t05qZuV18uAykrM4wCYBEwrkEYP5y///wx/nt/Mz36WUcvUCzKtbTQf2gH83lZayuDpNw35nZdueD1vhveaENVubsdMHm6CgLFvYZIA8HYqqtqML3J9ZxxnH37hnPqvkeyQ5KRDO9yDhLwz4v9xT9dyluXtNkhSbcH4D3cu6YWAHgAcewmHgJ8rCk88p2/tK82NHB7cz8C3s+PaD+RMxKSlPnKz8pzf7mM52/etBPMuNQyFgl0kN6zRowjGLx6093+2ddC7u3do2/anSSnSGoh2Tmw2gORq4oY7lvm7/jBUnfl8tUJGHlvEUwwKihgYDkMpKODA6AkvLFOWrU585n2cjiuW+UvV5PP7s/JaD+wDJJyLT/smfv4sr7zezq2JS4XRSEgkgBCACUJARAokkYCokACiKIa08ZNm5N7nhk2a+3OXFHSRSR3FyXXUgJqY/M3vaA7b34eV6zZmKQuKxdACykCXOSy9bBcBCQB6OoG1J2IsQSYMUOkStJHlsZHWbCHJX0GxPN4F0re66BEtsAk1Vzz773/+utlyfk9ndtTl43jECoRI4HglcIzYnWtc2bwSQqVu2QxPM2cBIQAuozLdHdtT59YOnxWy4/U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",
+        "aioverview": "data:image/png;base64,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",
+        "googleai": "data:image/png;base64,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"
+      };
+      const logoImg = (key, alt, cls = "lg") =>
+        LOGOS[key] ? `<img class="${cls}" src="${LOGOS[key]}" alt="${alt}" width="20" height="20">` : "";
 
       /* ══════════════════════════════════════════════════════════════
    RENDERING — you should not need to touch anything below.
@@ -1934,12 +2643,18 @@
           (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
         );
       const fmt = (n) => n.toLocaleString("en-US");
-      const arrow = (d) => (d === "up" ? "▲" : "▼");
+      const arrow = (d) => (d === "up" ? "▲" : d === "flat" ? "●" : "▼");
       const dirCell = (c) =>
         c ?
           `<span class="dir ${c.d}"><span class="arr">${arrow(c.d)}</span>${esc(c.t)}</span>`
         : '<span class="muted">—</span>';
       const tip = (html) => `data-tip="${esc(html)}" tabindex="0"`;
+
+
+      /* logos on the engine panel (card 3) */
+      document.querySelectorAll("[data-logo]").forEach((el) => {
+        el.insertAdjacentHTML("afterbegin", logoImg(el.dataset.logo, ""));
+      });
 
       /* issue meta */
       $("#issue-tag").textContent = `Issue ${ISSUE.number} · ${ISSUE.month}`;
@@ -1950,11 +2665,13 @@
       $("#kpis").innerHTML = DATA.kpis
         .map(
           (k) => `
-  <div class="kpi" role="listitem">
+  <div class="kpi${k.paid ? " paid" : ""}" role="listitem">
+    ${k.paid ? '<span class="k-tag">Paid</span>' : ""}
     <div class="k-name">${esc(k.name)}</div>
     <div class="k-label">${esc(k.label)}</div>
     <div class="k-value">${esc(k.value)}</div>
     <div class="k-delta ${k.dir}"><span class="arr">${arrow(k.dir)}</span>${esc(k.delta)}</div>
+    ${k.delta2 ? `<span class="k-delta2">${k.delta2}</span>` : ""}
   </div>`,
         )
         .join("");
@@ -1993,141 +2710,88 @@
     ${note ? `<div class="chart-note">${note}</div>` : ""}`;
       }
 
-      /* 1. Search shift ------------------------------------------------ */
+      /* change cell: arrow follows the number, colour follows good/bad */
+      const chg = (c) => {
+        if (!c) return '<span class="muted">—</span>';
+        const [t, d, good] = c;
+        if (d === "new") return `<span class="dir new"><span class="arr">●</span>${esc(t)}</span>`;
+        const cls = good ? "up" : "down";
+        return `<span class="dir ${cls}"><span class="arr">${d === "up" ? "▲" : "▼"}</span>${esc(t)}</span>`;
+      };
+
+      /* 1. Search shift by period ------------------------------------- */
       (() => {
-        const s = DATA.shift;
-        barChart($("#chart-shift"), {
-          title: "Lost vs. won back",
-          sub: "visitors",
-          rows: [
-            {
-              label: s.lost.label,
-              sub: s.lost.sub,
-              bars: [
-                {
-                  v: s.lost.value,
-                  cls: "neg",
-                  text: `−${fmt(s.lost.value)}`,
-                  tip: `<b>${s.lost.label}</b><br>−${fmt(s.lost.value)} (−28%)`,
-                },
-              ],
-            },
-            {
-              label: s.gained.label,
-              sub: s.gained.sub,
-              bars: [
-                {
-                  v: s.gained.value,
-                  cls: "pos",
-                  text: `+${fmt(s.gained.value)}`,
-                  tip: `<b>${s.gained.label}</b><br>+${fmt(s.gained.value)} new, year to date`,
-                },
-              ],
-            },
-            {
-              label: s.adobe.label,
-              sub: s.adobe.sub,
-              bars: [
-                {
-                  v: s.adobe.value,
-                  cls: "s2",
-                  text: `${fmt(s.adobe.value)}`,
-                  tip: `<b>${s.adobe.label}</b><br>${fmt(s.adobe.value)} unique visitors, year to date · only visitors who accept cookies are counted`,
-                },
-              ],
-            },
-          ],
-          max: s.lost.value,
-          stacked: true,
-          note: `On Profound's count, AI has recovered <strong>${Math.round((s.gained.value / s.lost.value) * 100)}%</strong> of the organic shortfall.`,
-        });
-        $("#table-shift").innerHTML = `
+        const t = DATA.trend;
+        const nq = t.quarters.length;
+        const cols = [...t.quarters, ...t.months];
+        const last = cols.length - 1;
+        const cls = (i) => [i === nq ? "split-l" : "", i === last ? "oct" : ""].join(" ").trim();
+        $("#table-trend").innerHTML = `
     <table>
-      <thead><tr><th>Channel</th><th>Period</th><th class="num">Visitors</th><th class="num">Change</th></tr></thead>
-      <tbody>${s.rows
+      <thead>
+        <tr class="grp"><th></th><th colspan="${nq}"><span>Quarters</span></th><th colspan="${t.months.length}" class="split-l"><span>Months</span></th><th></th></tr>
+        <tr><th>Metric</th>${cols.map((p, i) => `<th class="num ${cls(i)}">${esc(p)}</th>`).join("")}<th class="num">Oct vs Sep</th></tr>
+      </thead>
+      <tbody>${t.groups
         .map(
-          (r) => `
-        <tr><td class="strong">${esc(r.channel)}</td><td class="muted">${esc(r.period)}</td><td class="num">${esc(r.visitors)}</td><td class="num">${dirCell(r.change)}</td></tr>`,
+          (g) => `
+        <tr class="group"><td colspan="${cols.length + 2}">${esc(g.name)}</td></tr>${g.rows
+          .map(
+            (r) => `
+        <tr><td style="white-space:nowrap"><b>${esc(r.m)}</b><span class="src-tag${r.pf ? " pf" : ""}">${esc(r.src)}</span></td>${r.v
+          .map((v, i) => `<td class="num ${cls(i)}${v === "—" ? " muted" : ""}">${esc(v)}</td>`)
+          .join("")}<td class="num">${chg(r.c)}</td></tr>`,
+          )
+          .join("")}`,
         )
         .join("")}
       </tbody>
     </table>`;
       })();
 
-      /* 2. Quarter by quarter — small multiples ------------------------ */
-      function sparkline(svg, ser, periods) {
-        const W = svg.clientWidth || 300,
-          H = 84,
-          padL = 4,
-          padR = 8,
-          padT = 10,
-          padB = 6;
-        const n = ser.values.length;
-        const x = (i) => padL + (i / (n - 1)) * (W - padL - padR);
-        const y = (v) => padT + (1 - v / ser.max) * (H - padT - padB);
-        const pts = ser.values.map((v, i) => [x(i), y(v)]);
-        const path = pts
-          .map(
-            (p, i) => `${i ? "L" : "M"}${p[0].toFixed(1)},${p[1].toFixed(1)}`,
-          )
-          .join(" ");
-        const area = `${path} L${pts[n - 1][0].toFixed(1)},${y(0).toFixed(1)} L${pts[0][0].toFixed(1)},${y(0).toFixed(1)} Z`;
-        const last = pts[n - 1];
-        const band = (W - padL - padR) / (n - 1);
-        svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
-        svg.innerHTML = `
-    <line class="grid" x1="${padL}" x2="${W - padR}" y1="${y(ser.max)}" y2="${y(ser.max)}"></line>
-    <line class="grid" x1="${padL}" x2="${W - padR}" y1="${y(0)}" y2="${y(0)}"></line>
-    <text class="tick" x="${padL}" y="${y(ser.max) - 3}">${esc(ser.ticks[1])}</text>
-    <path class="ar" d="${area}"></path>
-    <path class="ln" d="${path}"></path>
-    <circle class="pt" cx="${last[0]}" cy="${last[1]}" r="4.5"></circle>
-    ${pts
-      .map(
-        (p, i) => `
-      <rect class="hit" x="${(p[0] - band / 2).toFixed(1)}" y="0" width="${band.toFixed(1)}" height="${H}"
-        ${tip(`<b>${ser.name}</b> · ${periods[i]}<br>${ser.labels[i]}`)} role="img" aria-label="${esc(periods[i])}: ${esc(ser.labels[i])}"></rect>`,
-      )
-      .join("")}`;
-      }
+      /* 2. Core KPIs by channel ---------------------------------------- */
       (() => {
-        const q = DATA.quarters;
-        const host = $("#chart-quarters");
-        host.innerHTML = q.series
+        const q = DATA.channels.map((r) => ({ ...r, ctaR: (r.cta / r.uv) * 100, hvuR: (r.hvu / r.uv) * 100, formR: (r.forms / r.uv) * 100 }));
+        const r1 = (v) => Math.round(v * 10) / 10;
+        const best = {
+          bounce: Math.min(...q.map((r) => r.bounce)),
+          ppv: Math.max(...q.map((r) => r.ppv)),
+          ctaR: Math.max(...q.map((r) => r1(r.ctaR))),
+          hvuR: Math.max(...q.map((r) => r1(r.hvuR))),
+          formR: Math.max(...q.map((r) => r1(r.formR))),
+        };
+        const b = (k, v) => (v === best[k] ? " best" : "");
+        $("#table-channels").innerHTML = `
+    <table>
+      <thead><tr><th>Channel</th><th class="num">Visitors</th><th class="num">Bounce rate<br><span class="muted" style="font-weight:400;text-transform:none;letter-spacing:0">lower is better</span></th><th class="num">Pages per visit</th><th class="num">CTA click rate<br><span class="muted" style="font-weight:400;text-transform:none;letter-spacing:0">clicks ÷ visitors</span></th><th class="num">High-value users<br><span class="muted" style="font-weight:400;text-transform:none;letter-spacing:0">share of visitors</span></th><th class="num">Form submits</th><th class="num">Form submit rate<br><span class="muted" style="font-weight:400;text-transform:none;letter-spacing:0">submits ÷ visitors</span></th></tr></thead>
+      <tbody>${q
+        .map(
+          (r) => `
+        <tr${r.us ? ' class="us"' : ""}><td class="strong" style="white-space:nowrap">${esc(r.ch)}<br><span class="muted" style="font-weight:400;font-size:12px">${esc(r.sub)}</span></td>
+          <td class="num">${fmt(r.uv)}</td>
+          <td class="num${b("bounce", r.bounce)}">${r.bounce.toFixed(1)}%</td>
+          <td class="num${b("ppv", r.ppv)}">${r.ppv.toFixed(2)}</td>
+          <td class="num${b("ctaR", r1(r.ctaR))}">${r.ctaR.toFixed(1)}%<span class="cnt">${fmt(r.cta)} clicks</span></td>
+          <td class="num${b("hvuR", r1(r.hvuR))}">${r.hvuR.toFixed(1)}%<span class="cnt">${fmt(r.hvu)} users</span></td>
+          <td class="num">${fmt(r.forms)}</td>
+          <td class="num${b("formR", r1(r.formR))}">${r.formR.toFixed(1)}%</td></tr>`,
+        )
+        .join("")}
+      </tbody>
+    </table>`;
+        $("#ytd-grid").innerHTML = DATA.ytd
           .map(
-            (s, i) => `
-    <div class="sm">
-      <div class="sm-head"><h4>${esc(s.name)}</h4></div>
-      <div class="sm-val"><span>${esc(s.current)}</span><span class="d dir ${s.delta.d}"><span class="arr">${arrow(s.delta.d)}</span>${esc(s.delta.t)} vs Q1</span></div>
-      <svg data-i="${i}" aria-label="${esc(s.name)} by period" role="img"></svg>
-      <div class="axis">${q.periods.map((p) => `<span>${esc(p)}</span>`).join("")}</div>
+            (y) => `
+    <div class="ytd-card">
+      <h4>${esc(y.ch)}</h4>
+      <div class="row"><span><b>${esc(y.uv)}</b> visitors</span>${chg(y.uvC)}</div>
+      <div class="row"><span><b>${esc(y.forms)}</b> form submits</span>${chg(y.formsC)}</div>
     </div>`,
           )
           .join("");
-        const draw = () =>
-          host
-            .querySelectorAll("svg")
-            .forEach((svg) =>
-              sparkline(svg, q.series[+svg.dataset.i], q.periods),
-            );
-        draw();
-        if ("ResizeObserver" in window) new ResizeObserver(draw).observe(host);
-        else window.addEventListener("resize", draw);
-
-        $("#table-quarters").innerHTML = `
-    <table>
-      <thead><tr><th>Metric</th><th>What it answers</th>${q.periods.map((p) => `<th class="num">${esc(p)}</th>`).join("")}<th class="num">vs Q1</th></tr></thead>
-      <tbody>${q.series
-        .map(
-          (s) => `
-        <tr><td class="strong">${esc(s.name)}<br><span class="muted" style="font-weight:400;font-size:12px">${esc(s.scope)}</span></td><td class="muted">${esc(s.desc)}</td>${s.labels.map((l, i) => `<td class="num${i === s.labels.length - 1 ? " strong" : ""}">${esc(l)}</td>`).join("")}<td class="num">${dirCell(s.delta)}</td></tr>`,
-        )
-        .join("")}
-      </tbody>
-    </table>`;
       })();
 
-      /* 3. How we compare --------------------------------------------- */
+      /* 3. How we compare (brand chart + table) --------------------------------------------- */
       (() => {
         const c = DATA.compare;
         const C1 = getComputedStyle(document.documentElement)
@@ -2140,8 +2804,8 @@
           title: "Visibility score by brand",
           sub: "% of AI answers that name the brand",
           legend: [
-            { name: "Year to date (29 Jan–30 Sep)", color: C1 },
-            { name: "Since 1 Jul", color: C2 },
+            { name: "Year to date (28 Jan–31 Oct, restated)", color: C1 },
+            { name: "October", color: C2 },
           ],
           rows: c.map((b) => ({
             label: b.brand,
@@ -2151,82 +2815,34 @@
                 v: b.ytd,
                 cls: "s1",
                 text: `${b.ytd.toFixed(1)}%`,
-                tip: `<b>${b.brand}</b> · year to date<br>Visibility ${b.ytd.toFixed(1)}% · Share of voice ${b.sov.toFixed(1)}%`,
+                tip: `<b>${b.brand}</b> · year to date<br>Visibility ${b.ytd.toFixed(1)}% · Share of voice ${b.sov.toFixed(1)}%${b.rank ? ` · ${b.rank}` : ""}`,
               },
-              b.since == null ?
-                { na: true, text: "— since 1 Jul" }
+              b.month == null ?
+                { na: true, text: "— October" }
               : {
-                  v: b.since,
+                  v: b.month,
                   cls: "s2",
-                  text: `${b.since.toFixed(1)}%`,
-                  tip: `<b>${b.brand}</b> · since 1 Jul<br>Visibility ${b.since.toFixed(1)}% (${b.change.t})`,
+                  text: `${b.month.toFixed(1)}%`,
+                  tip: `<b>${b.brand}</b> · October<br>Visibility ${b.month.toFixed(1)}% (${b.change.t} pts vs Sep)`,
                 },
             ],
           })),
-          max: Math.max(...c.flatMap((b) => [b.ytd, b.since || 0])),
+          max: Math.max(...c.flatMap((b) => [b.ytd, b.month || 0])),
         });
         $("#table-compare").innerHTML = `
     <table>
-      <thead><tr><th>Brand</th><th class="num">Visibility YTD</th><th class="num">Share of voice</th><th class="num">Since 1 Jul</th><th class="num">Change</th></tr></thead>
+      <thead><tr><th>Brand</th><th class="num">Visibility YTD</th><th class="num">SoV YTD</th><th class="num">Oct</th><th class="num">vs Sep</th></tr></thead>
       <tbody>${c
         .map(
           (b) => `
-        <tr${b.us ? ' class="us"' : ""}><td>${esc(b.brand)}</td><td class="num">${b.ytd.toFixed(1)}%</td><td class="num">${b.sov.toFixed(1)}%</td><td class="num">${b.since == null ? '<span class="muted">—</span>' : b.since.toFixed(1) + "%"}</td><td class="num">${dirCell(b.change)}</td></tr>`,
+        <tr${b.us ? ' class="us"' : ""}><td style="white-space:nowrap">${esc(b.brand)}${b.rank || b.note ? ` <span class="muted" style="font-weight:400;font-size:12px">· ${esc(b.note || b.rank)}</span>` : ""}</td><td class="num">${b.ytd.toFixed(1)}%</td><td class="num">${b.sov.toFixed(1)}%</td><td class="num">${b.month == null ? '<span class="muted">—</span>' : b.month.toFixed(1) + "%"}</td><td class="num">${dirCell(b.change)}</td></tr>`,
         )
         .join("")}
       </tbody>
     </table>`;
       })();
 
-      /* 4. Newer topics ----------------------------------------------- */
-      (() => {
-        const t = DATA.topics;
-        const C1 = getComputedStyle(document.documentElement)
-          .getPropertyValue("--c1")
-          .trim();
-        const C2 = getComputedStyle(document.documentElement)
-          .getPropertyValue("--c2")
-          .trim();
-        barChart($("#chart-topics"), {
-          title: "Newer AI-era topics: HERE vs. the leader",
-          sub: "visibility score, 28 Jun–30 Sep",
-          legend: [
-            { name: "HERE", color: C1 },
-            { name: "Leading competitor", color: C2 },
-          ],
-          rows: t.map((r) => ({
-            label: r.topic,
-            bars: [
-              {
-                v: r.here,
-                cls: "s1",
-                text: `${r.here}%`,
-                tip: `<b>HERE</b> · ${r.topic}<br>Named in ${r.here}% of answers · gap ${r.gap}`,
-              },
-              {
-                v: r.leader,
-                cls: "s2",
-                text: `${r.leader}% <small>${esc(r.leaderName)}</small>`,
-                tip: `<b>${r.leaderName}</b> · ${r.topic}<br>Named in ${r.leader}% of answers`,
-              },
-            ],
-          })),
-          max: Math.max(...t.map((r) => r.leader)),
-        });
-        $("#table-topics").innerHTML = `
-    <table>
-      <thead><tr><th>Newer topic</th><th class="num">HERE</th><th class="num">Leader</th><th class="num">Gap</th><th>Plan</th></tr></thead>
-      <tbody>${t
-        .map(
-          (r) => `
-        <tr><td class="strong">${esc(r.topic)}</td><td class="num">${r.here}%</td><td class="num">${r.leader}% <span class="muted">${esc(r.leaderName)}</span></td><td class="num"><span class="dir down">${esc(r.gap)}</span></td><td><span class="pill ${/priority/i.test(r.plan) ? "p1" : "next"}">${esc(r.plan)}</span></td></tr>`,
-        )
-        .join("")}
-      </tbody>
-    </table>`;
-      })();
-
-      /* 5. Pages ------------------------------------------------------ */
+      /* 4. Pages ------------------------------------------------------ */
       (() => {
         const p = DATA.pages;
         const C1 = getComputedStyle(document.documentElement)
@@ -2235,12 +2851,16 @@
         const C2 = getComputedStyle(document.documentElement)
           .getPropertyValue("--c2")
           .trim();
+        const C3 = getComputedStyle(document.documentElement)
+          .getPropertyValue("--c3")
+          .trim();
         barChart($("#chart-pages"), {
           title: "Cited vs. clicked, by page",
-          sub: "1 Jan–30 Sep",
+          sub: "1 Jan–31 Oct",
           legend: [
             { name: "AI Citations", color: C1 },
-            { name: "Human Referrals", color: C2 },
+            { name: "Human Referrals (organic)", color: C2 },
+            { name: "Paid Referrals (ChatGPT Ads)", color: C3 },
           ],
           rows: p.map((r) => ({
             label: r.page,
@@ -2251,29 +2871,86 @@
                 text: fmt(r.cites),
                 tip: `<b>${r.page}</b><br>${fmt(r.cites)} AI Citations`,
               },
-              r.visits == null ?
-                { na: true, text: "Not in top 10 for Human Referrals" }
-              : {
-                  v: r.visits,
-                  cls: "s2",
-                  text: fmt(r.visits),
-                  tip: `<b>${r.page}</b><br>${fmt(r.visits)} Human Referrals`,
-                },
+              {
+                v: r.visits,
+                cls: "s2",
+                text: (r.approx ? "≈" : "") + fmt(r.visits),
+                tip: `<b>${r.page}</b><br>${r.approx ? "≈" : ""}${fmt(r.visits)} organic Human Referrals`,
+              },
+              ...(r.paid ?
+                [
+                  {
+                    v: r.paid,
+                    cls: "s3",
+                    text: fmt(r.paid),
+                    tip: `<b>${r.page}</b><br>${fmt(r.paid)} paid clicks from ChatGPT Ads (October)`,
+                  },
+                ]
+              : []),
             ],
           })),
-          max: Math.max(...p.flatMap((r) => [r.cites, r.visits || 0])),
+          max: Math.max(...p.flatMap((r) => [r.cites, r.visits || 0, r.paid || 0])),
         });
         $("#table-pages").innerHTML = `
     <table>
-      <thead><tr><th>Page</th><th class="num">AI Citations</th><th class="num">Human Referrals</th><th>Read</th></tr></thead>
+      <thead><tr><th>Page</th><th class="num">AI Citations</th><th class="num">Human Referrals<br><span class="muted" style="font-weight:400;text-transform:none;letter-spacing:0">organic</span></th><th class="num">Paid Referrals<br><span class="muted" style="font-weight:400;text-transform:none;letter-spacing:0">ChatGPT Ads</span></th></tr></thead>
       <tbody>${p
         .map(
           (r) => `
-        <tr><td class="strong">${esc(r.page)}</td><td class="num">${fmt(r.cites)}</td><td class="num">${r.visits == null ? '<span class="muted">Not in top 10</span>' : fmt(r.visits)}</td><td class="muted">${esc(r.read)}</td></tr>`,
+        <tr><td class="strong" style="white-space:nowrap">${esc(r.page)}<br><span class="muted" style="font-weight:400;font-size:12px">${esc(r.read)}</span></td><td class="num">${fmt(r.cites)}</td><td class="num">${(r.approx ? "≈" : "") + fmt(r.visits)}</td><td class="num">${r.paid ? fmt(r.paid) : '<span class="muted">—</span>'}</td></tr>`,
         )
         .join("")}
       </tbody>
     </table>`;
+      })();
+
+      /* 5. Engines → landing pages ------------------------------------- */
+      (() => {
+        const e = DATA.engines;
+        const ALL = e.all;
+        const MAX = Math.max(...e.rows.map((r) => r.total));
+        const k = (v) =>
+          v >= 1000 ?
+            (v / 1000).toFixed(v >= 10000 ? 0 : 1).replace(/\.0$/, "") + "K"
+          : String(v);
+        const icon = (r) =>
+          r.logo ? logoImg(r.logo, "", "eng-logo") : `<span class="eng-mono">${esc(r.mono || r.name.slice(0, 2))}</span>`;
+        $("#eng-rows").innerHTML = e.rows
+          .map((r) => {
+            const paid = r.paid || 0,
+              org = r.total - paid;
+            const w = Math.max(0.4, (r.total / MAX) * 100);
+            const share = (r.total / ALL) * 100;
+            return `
+    <div class="eng-row">
+      <div class="name">${icon(r)}<span>${esc(r.name)}${r.sub ? `<small>${esc(r.sub)}</small>` : ""}</span></div>
+      <div class="eng-track">
+        <div class="eng-seg" style="width:${w.toFixed(2)}%" ${tip(`<b>${r.name}</b><br>${fmt(r.total)} Human Referrals${paid ? ` · ${fmt(org)} organic · ${fmt(paid)} paid` : ""}`)} role="img" aria-label="${esc(r.name)}: ${fmt(r.total)} Human Referrals">
+          <i class="org" style="width:${((org / r.total) * 100).toFixed(1)}%"></i>${paid ? `<i class="pd" style="width:${((paid / r.total) * 100).toFixed(1)}%"></i>` : ""}
+        </div>
+        <span class="eng-val">${k(r.total)} <small>${share.toFixed(share < 1 ? 1 : 0)}%${paid ? ` · ${k(paid)} paid` : ""}</small></span>
+      </div>
+    </div>`;
+          })
+          .join("");
+        $("#lp-grid").innerHTML = e.panels
+          .map((pn) => {
+            const top = pn.pages[0][1];
+            return `
+    <div class="lp">
+      <div class="lp-head"><h4>${pn.logo ? logoImg(pn.logo, "", "eng-logo") : ""}${esc(pn.name)}</h4><span><b>${k(pn.total)}</b> referrals</span></div>
+      ${pn.pages
+        .map(
+          ([pg, v, paid]) => `
+      <div class="lp-row">
+        <div class="pg"><span class="${paid ? "paid" : ""}">${esc(pg)}</span><div class="lpbar${paid ? " pd" : ""}" style="width:${((v / top) * 100).toFixed(1)}%"></div></div>
+        <div class="n" ${tip(`<b>${pn.name}</b> → ${pg}<br>${fmt(v)} visits · ${Math.round((v / pn.total) * 100)}% of ${pn.name}'s referrals`)}>${Math.round((v / pn.total) * 100)}%</div>
+      </div>`,
+        )
+        .join("")}
+    </div>`;
+          })
+          .join("");
       })();
 
       /* Tooltip (hover + keyboard focus) ------------------------------ */
